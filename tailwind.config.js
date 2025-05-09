@@ -22,20 +22,44 @@ export default {
         // 이미 Tailwind에 medium, bold가 있으므로, 필요시 추가 정의
       },
       lineHeight: {
-        '14': '14px', // 10px font
-        '18': '18px', // 12px font
-        '20': '20px', // 14px font
-        '22': '22px', // 20px font (Name, Typeface 등)
-        '24': '24px', // 16px font
-        '26': '26px', // 18px font
-        '28': '28px', // 20px font
-        '40': '40px', // 32px font
+        14: '14px', // 10px font
+        18: '18px', // 12px font
+        20: '20px', // 14px font
+        22: '22px', // 20px font (Name, Typeface 등)
+        24: '24px', // 16px font
+        26: '26px', // 18px font
+        28: '28px', // 20px font
+        40: '40px', // 32px font
       },
       letterSpacing: {
         // Tailwind 기본값에 'tighter' (-0.05em) 등이 있지만, 정확히 -0.01em이 필요하면 커스텀 정의
         'custom-tighter': '-0.01em', // 예: .tracking-custom-tighter
       },
       colors: {
+        'droni-blue': {
+          100: '#D0DFFF',
+          200: '#A2BFFF',
+          300: '#73A0FF',
+          400: '#4580FF',
+          500: '#1660FF', // 기준
+          600: '#124DCC',
+          700: '#0D3A99',
+          800: '#092666',
+          900: '#041333',
+        },
+        gray: {
+          100: '#F7F8FA',
+          200: '#EBEDF0',
+          300: '#CED0D6',
+          400: '#9EA1AC',
+          500: '#6D7183',
+          600: '#3D4259',
+          700: '#2D3247',
+          800: '#202332',
+          900: '#02040A',
+        },
+        white: '#FFFFFF',
+        black: '#000000',
       },
     },
   },
