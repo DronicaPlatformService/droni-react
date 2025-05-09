@@ -1,5 +1,10 @@
+'use client';
+
 import { createFileRoute } from '@tanstack/react-router';
 import type { JSX } from 'react';
+
+// TODO: 실제 로고 이미지를 추가하고 아래 주석을 해제하세요.
+// import DroniLogo from '@/assets/images/droni-logo.svg'; // 예: src/assets/images/droni-logo.svg
 
 export const Route = createFileRoute('/login')({
   component: LoginScreen,
