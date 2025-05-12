@@ -1,62 +1,84 @@
 'use client';
 
+import KakaoIcon from '@/assets/icons/kakao-icon.svg';
+import NaverIcon from '@/assets/icons/naver-icon.svg';
+import DroniLogo from '@/assets/images/droni-logo.svg';
 import { createFileRoute } from '@tanstack/react-router';
 import type { JSX } from 'react';
-
-// TODO: 실제 로고 이미지를 추가하고 아래 주석을 해제하세요.
-// import DroniLogo from '@/assets/images/droni-logo.svg'; // 예: src/assets/images/droni-logo.svg
 
 export const Route = createFileRoute('/login')({
   component: LoginScreen,
 });
 
+/**
+ * @description 소셜 로그인을 제공하는 로그인 화면 컴포넌트입니다.
+ * 사용자는 카카오 또는 네이버를 통해 로그인할 수 있습니다.
+ */
 function LoginScreen(): JSX.Element {
-  return (
-    <div
-      className="flex flex-col items-center justify-between min-h-screen bg-white p-3 mx-auto font-spoqa"
-      style={{ maxWidth: '375px' }}
-    >
-      {/* 상단 여백 (Figma의 Status Bar 영역을 고려한 간격) */}
-      <div className="h-12 shrink-0" />
+  const handleKakaoLogin = () => {
+    console.log('카카오 로그인 시도');
+  };
 
-      {/* 로고 및 텍스트 섹션 */}
-      <div className="flex flex-col items-center text-center px-3">
-        {/* 로고 Placeholder */}
-        {/* <img src={DroniLogo} alt="드로니 로고" className="w-[90px] h-[90px] mb-8" /> */}
-        <div className="w-[90px] h-[90px] bg-gray-200 rounded-full mb-8 flex items-center justify-center text-sm text-gray-500">
-          로고
-        </div>
-        <h1 className="text-system-20 font-bold text-gray-800 leading-28 mb-2">
+  const handleNaverLogin = () => {
+    console.log('네이버 로그인 시도');
+  };
+
+  return (
+    <>
+      {/* Status bar */}
+      <div className="h-12 w-full md:h-0" />
+
+      {/* Main content area */}
+      <div className="flex flex-1 flex-col items-center justify-center p-4 min-h-[calc(100vh-3rem-132px)]">
+        <img src={DroniLogo} alt="Droni Logo" className="mb-6 h-[90px] w-[90px]" />
+        <p
+          className="mb-1.5 text-center font-spoqa text-system-01 text-gray-800"
+          style={{ letterSpacing: '-1%' }}
+        >
           당신 근처의 드로니
-        </h1>
-        <p className="text-system-14 font-medium text-gray-600 leading-20">
-          드로니는 드론방제 서비스 앱이에요. 내 동네를 설정하고 시작해보세요!
+        </p>
+        <p
+          className="text-center font-spoqa text-system-08 text-gray-600"
+          style={{ letterSpacing: '-1%' }}
+        >
+          드로니는 드론방제 서비스 앱이에요.
+          <br />내 동네를 설정하고 시작해보세요!
         </p>
       </div>
 
-      {/* 버튼 섹션 */}
-      <div className="w-full mt-auto pt-6">
-        <button
-          type="button"
-          className="w-full h-[54px] bg-[#F9E007] rounded-lg flex items-center justify-center mb-3"
-          // onClick={() => { /* TODO: 카카오 로그인 로직 구현 */ }}
-        >
-          {/* TODO: 카카오 아이콘 SVG 또는 이미지 추가 */}
-          <span className="text-system-16 font-bold text-gray-600 leading-20">
-            카카오로 3초만에 시작하기
-          </span>
-        </button>
-        <button
-          type="button"
-          className="w-full h-[54px] bg-white border border-gray-300 rounded-lg flex items-center justify-center"
-          // onClick={() => { /* TODO: 네이버 로그인 로직 구현 */ }}
-        >
-          {/* TODO: 네이버 아이콘 SVG 또는 이미지 추가 */}
-          <span className="text-system-16 font-bold text-gray-600 leading-20">
-            네이버로 시작하기
-          </span>
-        </button>
+      {/* Social login buttons area */}
+      <div className="shadow-up fixed inset-x-0 bottom-0 w-full bg-white px-3 pb-4 md:relative md:shadow-none">
+        <div className="mx-auto max-w-md space-y-3">
+          <button
+            type="button"
+            onClick={handleKakaoLogin}
+            className="relative mx-auto flex h-[54px] w-full items-center justify-center rounded-md bg-[#F9E007] py-3 pr-3 pl-4 text-gray-600"
+          >
+            <img
+              src={KakaoIcon}
+              className="absolute top-1/2 left-4 h-8 w-8 -translate-y-1/2"
+              alt="카카오 로그인 아이콘"
+            />
+            <span className="absolute inset-x-0 top-1/2 -translate-y-1/2 text-center font-spoqa text-base leading-none font-bold tracking-normal">
+              카카오로 3초만에 시작하기
+            </span>
+          </button>
+          <button
+            type="button"
+            onClick={handleNaverLogin}
+            className="relative mx-auto flex h-[54px] w-full items-center justify-center rounded-md border border-gray-300 bg-white py-3 pr-3 pl-4"
+          >
+            <img
+              src={NaverIcon}
+              className="absolute top-1/2 left-[22px] h-5 w-5 -translate-y-1/2"
+              alt="네이버 로그인 아이콘"
+            />
+            <span className="absolute inset-x-0 top-1/2 -translate-y-1/2 text-center font-spoqa text-base leading-none font-bold tracking-normal text-gray-600">
+              네이버로 시작하기
+            </span>
+          </button>
+        </div>
       </div>
-    </div>
+    </>
   );
 }

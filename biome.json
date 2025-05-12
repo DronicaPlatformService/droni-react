@@ -1,52 +1,52 @@
 {
   "$schema": "https://biomejs.dev/schemas/1.9.4/schema.json",
-  "vcs": {
-    "enabled": false,
-    "clientKind": "git",
-    "useIgnoreFile": false
-  },
   "files": {
+    "ignore": ["build", "dist", "node_modules", "src/routeTree.gen.ts"],
     "ignoreUnknown": false,
-    "ignore": ["src/routeTree.gen.ts", "node_modules", "dist", "build"],
-    "include": ["src/*", ".vscode/*", "index.html", "vite.config.js"]
+    "include": [".vscode/*", "index.html", "src/*", "vite.config.js"]
   },
   "formatter": {
     "enabled": true,
     "formatWithErrors": false,
     "indentStyle": "space",
     "indentWidth": 2,
-    "lineWidth": 100,
-    "lineEnding": "lf"
+    "lineEnding": "lf",
+    "lineWidth": 100
   },
-  "organizeImports": {
-    "enabled": true
+  "javascript": {
+    "formatter": {
+      "arrowParentheses": "always",
+      "bracketSameLine": false,
+      "bracketSpacing": true,
+      "jsxQuoteStyle": "double",
+      "quoteProperties": "asNeeded",
+      "quoteStyle": "single",
+      "semicolons": "always",
+      "trailingCommas": "all"
+    }
   },
   "linter": {
     "enabled": true,
     "rules": {
-      "recommended": true,
-      "suspicious": {
-        "noExplicitAny": "warn",
-        "noConsoleLog": "warn"
+      "a11y": {
+        "useKeyWithClickEvents": "error"
       },
+      "recommended": true,
       "style": {
         "noNonNullAssertion": "error"
       },
-      "a11y": {
-        "useKeyWithClickEvents": "error"
+      "suspicious": {
+        "noConsoleLog": "warn",
+        "noExplicitAny": "warn"
       }
     }
   },
-  "javascript": {
-    "formatter": {
-      "quoteStyle": "single",
-      "jsxQuoteStyle": "double",
-      "quoteProperties": "asNeeded",
-      "trailingCommas": "all",
-      "semicolons": "always",
-      "arrowParentheses": "always",
-      "bracketSpacing": true,
-      "bracketSameLine": false
-    }
+  "organizeImports": {
+    "enabled": true
+  },
+  "vcs": {
+    "clientKind": "git",
+    "enabled": false,
+    "useIgnoreFile": false
   }
 }

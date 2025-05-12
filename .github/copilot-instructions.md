@@ -862,29 +862,34 @@ export default MyForm;
 
 ---
 
-## 9. Styling (Tailwind CSS First)
+## 9. Styling (Tailwind CSS First - v4 Focused)
 
-1.  **Primary Recommendation: Tailwind CSS**
+By May 2025, Tailwind CSS v4 is the established standard, bringing significant performance improvements with its new engine (Lightning CSS) and more powerful ways to customize and extend the framework directly within your CSS using the `@theme` directive.
 
-    - **Embrace Tailwind CSS as the primary styling methodology.**
-    - **Benefits:**
+1.  **Primary Recommendation: Tailwind CSS v4**
+
+    - **Embrace Tailwind CSS v4 as the primary styling methodology.**
+    - **Benefits (Enhanced with v4):**
 
       - **Utility-First:** Rapid UI development directly in your markup.
       - **Consistency:** Enforces a consistent design language through its predefined scale.
-      - **Performance:** Minimal CSS in production due to purging unused styles.
+      - **Exceptional Performance:**
+        - **Lightning Fast Builds:** The v4 engine written in Rust (Lightning CSS) offers dramatically faster build times.
+        - **Optimized Production CSS:** Inherently optimized output, shipping only the CSS you use without explicit purge configurations.
       - **Responsive Design:** Intuitive responsive prefixes (`sm:`, `md:`, `lg:`).
-      - **Customization:** Highly customizable via `tailwind.config.js` to match your project's design system.
+      - **Enhanced Customization:** Highly customizable via `tailwind.config.js` and now directly within your CSS using the `@theme` directive for more powerful, co-located theme extensions.
+      - **Native Modern CSS:** Better support for and leveraging of modern CSS features like cascade layers and CSS variables.
       - **No Context Switching:** Style and structure in the same place.
       - **Pairs Well with Headless Components:** TanStack libraries (Table, Form, etc.) are headless, giving you full control to apply Tailwind classes.
 
-    - **Best Practices with Tailwind CSS:**
+    - **Best Practices with Tailwind CSS v4:**
 
       - **Component Abstraction:** For repeated complex UI patterns or long lists of utility classes, encapsulate them into React components. Use `tailwind-merge` for robust class name composition.
 
         ```tsx
-        // Example: Reusable Button Component
+        // Example: Reusable Button Component (remains relevant)
         import React from 'react';
-        import { twMerge } from 'tailwind-merge';
+        import { twMerge } from 'tailwind-merge'; // Still crucial for component variants
 
         interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
           variant?: 'primary' | 'secondary';
@@ -894,7 +899,7 @@ export default MyForm;
             'py-2 px-4 font-semibold rounded-lg shadow-md focus:outline-none focus:ring-2 focus:ring-opacity-75';
           const variantClasses =
             variant === 'primary'
-              ? 'bg-blue-500 hover:bg-blue-700 text-white focus:ring-blue-400'
+              ? 'bg-blue-500 hover:bg-blue-700 text-white focus:ring-blue-400' // These could also leverage CSS vars defined via @theme
               : 'bg-gray-200 hover:bg-gray-300 text-gray-800 focus:ring-gray-400';
 
           return (
@@ -907,18 +912,102 @@ export default MyForm;
         ```
 
       - **`clsx` or `tailwind-merge`:** Use utility libraries like `clsx` for conditionally applying classes and `tailwind-merge` to intelligently merge Tailwind classes without style conflicts (especially useful with variants and component composition, as shown in the Button example).
-      - **`@apply` Sparingly:** Use Tailwind's `@apply` directive in your global CSS file for very small, extremely common utility combinations (e.g., a specific input base style) if components aren't suitable. Overuse can negate Tailwind's benefits and lead to less maintainable CSS.
-      - **Configuration (`tailwind.config.js`):** Leverage the config file to define custom colors, fonts, spacing, plugins, etc., to tailor Tailwind to your project's needs and design system.
-      - **Readability:** For very long class strings, consider formatting them across multiple lines in your editor or, preferably, abstracting the element into a well-named component.
+      - **`@apply` Sparingly (and consider `@theme` for alternatives):** While `@apply` still exists, use it cautiously in your global CSS for very small, extremely common utility combinations if components aren't suitable. For more complex reusable styles or custom utilities, prefer defining them with the `@theme` directive in your CSS.
+      - **Configuration (`tailwind.config.js` and CSS with `@theme`):**
+
+        - Leverage `tailwind.config.js` for global theme configuration (colors, fonts, spacing), plugins, and variants.
+        - Utilize the `@theme` directive directly in your CSS files (e.g., `global.css` or feature-specific CSS) to define custom utilities, extend the theme, or create component-like styles in a more CSS-native way. This allows for better co-location of styling logic if desired.
+
+        ```css
+        /* Example of @theme usage in your main CSS file */
+        @theme {
+          --color-brand-primary: theme('colors.blue.500'); /* Define CSS var from theme */
+
+          .btn-custom-primary {
+            @apply py-2 px-4 rounded-md text-white;
+            background-color: var(--color-brand-primary); /* Use the CSS var */
+          }
+          /* Define custom utility using theme values */
+          .text-body-large {
+            font-size: theme('fontSize.lg');
+            line-height: theme('lineHeight.snug');
+          }
+        }
+        ```
+
+      - **Readability:** For very long class strings, consider formatting them across multiple lines in your editor or, preferably, abstracting the element into a well-named component or a custom utility/class via `@theme`.
 
 2.  **Alternative Strategies (for specific or legacy contexts):**
 
-    - **CSS Modules (`.module.css`):** Can be useful for highly isolated, complex component-specific styles that are difficult to achieve with utilities alone (e.g., intricate animations, dynamic styles based on many props not easily covered by conditional classes), or when integrating with existing non-Tailwind parts of an application.
-    - **Styled-components / Emotion (CSS-in-JS):** Consider if deep dynamic theming heavily tied to JavaScript state is a paramount requirement and CSS variables with Tailwind are insufficient. Generally, prefer Tailwind's approach for its performance and ecosystem benefits.
+    - **CSS Modules (`.module.css`):** Can still be useful for highly isolated, complex component-specific styles that are difficult to achieve with utilities alone (e.g., intricate animations, dynamic styles based on many props not easily covered by conditional classes), or when integrating with existing non-Tailwind parts of an application.
+    - **Styled-components / Emotion (CSS-in-JS):** Consider if deep dynamic theming heavily tied to JavaScript state is a paramount requirement and CSS variables with Tailwind (now even more robust with `@theme`) are insufficient. Generally, prefer Tailwind's approach for its performance, ecosystem benefits, and the power of v4.
 
-3.  **Theming:**
-    - Utilize CSS Custom Properties (Variables) in your global CSS (e.g., `src/styles/globals.css`), defined within `:root` or specific theme classes (e.g., `.theme-dark`).
-    - These variables can be consumed within your `tailwind.config.js` (e.g., for colors, fonts) to create robust theming solutions that work seamlessly with Tailwind CSS utilities. This allows dynamic theme switching without rebuilding Tailwind's CSS.
+3.  **Theming (Leveraging CSS Variables and `@theme`):**
+
+    - **CSS Custom Properties (Variables) are Central:** Define your theme palette and scales using CSS Custom Properties in your global CSS (e.g., `src/app/global.css`), often within `:root` or theme-specific classes (e.g., `.theme-dark`).
+    - **`tailwind.config.js` for Consumption:** Reference these CSS variables within your `tailwind.config.js` to make them available as Tailwind utilities.
+      ```javascript
+      // tailwind.config.js
+      module.exports = {
+        theme: {
+          extend: {
+            colors: {
+              primary: 'var(--color-primary)', // Consumes CSS variable
+              secondary: 'var(--color-secondary)',
+              // ... other semantic colors
+            },
+            backgroundColor: {
+              // Ensure background colors also use these
+              primary: 'var(--color-primary)',
+              secondary: 'var(--color-secondary)',
+            },
+            textColor: {
+              // And text colors
+              primary: 'var(--color-text-on-primary)', // Example for text on primary background
+              muted: 'var(--color-text-muted)',
+            },
+          },
+        },
+        // ... other config
+      };
+      ```
+    - **`@theme` for Dynamic Styles and Utilities:** Use the `@theme` directive in your CSS to consume theme values or define theme-aware utilities and component styles. This is powerful for creating styles that adapt to your defined theme.
+
+      ```css
+      /* In your global.css or relevant CSS file */
+      :root {
+        --color-primary: #007bff; /* Blue */
+        --color-secondary: #6c757d; /* Gray */
+        --color-text-on-primary: #ffffff;
+        --color-text-muted: #6c757d;
+        /* ... other theme variables */
+      }
+
+      .theme-dark {
+        --color-primary: #1a73e8; /* Darker Blue */
+        --color-secondary: #5f6368; /* Darker Gray */
+        --color-text-on-primary: #e8eaed;
+        --color-text-muted: #9aa0a6;
+      }
+
+      @theme {
+        .custom-card {
+          background-color: theme(
+            'colors.white'
+          ); /* Will use white from default or your extended theme */
+          border: 1px solid theme('colors.gray.300');
+          padding: theme('spacing.4');
+          /* In dark theme, you might have specific overrides if not handled by variable swaps */
+        }
+
+        .text-link {
+          color: theme('colors.primary'); /* Uses the 'primary' color from your theme */
+          @apply hover:underline;
+        }
+      }
+      ```
+
+    - This combined approach allows for dynamic theme switching (by changing CSS variables via JavaScript or class toggles) while still leveraging Tailwind's utility classes and the new `@theme` capabilities for CSS-first customizations.
 
 ---
 
