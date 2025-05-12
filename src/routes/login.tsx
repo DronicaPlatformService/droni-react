@@ -3,24 +3,49 @@
 import KakaoIcon from '@/assets/icons/kakao-icon.svg';
 import NaverIcon from '@/assets/icons/naver-icon.svg';
 import DroniLogo from '@/assets/images/droni-logo.svg';
+import KakaoConsentPopup from '@/components/KakaoConsentPopup/KakaoConsentPopup.client';
 import { createFileRoute } from '@tanstack/react-router';
-import type { JSX } from 'react';
+import { type JSX, useState } from 'react';
 
 export const Route = createFileRoute('/login')({
   component: LoginScreen,
 });
+
+// 동의 항목 예시 (실제 카카오 API에서 요청하는 항목과 다를 수 있습니다)
+const KAKAO_CONSENT_ITEMS = [
+  { id: 'profile', text: '프로필 정보 (닉네임, 프로필 사진)', isOptional: false },
+  { id: 'email', text: '카카오계정 (이메일)', isOptional: false },
+  { id: 'gender', text: '성별', isOptional: true },
+  { id: 'age_range', text: '연령대', isOptional: true },
+  { id: 'shipping_address', text: '배송지 정보 (이름, 연락처, 주소)', isOptional: true },
+];
 
 /**
  * @description 소셜 로그인을 제공하는 로그인 화면 컴포넌트입니다.
  * 사용자는 카카오 또는 네이버를 통해 로그인할 수 있습니다.
  */
 function LoginScreen(): JSX.Element {
+  const [isKakaoConsentOpen, setIsKakaoConsentOpen] = useState(false);
+
   const handleKakaoLogin = () => {
     console.log('카카오 로그인 시도');
+    setIsKakaoConsentOpen(true);
   };
 
   const handleNaverLogin = () => {
     console.log('네이버 로그인 시도');
+  };
+
+  const handleKakaoConsentAgree = () => {
+    console.log('카카오 로그인 동의함');
+    setIsKakaoConsentOpen(false); // 팝업 닫기
+    // TODO: 실제 카카오 로그인 API 호출 및 다음 단계 진행
+    // 예: window.location.href = '카카오_인증_URL_이동';
+  };
+
+  const handleKakaoConsentClose = () => {
+    console.log('카카오 로그인 동의 취소 또는 팝업 닫음');
+    setIsKakaoConsentOpen(false); // 팝업 닫기
   };
 
   return (
@@ -79,6 +104,14 @@ function LoginScreen(): JSX.Element {
           </button>
         </div>
       </div>
+
+      {/* 카카오 동의 팝업 */}
+      <KakaoConsentPopup
+        isOpen={isKakaoConsentOpen}
+        onClose={handleKakaoConsentClose}
+        onAgree={handleKakaoConsentAgree}
+        consentItems={KAKAO_CONSENT_ITEMS}
+      />
     </>
   );
 }
