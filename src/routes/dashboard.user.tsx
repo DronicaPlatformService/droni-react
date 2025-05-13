@@ -1,6 +1,6 @@
 'use client';
 
-import { AppHeader } from '@/components/AppHeader';
+import { AppHeader, Banner } from '@/components';
 import { ChatIcon } from '@/components/icons/ChatIcon';
 import { EstimateIcon } from '@/components/icons/EstimateIcon';
 import { HomeIcon } from '@/components/icons/HomeIcon';
@@ -34,6 +34,9 @@ function DashboardUserScreen(): JSX.Element {
     <div className="flex h-screen flex-col bg-gray-100">
       {/* Header */}
       <AppHeader userName={userName} hasUnreadNotification={hasUnreadNotification} />
+
+      {/* Banner */}
+      <Banner className="shrink-0" />
 
       {/* Main content area */}
       <main className="flex-1 overflow-y-auto p-4">

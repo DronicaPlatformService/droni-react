@@ -46,6 +46,7 @@ const RAW_RUNTIME_STATE =
           ["jsdom", "virtual:b99c7dbdb8e5cbc99e8c23e1a222e79e02cc6bb87182fa15ddfbdacb9487d6800da3663b74c1f39076457d2bb70648df245eb1ccb2ad65a72b14afffe00f14ec#npm:26.1.0"],\
           ["react", "npm:19.1.0"],\
           ["react-dom", "virtual:b99c7dbdb8e5cbc99e8c23e1a222e79e02cc6bb87182fa15ddfbdacb9487d6800da3663b74c1f39076457d2bb70648df245eb1ccb2ad65a72b14afffe00f14ec#npm:19.1.0"],\
+          ["tailwind-merge", "npm:3.3.0"],\
           ["tailwindcss", "npm:4.1.5"],\
           ["tiny-invariant", "npm:1.3.3"],\
           ["typescript", "patch:typescript@npm%3A5.8.3#optional!builtin<compat/typescript>::version=5.8.3&hash=5786d5"],\
@@ -2444,6 +2445,7 @@ const RAW_RUNTIME_STATE =
           ["jsdom", "virtual:b99c7dbdb8e5cbc99e8c23e1a222e79e02cc6bb87182fa15ddfbdacb9487d6800da3663b74c1f39076457d2bb70648df245eb1ccb2ad65a72b14afffe00f14ec#npm:26.1.0"],\
           ["react", "npm:19.1.0"],\
           ["react-dom", "virtual:b99c7dbdb8e5cbc99e8c23e1a222e79e02cc6bb87182fa15ddfbdacb9487d6800da3663b74c1f39076457d2bb70648df245eb1ccb2ad65a72b14afffe00f14ec#npm:19.1.0"],\
+          ["tailwind-merge", "npm:3.3.0"],\
           ["tailwindcss", "npm:4.1.5"],\
           ["tiny-invariant", "npm:1.3.3"],\
           ["typescript", "patch:typescript@npm%3A5.8.3#optional!builtin<compat/typescript>::version=5.8.3&hash=5786d5"],\
@@ -3899,6 +3901,15 @@ const RAW_RUNTIME_STATE =
         "packageLocation": "../../.yarn/berry/cache/symbol-tree-npm-3.2.4-fe70cdb75b-10c0.zip/node_modules/symbol-tree/",\
         "packageDependencies": [\
           ["symbol-tree", "npm:3.2.4"]\
+        ],\
+        "linkType": "HARD"\
+      }]\
+    ]],\
+    ["tailwind-merge", [\
+      ["npm:3.3.0", {\
+        "packageLocation": "../../.yarn/berry/cache/tailwind-merge-npm-3.3.0-cb3cdea6cf-10c0.zip/node_modules/tailwind-merge/",\
+        "packageDependencies": [\
+          ["tailwind-merge", "npm:3.3.0"]\
         ],\
         "linkType": "HARD"\
       }]\
