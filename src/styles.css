@@ -23,6 +23,8 @@
   --color-gray-800: #202332;
   --color-gray-900: #02040a;
 
+  --color-notification-red: #f03154;
+
   /* Font Family */
   --font-spoqa: 'Spoqa Han Sans Neo', sans-serif;
 
@@ -86,4 +88,29 @@
   --text-system-12: 10px;
   --text-system-12--line-height: 14px;
   --text-system-12--font-weight: 500;
+
+  /* Custom Letter Spacing */
+  --tracking-tight-1pct: -0.01em; /* -1% letter spacing */
+
+  /* Safe Area Insets */
+  --safe-area-inset-top: env(safe-area-inset-top, 0px);
+  --safe-area-inset-right: env(safe-area-inset-right, 0px);
+  --safe-area-inset-bottom: env(safe-area-inset-bottom, 0px);
+  --safe-area-inset-left: env(safe-area-inset-left, 0px);
+}
+
+@layer utilities {
+  .pb-safe-bottom {
+    padding-bottom: var(--safe-area-inset-bottom);
+  }
+}
+
+body {
+  padding-top: var(--safe-area-inset-top);
+  padding-right: var(--safe-area-inset-right);
+  /* padding-bottom을 body에 직접 적용하면 하단 고정 UI와 충돌할 수 있으므로,
+     필요한 컴포넌트에 개별적으로 적용하는 것이 좋습니다. */
+  padding-left: var(--safe-area-inset-left);
+  /* 기존 스타일 유지 */
+  @apply bg-gray-100; /* 예시: body 기본 배경색 설정 */
 }

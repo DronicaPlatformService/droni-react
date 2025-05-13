@@ -50,11 +50,12 @@ function LoginScreen(): JSX.Element {
 
   return (
     <>
-      {/* Status bar */}
-      <div className="h-12 w-full md:h-0" />
-
       {/* Main content area */}
-      <div className="flex flex-1 flex-col items-center justify-center p-4 min-h-[calc(100vh-3rem-132px)]">
+      {/* min-h 계산 시 body의 padding-top을 고려해야 할 수 있습니다.
+          또는 calc에서 --safe-area-inset-top 변수를 직접 사용할 수도 있습니다.
+          여기서는 단순화를 위해 기존 스타일을 유지하되, body 패딩으로 인해 시각적으로 조정될 수 있음을 인지합니다.
+      */}
+      <div className="flex min-h-[calc(100vh-132px)] flex-1 flex-col items-center justify-center p-4">
         <img src={DroniLogo} alt="Droni Logo" className="mb-6 h-[90px] w-[90px]" />
         <p
           className="mb-1.5 text-center font-spoqa text-system-01 text-gray-800"
@@ -72,7 +73,7 @@ function LoginScreen(): JSX.Element {
       </div>
 
       {/* Social login buttons area */}
-      <div className="shadow-up fixed inset-x-0 bottom-0 w-full bg-white px-3 pb-4 md:relative md:shadow-none">
+      <div className="shadow-up pb-safe-bottom fixed inset-x-0 bottom-0 w-full bg-white px-3 pb-4 md:relative md:shadow-none">
         <div className="mx-auto max-w-md space-y-3">
           <button
             type="button"
