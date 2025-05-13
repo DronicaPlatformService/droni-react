@@ -33,16 +33,29 @@ const KakaoConsentPopup = ({
   }
 
   return (
-    <div
-      className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50 p-4"
-      role="dialog"
-      aria-modal="true"
+    <dialog
+      className="fixed inset-0 z-50 flex h-screen items-center justify-center bg-black/50 p-4"
       aria-labelledby="kakao-consent-title"
       onClick={onClose} // 배경 클릭 시 닫기
+      onKeyDown={(e: React.KeyboardEvent<HTMLDialogElement>) => {
+        if (e.key === 'Escape') {
+          onClose();
+        } else if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault(); // 스페이스바로 인한 스크롤 또는 엔터키 기본 동작 방지
+          onClose();
+        }
+      }}
+      tabIndex={-1} // 키 이벤트를 수신하기 위해 포커스 가능하도록 설정
     >
       <div
         className="w-full max-w-md rounded-lg bg-white p-6 shadow-xl"
         onClick={(e) => e.stopPropagation()} // 팝업 내부 클릭 시 이벤트 전파 중단
+        onKeyDown={(e: React.KeyboardEvent<HTMLDivElement>) => {
+          // onClick과 유사하게 Enter 또는 Space 키 이벤트의 전파를 중지합니다.
+          if (e.key === 'Enter' || e.key === ' ') {
+            e.stopPropagation();
+          }
+        }}
       >
         <h2 id="kakao-consent-title" className="mb-4 text-xl font-bold text-gray-800">
           카카오 로그인 동의
@@ -99,7 +112,7 @@ const KakaoConsentPopup = ({
           </button>
         </div>
       </div>
-    </div>
+    </dialog>
   );
 };
 

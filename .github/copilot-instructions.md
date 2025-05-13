@@ -875,9 +875,9 @@ By May 2025, Tailwind CSS v4 is the established standard, bringing significant p
       - **Consistency:** Enforces a consistent design language through its predefined scale.
       - **Exceptional Performance:**
         - **Lightning Fast Builds:** The v4 engine written in Rust (Lightning CSS) offers dramatically faster build times.
-        - **Optimized Production CSS:** Inherently optimized output, shipping only the CSS you use without explicit purge configurations.
+        - **Optimized Production CSS:** Inherently optimized output, shipping only the CSS you use.
       - **Responsive Design:** Intuitive responsive prefixes (`sm:`, `md:`, `lg:`).
-      - **Enhanced Customization:** Highly customizable via `tailwind.config.js` and now directly within your CSS using the `@theme` directive for more powerful, co-located theme extensions.
+      - **Enhanced Customization:** Highly customizable via CSS using the `@theme` directive for powerful, co-located theme extensions, and `tailwind.config.js` for global settings and plugins.
       - **Native Modern CSS:** Better support for and leveraging of modern CSS features like cascade layers and CSS variables.
       - **No Context Switching:** Style and structure in the same place.
       - **Pairs Well with Headless Components:** TanStack libraries (Table, Form, etc.) are headless, giving you full control to apply Tailwind classes.
@@ -887,9 +887,10 @@ By May 2025, Tailwind CSS v4 is the established standard, bringing significant p
       - **Component Abstraction:** For repeated complex UI patterns or long lists of utility classes, encapsulate them into React components. Use `tailwind-merge` for robust class name composition.
 
         ```tsx
-        // Example: Reusable Button Component (remains relevant)
+        // filepath: src/components/ui/Button.tsx
+        // Example: Reusable Button Component
         import React from 'react';
-        import { twMerge } from 'tailwind-merge'; // Still crucial for component variants
+        import { twMerge } from 'tailwind-merge';
 
         interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
           variant?: 'primary' | 'secondary';
@@ -897,9 +898,11 @@ By May 2025, Tailwind CSS v4 is the established standard, bringing significant p
         const Button = ({ children, className, variant = 'primary', ...props }: ButtonProps) => {
           const baseClasses =
             'py-2 px-4 font-semibold rounded-lg shadow-md focus:outline-none focus:ring-2 focus:ring-opacity-75';
+          // These variant classes could use CSS variables defined in @theme for their color values
+          // e.g., 'bg-[var(--color-button-primary-bg)] hover:bg-[var(--color-button-primary-hover-bg)] text-[var(--color-button-primary-text)]'
           const variantClasses =
             variant === 'primary'
-              ? 'bg-blue-500 hover:bg-blue-700 text-white focus:ring-blue-400' // These could also leverage CSS vars defined via @theme
+              ? 'bg-blue-500 hover:bg-blue-700 text-white focus:ring-blue-400'
               : 'bg-gray-200 hover:bg-gray-300 text-gray-800 focus:ring-gray-400';
 
           return (
@@ -908,34 +911,111 @@ By May 2025, Tailwind CSS v4 is the established standard, bringing significant p
             </button>
           );
         };
+        export default Button;
         // Usage: <Button variant="primary" className="mt-4">Click Me</Button>
         ```
 
-      - **`clsx` or `tailwind-merge`:** Use utility libraries like `clsx` for conditionally applying classes and `tailwind-merge` to intelligently merge Tailwind classes without style conflicts (especially useful with variants and component composition, as shown in the Button example).
-      - **`@apply` Sparingly (and consider `@theme` for alternatives):** While `@apply` still exists, use it cautiously in your global CSS for very small, extremely common utility combinations if components aren't suitable. For more complex reusable styles or custom utilities, prefer defining them with the `@theme` directive in your CSS.
-      - **Configuration (`tailwind.config.js` and CSS with `@theme`):**
+      - **`clsx` or `tailwind-merge`:** Use utility libraries like `clsx` for conditionally applying classes and `tailwind-merge` to intelligently merge Tailwind classes without style conflicts (especially useful with variants and component composition).
+      - **`@apply` Sparingly:** While `@apply` still exists, use it cautiously. For more complex reusable styles or custom utilities, prefer defining them with the `@theme` directive in your CSS, or abstracting them into components.
+      - **Configuration (CSS with `@theme` and `tailwind.config.js`):**
 
-        - Leverage `tailwind.config.js` for global theme configuration (colors, fonts, spacing), plugins, and variants.
-        - Utilize the `@theme` directive directly in your CSS files (e.g., `global.css` or feature-specific CSS) to define custom utilities, extend the theme, or create component-like styles in a more CSS-native way. This allows for better co-location of styling logic if desired.
+        - **CSS First with `@theme`:** Your primary CSS file (e.g., `src/app/global.css`) is where you'll define and extend your theme using the `@theme` directive. This includes colors, fonts, spacing, breakpoints, and custom utilities or component-like styles.
+        - **`tailwind.config.js`:** Use for project-wide settings like `content` paths, enabling/disabling core plugins, adding custom plugins, and _optionally_ consuming CSS variables (defined in your `@theme` block) to make them available as standard Tailwind utility classes (e.g., `bg-primary`).
 
         ```css
-        /* Example of @theme usage in your main CSS file */
-        @theme {
-          --color-brand-primary: theme('colors.blue.500'); /* Define CSS var from theme */
+        // filepath: src/app/global.css
+        /* Import Tailwind's base, components, and utilities */
+        @import 'tailwindcss';
 
-          .btn-custom-primary {
-            @apply py-2 px-4 rounded-md text-white;
-            background-color: var(--color-brand-primary); /* Use the CSS var */
+        /* Optional: Explicitly load JS config if needed, though often not required for basic theming */
+        /* @config "../../tailwind.config.js"; */
+
+        @theme {
+          /* Define your core theme variables (CSS Custom Properties) */
+          --color-primary: oklch(56.86% 0.224 258.05); /* Example: A vibrant blue */
+          --color-secondary: oklch(75.39% 0.135 270.57); /* Example: A muted purple */
+          --color-accent: oklch(71.7% 0.25 360); /* Example: Neon Pink from context */
+          --color-text-base: oklch(20% 0 0); /* Dark gray for text */
+          --color-text-on-primary: oklch(98% 0 0); /* White for text on primary bg */
+          --color-surface-bg: oklch(98% 0 0); /* Default light background */
+          --color-surface-card: oklch(100% 0 0); /* White card background */
+
+          --font-family-sans: 'Inter', system-ui, sans-serif;
+          --font-family-display: 'Satoshi', 'sans-serif'; /* Example from context */
+
+          --breakpoint-3xl: 1920px; /* Example from context */
+
+          /* Define custom utilities or component-like styles using theme values */
+          .text-display-xl {
+            font-family: var(--font-family-display);
+            font-size: theme('fontSize.4xl'); /* Using Tailwind's scale */
+            line-height: theme('lineHeight.tight');
+            color: var(--color-primary);
           }
-          /* Define custom utility using theme values */
-          .text-body-large {
-            font-size: theme('fontSize.lg');
-            line-height: theme('lineHeight.snug');
+
+          .btn-brand {
+            @apply px-6 py-3 rounded-lg font-semibold shadow-md transition-colors;
+            background-color: var(--color-accent);
+            color: var(--color-text-on-primary); /* Assuming white/light text on accent */
+          }
+          .btn-brand:hover {
+            background-color: oklch(65% 0.23 358); /* Slightly darker pink */
           }
         }
         ```
 
-      - **Readability:** For very long class strings, consider formatting them across multiple lines in your editor or, preferably, abstracting the element into a well-named component or a custom utility/class via `@theme`.
+        ```javascript
+        // filepath: tailwind.config.js
+        /** @type {import('tailwindcss').Config} */
+        module.exports = {
+          content: [
+            './src/app/**/*.{js,ts,jsx,tsx,mdx}',
+            './src/components/**/*.{js,ts,jsx,tsx,mdx}',
+            './src/features/**/*.{js,ts,jsx,tsx,mdx}',
+          ],
+          theme: {
+            extend: {
+              // Make CSS variables (defined in global.css via @theme)
+              // available as standard Tailwind utility classes.
+              colors: {
+                primary: 'var(--color-primary)',
+                secondary: 'var(--color-secondary)',
+                accent: 'var(--color-accent)',
+              },
+              textColor: {
+                base: 'var(--color-text-base)',
+                'on-primary': 'var(--color-text-on-primary)',
+              },
+              backgroundColor: {
+                // For bg-primary, bg-secondary etc.
+                primary: 'var(--color-primary)',
+                secondary: 'var(--color-secondary)',
+                accent: 'var(--color-accent)',
+                surface: 'var(--color-surface-bg)',
+                card: 'var(--color-surface-card)',
+              },
+              fontFamily: {
+                sans: [
+                  'var(--font-family-sans)',
+                  { fontFeatureSettings: '"cv02", "cv03", "cv04"' },
+                ],
+                display: [
+                  'var(--font-family-display)',
+                  { fontFeatureSettings: '"cv02", "cv03", "cv04"' },
+                ],
+              },
+              // Breakpoints defined in @theme (e.g., --breakpoint-3xl) are automatically
+              // available as variants (e.g., 3xl:) in Tailwind v4.
+              // No need to redefine here unless overriding default keys.
+            },
+          },
+          plugins: [
+            // Add any Tailwind plugins here
+          ],
+        };
+        ```
+
+      - **Readability:** For very long class strings in JSX, consider formatting them across multiple lines or, preferably, abstracting the element into a well-named component or a custom utility/class via `@theme` in your CSS.
 
 2.  **Alternative Strategies (for specific or legacy contexts):**
 
@@ -944,70 +1024,35 @@ By May 2025, Tailwind CSS v4 is the established standard, bringing significant p
 
 3.  **Theming (Leveraging CSS Variables and `@theme`):**
 
-    - **CSS Custom Properties (Variables) are Central:** Define your theme palette and scales using CSS Custom Properties in your global CSS (e.g., `src/app/global.css`), often within `:root` or theme-specific classes (e.g., `.theme-dark`).
-    - **`tailwind.config.js` for Consumption:** Reference these CSS variables within your `tailwind.config.js` to make them available as Tailwind utilities.
-      ```javascript
-      // tailwind.config.js
-      module.exports = {
-        theme: {
-          extend: {
-            colors: {
-              primary: 'var(--color-primary)', // Consumes CSS variable
-              secondary: 'var(--color-secondary)',
-              // ... other semantic colors
-            },
-            backgroundColor: {
-              // Ensure background colors also use these
-              primary: 'var(--color-primary)',
-              secondary: 'var(--color-secondary)',
-            },
-            textColor: {
-              // And text colors
-              primary: 'var(--color-text-on-primary)', // Example for text on primary background
-              muted: 'var(--color-text-muted)',
-            },
-          },
-        },
-        // ... other config
-      };
-      ```
-    - **`@theme` for Dynamic Styles and Utilities:** Use the `@theme` directive in your CSS to consume theme values or define theme-aware utilities and component styles. This is powerful for creating styles that adapt to your defined theme.
+    - **CSS Custom Properties are Central:** Define your theme palette (colors, fonts, spacing, breakpoints) using CSS Custom Properties directly within the `@theme` block in your global CSS file (e.g., `src/app/global.css`). This is the CSS-first approach encouraged by Tailwind CSS v4.
+    - **`tailwind.config.js` for Utility Generation (Optional):** If you want to generate standard Tailwind utility classes (e.g., `bg-primary`, `text-accent`) from your CSS variables, reference these variables in your `tailwind.config.js` under `theme.extend.colors`, `theme.extend.fontFamily`, etc., as shown in the example above.
+    - **Dynamic Theming (e.g., Dark Mode):**
+
+      - Implement dynamic theme switching (like dark mode) by defining overrides for your CSS Custom Properties within a specific class (e.g., `.dark`) or data attribute (e.g., `html[data-theme="dark"]`). These overrides should also be defined in your main CSS file.
 
       ```css
-      /* In your global.css or relevant CSS file */
-      :root {
-        --color-primary: #007bff; /* Blue */
-        --color-secondary: #6c757d; /* Gray */
-        --color-text-on-primary: #ffffff;
-        --color-text-muted: #6c757d;
-        /* ... other theme variables */
+      // filepath: src/app/global.css
+      // ... (previous @import and @theme definitions) ...
+
+      /* Dark mode example: Redefine CSS variables for the .dark scope */
+      .dark {
+        --color-primary: oklch(70% 0.18 260); /* Darker primary */
+        --color-secondary: oklch(60% 0.1 270); /* Darker secondary */
+        --color-accent: oklch(65% 0.23 358); /* Darker accent */
+        --color-text-base: oklch(90% 0 0); /* Lighter base text */
+        --color-text-on-primary: oklch(15% 0 0); /* Darker text on primary for contrast */
+        --color-surface-bg: oklch(10% 0 0); /* Dark background */
+        --color-surface-card: oklch(15% 0 0); /* Slightly lighter card background */
       }
 
-      .theme-dark {
-        --color-primary: #1a73e8; /* Darker Blue */
-        --color-secondary: #5f6368; /* Darker Gray */
-        --color-text-on-primary: #e8eaed;
-        --color-text-muted: #9aa0a6;
-      }
-
-      @theme {
-        .custom-card {
-          background-color: theme(
-            'colors.white'
-          ); /* Will use white from default or your extended theme */
-          border: 1px solid theme('colors.gray.300');
-          padding: theme('spacing.4');
-          /* In dark theme, you might have specific overrides if not handled by variable swaps */
-        }
-
-        .text-link {
-          color: theme('colors.primary'); /* Uses the 'primary' color from your theme */
-          @apply hover:underline;
-        }
+      /* Apply a base background color for light and dark modes */
+      body {
+        background-color: var(--color-surface-bg); /* Uses variable from :root or .dark */
+        color: var(--color-text-base); /* Uses variable from :root or .dark */
       }
       ```
 
-    - This combined approach allows for dynamic theme switching (by changing CSS variables via JavaScript or class toggles) while still leveraging Tailwind's utility classes and the new `@theme` capabilities for CSS-first customizations.
+    - This combined approach (defining variables in CSS via `@theme`, optionally consuming them in `tailwind.config.js` for utilities, and using CSS selectors for dynamic theme variants) provides a powerful and flexible theming system aligned with Tailwind CSS v4.
 
 ---
 
