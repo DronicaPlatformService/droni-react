@@ -22,7 +22,7 @@ interface KakaoConsentPopupProps {
  * @param {() => void} onAgree - 동의 버튼 클릭 시 호출될 함수.
  * @param {ConsentItem[]} consentItems - 동의 항목 목록.
  */
-const KakaoConsentPopup = ({
+export const KakaoConsentPopup = ({
   isOpen,
   onClose,
   onAgree,
@@ -115,5 +115,3 @@ const KakaoConsentPopup = ({
     </dialog>
   );
 };
-
-export default KakaoConsentPopup;

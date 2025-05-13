@@ -3,7 +3,7 @@
 import KakaoIcon from '@/assets/icons/kakao-icon.svg';
 import NaverIcon from '@/assets/icons/naver-icon.svg';
 import DroniLogo from '@/assets/images/droni-logo.svg';
-import KakaoConsentPopup from '@/components/KakaoConsentPopup/KakaoConsentPopup.client';
+import { KakaoConsentPopup } from '@/components';
 import { createFileRoute } from '@tanstack/react-router';
 import { type JSX, useState } from 'react';
 
