@@ -1,6 +1,6 @@
 'use client';
 
-import { NotificationIcon } from '@/components/icons/NotificationIcon';
+import { NotificationIcon } from '@/components/icons';
 import type { JSX } from 'react';
 
 interface AppHeaderProps {
