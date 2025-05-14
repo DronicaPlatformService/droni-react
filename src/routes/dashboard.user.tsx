@@ -1,13 +1,13 @@
 'use client';
 
+import { BottomNavigationBar } from '@/components';
 import {
-  AppHeader,
   Banner,
-  BottomNavigationBar,
+  DashboardHeader,
   DroneGuideCard,
   PopularPilotsSection,
-} from '@/components';
-import { EstimateRequestIcon } from '@/components/icons';
+} from '@/components/Dashboard';
+import { EstimateRequestIcon } from '@/components/Icons';
 import { createFileRoute } from '@tanstack/react-router';
 import type { JSX } from 'react';
 
@@ -53,7 +53,7 @@ function DashboardUserScreen(): JSX.Element {
   return (
     <div className="flex h-screen flex-col bg-gray-100">
       {/* Header */}
-      <AppHeader userName={userName} hasUnreadNotification={hasUnreadNotification} />
+      <DashboardHeader userName={userName} hasUnreadNotification={hasUnreadNotification} />
 
       {/* Banner */}
       <Banner className="shrink-0" />

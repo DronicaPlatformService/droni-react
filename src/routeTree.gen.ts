@@ -11,11 +11,18 @@
 // Import Routes
 
 import { Route as rootRoute } from './routes/__root'
+import { Route as MypageImport } from './routes/mypage'
 import { Route as LoginImport } from './routes/login'
 import { Route as IndexImport } from './routes/index'
 import { Route as DashboardUserImport } from './routes/dashboard.user'
 
 // Create/Update Routes
+
+const MypageRoute = MypageImport.update({
+  id: '/mypage',
+  path: '/mypage',
+  getParentRoute: () => rootRoute,
+} as any)
 
 const LoginRoute = LoginImport.update({
   id: '/login',
@@ -53,6 +60,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof LoginImport
       parentRoute: typeof rootRoute
     }
+    '/mypage': {
+      id: '/mypage'
+      path: '/mypage'
+      fullPath: '/mypage'
+      preLoaderRoute: typeof MypageImport
+      parentRoute: typeof rootRoute
+    }
     '/dashboard/user': {
       id: '/dashboard/user'
       path: '/dashboard/user'
@@ -68,12 +82,14 @@ declare module '@tanstack/react-router' {
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/login': typeof LoginRoute
+  '/mypage': typeof MypageRoute
   '/dashboard/user': typeof DashboardUserRoute
 }
 
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/login': typeof LoginRoute
+  '/mypage': typeof MypageRoute
   '/dashboard/user': typeof DashboardUserRoute
 }
 
@@ -81,27 +97,30 @@ export interface FileRoutesById {
   __root__: typeof rootRoute
   '/': typeof IndexRoute
   '/login': typeof LoginRoute
+  '/mypage': typeof MypageRoute
   '/dashboard/user': typeof DashboardUserRoute
 }
 
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/login' | '/dashboard/user'
+  fullPaths: '/' | '/login' | '/mypage' | '/dashboard/user'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/login' | '/dashboard/user'
-  id: '__root__' | '/' | '/login' | '/dashboard/user'
+  to: '/' | '/login' | '/mypage' | '/dashboard/user'
+  id: '__root__' | '/' | '/login' | '/mypage' | '/dashboard/user'
   fileRoutesById: FileRoutesById
 }
 
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   LoginRoute: typeof LoginRoute
+  MypageRoute: typeof MypageRoute
   DashboardUserRoute: typeof DashboardUserRoute
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   LoginRoute: LoginRoute,
+  MypageRoute: MypageRoute,
   DashboardUserRoute: DashboardUserRoute,
 }
 
@@ -117,6 +136,7 @@ export const routeTree = rootRoute
       "children": [
         "/",
         "/login",
+        "/mypage",
         "/dashboard/user"
       ]
     },
@@ -125,6 +145,9 @@ export const routeTree = rootRoute
     },
     "/login": {
       "filePath": "login.tsx"
+    },
+    "/mypage": {
+      "filePath": "mypage.tsx"
     },
     "/dashboard/user": {
       "filePath": "dashboard.user.tsx"

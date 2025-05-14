@@ -1,23 +1,23 @@
 'use client';
 
-import { NotificationIcon } from '@/components/icons';
+import { NotificationIcon } from '@/components/Icons';
 import type { JSX } from 'react';
 
-interface AppHeaderProps {
+interface DashboardHeaderProps {
   userName: string;
   hasUnreadNotification?: boolean;
 }
 
 /**
  * @description 애플리케이션 헤더 컴포넌트. 사용자 이름과 알림 아이콘을 표시합니다.
- * @param {AppHeaderProps} props - 애플리케이션 헤더의 속성 객체입니다.
+ * @param {DashboardHeaderProps} props - 애플리케이션 헤더의 속성 객체입니다.
  * @param {string} props.userName - 표시될 사용자 이름.
  * @param {boolean} [props.hasUnreadNotification=false] - 읽지 않은 알림 유무.
  */
-export function AppHeader({
+export function DashboardHeader({
   userName,
   hasUnreadNotification = false,
-}: AppHeaderProps): JSX.Element {
+}: DashboardHeaderProps): JSX.Element {
   return (
     <header className="flex h-[52px] items-center justify-between px-5 py-3">
       <p className="font-spoqa text-system-01 tracking-tight-1pct text-gray-800">

@@ -1,7 +1,7 @@
 'use client';
 
+import { ChevronRightIcon } from '../Icons';
 import { DroneContentItem } from './DroneContentItem';
-import { ChevronRightIcon } from './icons';
 
 interface DroneContent {
   id: string;

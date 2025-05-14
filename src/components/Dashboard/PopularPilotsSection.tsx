@@ -1,6 +1,6 @@
 'use client';
 
-import { ChevronRightIcon, DefaultProfileIcon } from '@/components/icons';
+import { ChevronRightIcon, DefaultProfileIcon } from '@/components/Icons';
 import type { JSX } from 'react';
 
 interface PilotProfile {
