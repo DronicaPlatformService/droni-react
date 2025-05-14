@@ -4,7 +4,7 @@ import KakaoIcon from '@/assets/icons/kakao-icon.svg';
 import NaverIcon from '@/assets/icons/naver-icon.svg';
 import DroniLogo from '@/assets/images/droni-logo.svg';
 import { KakaoConsentPopup } from '@/components';
-import { createFileRoute } from '@tanstack/react-router';
+import { createFileRoute, useNavigate } from '@tanstack/react-router';
 import { type JSX, useState } from 'react';
 
 export const Route = createFileRoute('/login')({
@@ -26,6 +26,7 @@ const KAKAO_CONSENT_ITEMS = [
  */
 function LoginScreen(): JSX.Element {
   const [isKakaoConsentOpen, setIsKakaoConsentOpen] = useState(false);
+  const navigate = useNavigate();
 
   const handleKakaoLogin = () => {
     console.log('카카오 로그인 시도');
@@ -41,6 +42,7 @@ function LoginScreen(): JSX.Element {
     setIsKakaoConsentOpen(false); // 팝업 닫기
     // TODO: 실제 카카오 로그인 API 호출 및 다음 단계 진행
     // 예: window.location.href = '카카오_인증_URL_이동';
+    navigate({ to: '/dashboard/user' });
   };
 
   const handleKakaoConsentClose = () => {
