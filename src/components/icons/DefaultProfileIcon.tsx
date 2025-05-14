@@ -11,8 +11,10 @@ export function DefaultProfileIcon(props: SVGProps<SVGSVGElement>): JSX.Element 
       viewBox="0 0 65 64"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      aria-labelledby="defaultProfileIconTitle"
       {...props}
     >
+      <title id="defaultProfileIconTitle">기본 프로필 아이콘</title>
       <rect x="0.538513" y="0.21875" width="63.5625" height="63.5625" rx="31.7812" fill="#F7F8FA" />
       <rect
         x="0.538513"

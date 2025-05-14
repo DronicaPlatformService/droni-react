@@ -1,6 +1,12 @@
 'use client';
 
-import { AppHeader, Banner, BottomNavigationBar, PopularPilotsSection } from '@/components';
+import {
+  AppHeader,
+  Banner,
+  BottomNavigationBar,
+  DroneGuideCard,
+  PopularPilotsSection,
+} from '@/components';
 import { createFileRoute } from '@tanstack/react-router';
 import type { JSX } from 'react';
 
@@ -48,16 +54,10 @@ function DashboardUserScreen(): JSX.Element {
       {/* 인기있는 조종사들 섹션 */}
       <PopularPilotsSection pilots={samplePilots} onSeeMoreClick={handleSeeMorePilots} />
 
-      {/* Main content area */}
-      <main className="flex-1 overflow-y-auto p-4">
-        <div className="text-center">
-          <h1 className="text-3xl font-bold text-gray-800">일반 사용자 메인 화면</h1>
-          <p className="mt-2 text-gray-600">
-            환영합니다! 서비스 이용을 위한 주요 기능을 이곳에서 확인하세요.
-          </p>
-          {/* TODO: 일반 사용자 대시보드에 표시될 실제 콘텐츠 (예: 알림, 바로가기 등)를 여기에 구현합니다. */}
-        </div>
-      </main>
+      {/* 드로니 활용백서 섹션 */}
+      <div className="flex-1 overflow-y-auto pb-[calc(53px+env(safe-area-inset-bottom))]">
+        <DroneGuideCard />
+      </div>
 
       {/* Bottom Navigation Bar */}
       <BottomNavigationBar />
