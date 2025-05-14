@@ -2,6 +2,7 @@ export * from './ChatIcon';
 export * from './ChevronRightIcon';
 export * from './DefaultProfileIcon';
 export * from './EstimateIcon';
+export * from './EstimateRequestIcon';
 export * from './HomeIcon';
 export * from './MyPageIcon';
 export * from './NotificationIcon';

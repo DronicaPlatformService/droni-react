@@ -7,6 +7,7 @@ import {
   DroneGuideCard,
   PopularPilotsSection,
 } from '@/components';
+import { EstimateRequestIcon } from '@/components/icons';
 import { createFileRoute } from '@tanstack/react-router';
 import type { JSX } from 'react';
 
@@ -43,6 +44,12 @@ function DashboardUserScreen(): JSX.Element {
     console.log('인기있는 조종사 더 보기 클릭');
   };
 
+  const handleEstimateRequestClick = () => {
+    // TODO: 견적 요청 페이지로 이동 또는 관련 로직 구현
+    // 예시: navigate({ to: '/estimates/new' });
+    console.log('견적 요청 클릭');
+  };
+
   return (
     <div className="flex h-screen flex-col bg-gray-100">
       {/* Header */}
@@ -58,6 +65,19 @@ function DashboardUserScreen(): JSX.Element {
       <div className="flex-1 overflow-y-auto pb-[calc(53px+env(safe-area-inset-bottom))]">
         <DroneGuideCard />
       </div>
+
+      {/* 견적 요청 버튼 */}
+      <button
+        type="button"
+        onClick={handleEstimateRequestClick}
+        className="fixed right-5 bottom-[75px] z-40 flex h-[44px] w-[115px] items-center justify-center gap-1 rounded-full bg-droni-blue-500 px-[14px] py-[10px] shadow-[0px_0px_4px_rgba(0,0,0,0.1),_0px_0px_12px_rgba(0,0,0,0.2)] hover:bg-droni-blue-600 focus:ring-2 focus:ring-droni-blue-500/75 focus:outline-none"
+        aria-label="견적 요청하기"
+      >
+        <EstimateRequestIcon className="h-6 w-6" />
+        <span className="font-spoqa text-base leading-6 font-bold tracking-tight-1pct text-white">
+          견적요청
+        </span>
+      </button>
 
       {/* Bottom Navigation Bar */}
       <BottomNavigationBar />
