@@ -22,6 +22,6 @@ export const NoticeBar = ({ noticeText, onClick }: NoticeBarProps): JSX.Element 
         {noticeText}
       </span>
     </div>
-    <ChevronRightIcon className="h-[18px] w-[18px] text-gray-400" />
+    <ChevronRightIcon className="h-4 w-4 text-gray-400" />
   </button>
 );

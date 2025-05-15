@@ -15,7 +15,7 @@ export const AddressManagementSection = (): JSX.Element => {
           </div>
         </div>
         <div>
-          <ChevronRightIcon className="h-6 w-6 text-gray-400" />
+          <ChevronRightIcon className="h-5 w-5 text-gray-400" />
         </div>
       </div>
     </section>

@@ -5,6 +5,7 @@ import {
   AddressManagementSection,
   MyPageHeader,
   MyPageInfoSection,
+  ReviewSection,
 } from '@/components/MyPage';
 import { createFileRoute } from '@tanstack/react-router';
 import type { JSX } from 'react';
@@ -78,6 +79,7 @@ function MyPageScreen(): JSX.Element {
         onNoticeClick={handleNoticeClick}
       />
       <AddressManagementSection />
+      <ReviewSection />
       <BottomNavigationBar />
     </div>
   );
