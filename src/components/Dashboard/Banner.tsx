@@ -24,7 +24,7 @@ export function Banner({ className }: BannerProps): JSX.Element {
   const [isDragging, setIsDragging] = useState(false);
   const [startX, setStartX] = useState(0);
   const [translateX, setTranslateX] = useState(0);
-  const bannerRef = useRef<HTMLDivElement>(null);
+  const bannerRef = useRef<HTMLElement>(null);
 
   const handleNext = useCallback(() => {
     setCurrentIndex((prevIndex) => (prevIndex + 1) % images.length);
@@ -34,9 +34,7 @@ export function Banner({ className }: BannerProps): JSX.Element {
     setCurrentIndex((prevIndex) => (prevIndex - 1 + images.length) % images.length);
   }, []);
 
-  const handleDragStart = (
-    e: React.MouseEvent<HTMLDivElement> | React.TouchEvent<HTMLDivElement>,
-  ) => {
+  const handleDragStart = (e: React.MouseEvent<HTMLElement> | React.TouchEvent<HTMLElement>) => {
     setIsDragging(true);
     const currentX = 'touches' in e ? e.touches[0].clientX : e.clientX;
     setStartX(currentX);
@@ -46,9 +44,7 @@ export function Banner({ className }: BannerProps): JSX.Element {
     }
   };
 
-  const handleDragMove = (
-    e: React.MouseEvent<HTMLDivElement> | React.TouchEvent<HTMLDivElement>,
-  ) => {
+  const handleDragMove = (e: React.MouseEvent<HTMLElement> | React.TouchEvent<HTMLElement>) => {
     if (!isDragging) return;
     const currentX = 'touches' in e ? e.touches[0].clientX : e.clientX;
     const diffX = currentX - startX;
@@ -82,7 +78,7 @@ export function Banner({ className }: BannerProps): JSX.Element {
   }, [currentIndex, handleNext]);
 
   return (
-    <div
+    <section
       ref={bannerRef}
       className={twMerge('relative w-full overflow-hidden bg-gray-200', className)}
       style={{ height: BANNER_HEIGHT }}
@@ -113,7 +109,7 @@ export function Banner({ className }: BannerProps): JSX.Element {
       </div>
 
       {/* 페이지네이션 버튼 */}
-      <div className="absolute right-5 bottom-3 z-10">
+      <nav className="absolute right-5 bottom-3 z-10">
         <div className="flex h-6 w-14 items-center justify-center gap-1 rounded-full bg-black/20 px-2 py-[3px] text-xs text-white">
           <div className="flex items-baseline">
             <span className="text-system-09 text-white">
@@ -125,7 +121,7 @@ export function Banner({ className }: BannerProps): JSX.Element {
             </span>
           </div>
         </div>
-      </div>
-    </div>
+      </nav>
+    </section>
   );
 }

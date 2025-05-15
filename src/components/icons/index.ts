@@ -1,5 +1,4 @@
 export * from './ChatIcon';
-export * from './ChevronRightIcon';
 export * from './DefaultProfileIcon';
 export * from './EmailIcon';
 export * from './EstimateIcon';
@@ -9,4 +8,3 @@ export * from './KakaoTalkIcon';
 export * from './MyPageIcon';
 export * from './NotificationIcon';
 export * from './SearchExpertIcon';
-export * from './SettingIcon';

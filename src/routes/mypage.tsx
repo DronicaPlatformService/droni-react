@@ -1,6 +1,11 @@
 import { BottomNavigationBar } from '@/components';
 import { KakaoTalkIcon } from '@/components/Icons';
-import { type ActionButtonProps, MyPageHeader, MyPageInfoSection } from '@/components/MyPage';
+import {
+  type ActionButtonProps,
+  AddressManagementSection,
+  MyPageHeader,
+  MyPageInfoSection,
+} from '@/components/MyPage';
 import { createFileRoute } from '@tanstack/react-router';
 import type { JSX } from 'react';
 
@@ -72,6 +77,7 @@ function MyPageScreen(): JSX.Element {
         latestNotice={latestNotice}
         onNoticeClick={handleNoticeClick}
       />
+      <AddressManagementSection />
       <BottomNavigationBar />
     </div>
   );

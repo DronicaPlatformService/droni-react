@@ -75,7 +75,7 @@ function LoginScreen(): JSX.Element {
       </div>
 
       {/* Social login buttons area */}
-      <div className="shadow-up pb-safe-bottom fixed inset-x-0 bottom-0 w-full bg-white px-3 pb-4 md:relative md:shadow-none">
+      <div className="shadow-up pb-safe-bottom fixed inset-x-0 w-full bg-white px-3 pb-4 md:relative md:shadow-none">
         <div className="mx-auto max-w-md space-y-3">
           <button
             type="button"

@@ -28,6 +28,7 @@ const RAW_RUNTIME_STATE =
         "packageLocation": "./",\
         "packageDependencies": [\
           ["@biomejs/biome", "npm:1.9.4"],\
+          ["@heroicons/react", "virtual:b99c7dbdb8e5cbc99e8c23e1a222e79e02cc6bb87182fa15ddfbdacb9487d6800da3663b74c1f39076457d2bb70648df245eb1ccb2ad65a72b14afffe00f14ec#npm:2.2.0"],\
           ["@tailwindcss/vite", "virtual:b99c7dbdb8e5cbc99e8c23e1a222e79e02cc6bb87182fa15ddfbdacb9487d6800da3663b74c1f39076457d2bb70648df245eb1ccb2ad65a72b14afffe00f14ec#npm:4.1.5"],\
           ["@tanstack/react-form", "virtual:b99c7dbdb8e5cbc99e8c23e1a222e79e02cc6bb87182fa15ddfbdacb9487d6800da3663b74c1f39076457d2bb70648df245eb1ccb2ad65a72b14afffe00f14ec#npm:1.10.0"],\
           ["@tanstack/react-query", "virtual:b99c7dbdb8e5cbc99e8c23e1a222e79e02cc6bb87182fa15ddfbdacb9487d6800da3663b74c1f39076457d2bb70648df245eb1ccb2ad65a72b14afffe00f14ec#npm:5.75.5"],\
@@ -824,6 +825,28 @@ const RAW_RUNTIME_STATE =
         "packageLocation": "./.yarn/unplugged/@esbuild-win32-x64-npm-0.25.4-e6cba55cf1/node_modules/@esbuild/win32-x64/",\
         "packageDependencies": [\
           ["@esbuild/win32-x64", "npm:0.25.4"]\
+        ],\
+        "linkType": "HARD"\
+      }]\
+    ]],\
+    ["@heroicons/react", [\
+      ["npm:2.2.0", {\
+        "packageLocation": "../../.yarn/berry/cache/@heroicons-react-npm-2.2.0-775299dcc0-10c0.zip/node_modules/@heroicons/react/",\
+        "packageDependencies": [\
+          ["@heroicons/react", "npm:2.2.0"]\
+        ],\
+        "linkType": "SOFT"\
+      }],\
+      ["virtual:b99c7dbdb8e5cbc99e8c23e1a222e79e02cc6bb87182fa15ddfbdacb9487d6800da3663b74c1f39076457d2bb70648df245eb1ccb2ad65a72b14afffe00f14ec#npm:2.2.0", {\
+        "packageLocation": "./.yarn/__virtual__/@heroicons-react-virtual-b0904d30e6/3/.yarn/berry/cache/@heroicons-react-npm-2.2.0-775299dcc0-10c0.zip/node_modules/@heroicons/react/",\
+        "packageDependencies": [\
+          ["@heroicons/react", "virtual:b99c7dbdb8e5cbc99e8c23e1a222e79e02cc6bb87182fa15ddfbdacb9487d6800da3663b74c1f39076457d2bb70648df245eb1ccb2ad65a72b14afffe00f14ec#npm:2.2.0"],\
+          ["@types/react", "npm:19.1.3"],\
+          ["react", "npm:19.1.0"]\
+        ],\
+        "packagePeers": [\
+          "@types/react",\
+          "react"\
         ],\
         "linkType": "HARD"\
       }]\
@@ -2427,6 +2450,7 @@ const RAW_RUNTIME_STATE =
         "packageDependencies": [\
           ["droni-react", "workspace:."],\
           ["@biomejs/biome", "npm:1.9.4"],\
+          ["@heroicons/react", "virtual:b99c7dbdb8e5cbc99e8c23e1a222e79e02cc6bb87182fa15ddfbdacb9487d6800da3663b74c1f39076457d2bb70648df245eb1ccb2ad65a72b14afffe00f14ec#npm:2.2.0"],\
           ["@tailwindcss/vite", "virtual:b99c7dbdb8e5cbc99e8c23e1a222e79e02cc6bb87182fa15ddfbdacb9487d6800da3663b74c1f39076457d2bb70648df245eb1ccb2ad65a72b14afffe00f14ec#npm:4.1.5"],\
           ["@tanstack/react-form", "virtual:b99c7dbdb8e5cbc99e8c23e1a222e79e02cc6bb87182fa15ddfbdacb9487d6800da3663b74c1f39076457d2bb70648df245eb1ccb2ad65a72b14afffe00f14ec#npm:1.10.0"],\
           ["@tanstack/react-query", "virtual:b99c7dbdb8e5cbc99e8c23e1a222e79e02cc6bb87182fa15ddfbdacb9487d6800da3663b74c1f39076457d2bb70648df245eb1ccb2ad65a72b14afffe00f14ec#npm:5.75.5"],\

@@ -27,7 +27,7 @@ export const MyPageInfoSection = ({
   onNoticeClick,
 }: MyPageInfoSectionProps): JSX.Element => {
   return (
-    <div className="flex flex-col bg-white px-3 pt-3 pb-[17px]">
+    <section className="flex flex-col bg-white px-3 pt-3 pb-[17px]">
       <ProfileCard
         userName={userName}
         userEmail={userEmail}
@@ -48,6 +48,6 @@ export const MyPageInfoSection = ({
       </div>
 
       <NoticeBar noticeText={latestNotice} onClick={onNoticeClick} />
-    </div>
+    </section>
   );
 };

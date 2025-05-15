@@ -1,4 +1,4 @@
-import { ChevronRightIcon } from '@/components/Icons';
+import { ChevronRightIcon } from '@heroicons/react/24/outline';
 import type { JSX } from 'react';
 
 interface NoticeBarProps {
@@ -22,6 +22,6 @@ export const NoticeBar = ({ noticeText, onClick }: NoticeBarProps): JSX.Element 
         {noticeText}
       </span>
     </div>
-    <ChevronRightIcon className="h-4.5 w-4.5 text-gray-400" />
+    <ChevronRightIcon className="h-[18px] w-[18px] text-gray-400" />
   </button>
 );

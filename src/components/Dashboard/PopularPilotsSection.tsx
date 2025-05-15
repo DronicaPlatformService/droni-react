@@ -1,6 +1,7 @@
 'use client';
 
-import { ChevronRightIcon, DefaultProfileIcon } from '@/components/Icons';
+import { DefaultProfileIcon } from '@/components/Icons';
+import { ChevronRightIcon } from '@heroicons/react/24/solid';
 import type { JSX } from 'react';
 
 interface PilotProfile {
@@ -36,7 +37,7 @@ export function PopularPilotsSection({
             className="flex items-center justify-center"
             aria-label="인기있는 조종사 더 보기"
           >
-            <ChevronRightIcon className="h-6.5 w-6.5" />
+            <ChevronRightIcon className="h-5 w-5" />
           </button>
         </div>
         <div className="no-scrollbar flex gap-4 overflow-x-auto">
