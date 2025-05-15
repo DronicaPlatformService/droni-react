@@ -1,6 +1,7 @@
 import { BottomNavigationBar } from '@/components';
 import { KakaoTalkIcon } from '@/components/Icons';
 import {
+  AccountSwitchSection,
   type ActionButtonProps,
   AddressManagementSection,
   MyPageHeader,
@@ -67,7 +68,7 @@ function MyPageScreen(): JSX.Element {
   ];
 
   return (
-    <div className="flex h-screen flex-col">
+    <div className="flex-1 overflow-y-auto pb-[calc(53px+env(safe-area-inset-bottom))]">
       <MyPageHeader />
       <MyPageInfoSection
         userName={userName}
@@ -81,6 +82,7 @@ function MyPageScreen(): JSX.Element {
       <AddressManagementSection />
       <ReviewSection />
       <BottomNavigationBar />
+      <AccountSwitchSection />
     </div>
   );
 }
