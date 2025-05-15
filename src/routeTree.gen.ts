@@ -11,12 +11,19 @@
 // Import Routes
 
 import { Route as rootRoute } from './routes/__root'
+import { Route as SettingsImport } from './routes/settings'
 import { Route as MypageImport } from './routes/mypage'
 import { Route as LoginImport } from './routes/login'
 import { Route as IndexImport } from './routes/index'
 import { Route as DashboardUserImport } from './routes/dashboard.user'
 
 // Create/Update Routes
+
+const SettingsRoute = SettingsImport.update({
+  id: '/settings',
+  path: '/settings',
+  getParentRoute: () => rootRoute,
+} as any)
 
 const MypageRoute = MypageImport.update({
   id: '/mypage',
@@ -67,6 +74,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof MypageImport
       parentRoute: typeof rootRoute
     }
+    '/settings': {
+      id: '/settings'
+      path: '/settings'
+      fullPath: '/settings'
+      preLoaderRoute: typeof SettingsImport
+      parentRoute: typeof rootRoute
+    }
     '/dashboard/user': {
       id: '/dashboard/user'
       path: '/dashboard/user'
@@ -83,6 +97,7 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/login': typeof LoginRoute
   '/mypage': typeof MypageRoute
+  '/settings': typeof SettingsRoute
   '/dashboard/user': typeof DashboardUserRoute
 }
 
@@ -90,6 +105,7 @@ export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/login': typeof LoginRoute
   '/mypage': typeof MypageRoute
+  '/settings': typeof SettingsRoute
   '/dashboard/user': typeof DashboardUserRoute
 }
 
@@ -98,15 +114,16 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/login': typeof LoginRoute
   '/mypage': typeof MypageRoute
+  '/settings': typeof SettingsRoute
   '/dashboard/user': typeof DashboardUserRoute
 }
 
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/login' | '/mypage' | '/dashboard/user'
+  fullPaths: '/' | '/login' | '/mypage' | '/settings' | '/dashboard/user'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/login' | '/mypage' | '/dashboard/user'
-  id: '__root__' | '/' | '/login' | '/mypage' | '/dashboard/user'
+  to: '/' | '/login' | '/mypage' | '/settings' | '/dashboard/user'
+  id: '__root__' | '/' | '/login' | '/mypage' | '/settings' | '/dashboard/user'
   fileRoutesById: FileRoutesById
 }
 
@@ -114,6 +131,7 @@ export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   LoginRoute: typeof LoginRoute
   MypageRoute: typeof MypageRoute
+  SettingsRoute: typeof SettingsRoute
   DashboardUserRoute: typeof DashboardUserRoute
 }
 
@@ -121,6 +139,7 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   LoginRoute: LoginRoute,
   MypageRoute: MypageRoute,
+  SettingsRoute: SettingsRoute,
   DashboardUserRoute: DashboardUserRoute,
 }
 
@@ -137,6 +156,7 @@ export const routeTree = rootRoute
         "/",
         "/login",
         "/mypage",
+        "/settings",
         "/dashboard/user"
       ]
     },
@@ -148,6 +168,9 @@ export const routeTree = rootRoute
     },
     "/mypage": {
       "filePath": "mypage.tsx"
+    },
+    "/settings": {
+      "filePath": "settings.tsx"
     },
     "/dashboard/user": {
       "filePath": "dashboard.user.tsx"

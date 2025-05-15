@@ -1,4 +1,5 @@
 import { Cog8ToothIcon } from '@heroicons/react/24/solid';
+import { useNavigate } from '@tanstack/react-router';
 import type { JSX } from 'react';
 
 /**
@@ -6,9 +7,10 @@ import type { JSX } from 'react';
  * "마이페이지" 제목과 설정 아이콘을 포함합니다.
  */
 export const MyPageHeader = (): JSX.Element => {
+  const navigate = useNavigate();
+
   const handleSettingsClick = () => {
-    // TODO: 설정 페이지로 이동하거나 설정 관련 액션 시트/모달을 표시하는 로직 구현
-    console.log('설정 아이콘 클릭');
+    navigate({ to: '/settings' });
   };
 
   return (
