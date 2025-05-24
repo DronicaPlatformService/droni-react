@@ -19,7 +19,7 @@ COPY package.json yarn.lock ./
 # 이 파일들은 Git에 커밋되어 있어야 하며, 'yarn install' 시 필요합니다.
 COPY .pnp.cjs ./.pnp.cjs
 COPY .pnp.loader.mjs ./.pnp.loader.mjs
-COPY install-state.gz ./install-state.gz
+COPY .yarn/install-state.gz ./.yarn/install-state.gz
 
 # 의존성을 설치합니다.
 # '--frozen-lockfile' 플래그는 'yarn.lock' 파일을 변경하지 않고 정확히 명시된 버전의 의존성만 설치하도록 강제합니다.
