@@ -41,3 +41,9 @@ src/**/__tests__
 
 # Other development files
 # Add any other files or directories that are not needed in the production image
+
+.yarn/cache
+.yarn/unplugged
+.yarn/__virtual__
+.yarn/build-state.yml
+.yarn/install-state.gz
