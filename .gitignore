@@ -1,20 +1,54 @@
 # Dependencies
-node_modules
-.pnp.*
+/node_modules
+/.pnp
+.pnp.js
+.pnp.cjs
 
 # Build output
-dist
-dist-ssr
+/dist
+/dist-ssr
+/build
+/.next/
+/out/
 
-# Local configuration files
+# Local Environment Variables and Configuration
+.env
+.env*.local
 *.local
+
+# Log files
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+# Test output
+/coverage
+/.nyc_output
+
+# IDE & Editor specific
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+*.sublime-workspace
+*.sublime-project
+.idea
+.project
+.classpath
+.c9/
 
 # Operating System generated files
 .DS_Store
+._*
+Thumbs.db
+ehthumbs.db
+ehthumbs_vista.db
 
-# Yarn Zero-Installs
-# Keep this section if you are using Yarn Berry with Zero-Installs
-# using Zero-Installs
+# Yarn Zero-Installs (Keep if using Yarn Berry with Zero-Installs)
 .yarn/*
 !.yarn/cache
 !.yarn/patches
@@ -23,4 +57,15 @@ dist-ssr
 !.yarn/sdks
 !.yarn/versions
 
-.env
+# Miscellaneous
+.eslintcache
+.stylelintcache
+.prettiercache
+.cache
+.npm
+.node_repl_history
+*.tgz
+*.zip
+
+# Vite
+.vite # Vite's cache directory (if not in node_modules)

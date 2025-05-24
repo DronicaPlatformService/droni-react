@@ -1,0 +1,44 @@
+# Dependencies
+node_modules
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+package-lock.json
+yarn.lock
+
+# Build artifacts
+dist
+build
+out
+coverage
+
+# Environment variables
+.env
+.env.*
+!.env.example # Optionally include an example env file
+
+# Git files
+.git
+.gitignore
+
+# Editor and OS specific
+.vscode
+.idea
+.DS_Store
+*.swp
+
+# Documentation and configuration (if not needed in image)
+README.md
+# nginx.conf # Uncomment if nginx.conf is NOT part of the image build context
+
+# Test and Storybook files
+src/**/*.test.ts
+src/**/*.test.tsx
+src/**/*.spec.ts
+src/**/*.spec.tsx
+src/**/*.stories.ts
+src/**/*.stories.tsx
+src/**/__tests__
+
+# Other development files
+# Add any other files or directories that are not needed in the production image
