@@ -1,20 +1,33 @@
 # Dependencies
 node_modules
+# Common lockfiles for other package managers (yarn.lock is used and NOT ignored)
+package-lock.json
+pnpm-lock.yaml
+bun.lockb
+
+# Logs
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
-package-lock.json
+pnpm-debug.log*
+lerna-debug.log*
+*.log
 
-# Build artifacts
+# Build artifacts and output directories
 dist
+dist-ssr
 build
 out
 coverage
+.next/ # For Next.js if used
 
-# Environment variables
+# Vite specific
+.vite/
+
+# Local Environment variables
 .env
 .env.*
-!.env.example # Optionally include an example env file
+!.env.example # Optionally include an example env file if it's generic
 
 # Git files
 .git
@@ -25,12 +38,16 @@ coverage
 .idea
 .DS_Store
 *.swp
+Thumbs.db
+ehthumbs.db
 
-# Documentation and configuration (if not needed in image)
+# Documentation and configuration (if not needed in the final image)
 README.md
+# CHANGELOG.md
+# CONTRIBUTING.md
 # nginx.conf # Uncomment if nginx.conf is NOT part of the image build context
 
-# Test and Storybook files
+# Test, Storybook, and other development-specific files
 src/**/*.test.ts
 src/**/*.test.tsx
 src/**/*.spec.ts
@@ -38,12 +55,19 @@ src/**/*.spec.tsx
 src/**/*.stories.ts
 src/**/*.stories.tsx
 src/**/__tests__
+src/**/__mocks__
+# storybook-static # If Storybook static build output is generated locally
 
-# Other development files
-# Add any other files or directories that are not needed in the production image
-
-.yarn/cache
+# Yarn Berry PnP specific files
+# .yarn/cache is intentionally NOT ignored here if it's committed to Git (via !.yarn/cache in .gitignore)
+# and you want to use the committed cache in your Docker build.
+# If you prefer to always fetch/build cache freshly in Docker, add .yarn/cache here.
 .yarn/unplugged
 .yarn/__virtual__
 .yarn/build-state.yml
 .yarn/install-state.gz
+# .pnp.cjs and .pnp.loader.mjs are typically committed and copied explicitly in Dockerfile, so not listed here.
+
+# Other development files or temporary files
+# Add any other files or directories that are not needed in the production image
+# e.g., local mock server data, temporary scripts
