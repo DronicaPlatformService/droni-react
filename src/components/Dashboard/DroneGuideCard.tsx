@@ -14,13 +14,13 @@ export const DroneGuideCard = () => {
   const droneContents: DroneContent[] = [
     {
       id: 'guide-1',
-      imageUrl: '/samples/c5029c3105bd909fc3b1e1c1bac7512962540f57.png',
+      imageUrl: `${import.meta.env.BASE_URL}samples/c5029c3105bd909fc3b1e1c1bac7512962540f57.png`,
       category: '일반사용자',
       title: '드론콘텐츠 제목은 2줄까지 노출합니다!',
     },
     {
       id: 'guide-2',
-      imageUrl: '/samples/15070dcccecd1c9ea9242f9319cc8ee812521431.png',
+      imageUrl: `${import.meta.env.BASE_URL}samples/15070dcccecd1c9ea9242f9319cc8ee812521431.png`,
       category: '조종사',
       title: '드론콘텐츠 제목은 2줄까지 노출합니다!',
     },

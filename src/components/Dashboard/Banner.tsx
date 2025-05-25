@@ -8,7 +8,7 @@ interface BannerProps {
   className?: string;
 }
 
-const sampleBannerImageSrc = '/samples/banner-sample.jpg';
+const sampleBannerImageSrc = `${import.meta.env.BASE_URL}samples/banner-sample.jpg`;
 
 const images = Array.from({ length: 10 }, (_, i) => ({
   id: i + 1,
