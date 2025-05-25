@@ -45,6 +45,7 @@ jobs:
           push: true
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
+          platforms: linux/amd64,linux/arm64
           cache-from: type=gha,scope=${{ github.workflow }} # GitHub Actions 캐시 사용
           cache-to: type=gha,mode=max,scope=${{ github.workflow }} # GitHub Actions 캐시 사용
           provenance: true # SLSA provenance 증명 생성 (권장)
