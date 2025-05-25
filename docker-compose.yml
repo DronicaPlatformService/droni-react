@@ -12,32 +12,32 @@ services:
       # Traefik 통합 활성화
       - 'traefik.enable=true'
 
-      # --- HTTP 라우터 설정 (예시) ---
-      # 도메인 기반 라우팅을 사용하려면 아래 주석을 해제하고 'your-domain.com'을 실제 도메인으로 변경하세요.
-      # 라우터가 'frontend-service'를 사용하도록 명시적으로 연결할 수 있습니다.
-      # - 'traefik.http.routers.frontend-http.rule=Host(`your-domain.com`)'
-      # - 'traefik.http.routers.frontend-http.entrypoints=web'
-      # - 'traefik.http.routers.frontend-http.service=frontend-service' # 서비스 명시적 연결
+      # --- HTTP 라우터 설정 ---
+      # 이 라우터의 이름을 'droni-react-frontend-http-router'로 지정합니다.
+      - 'traefik.http.routers.droni-react-frontend-http-router.rule=Host(`39.115.66.158`) && PathPrefix(`/droni`)'
+      - 'traefik.http.routers.droni-react-frontend-http-router.entrypoints=web'
+      # 이 라우터가 사용할 Traefik 서비스 이름을 'droni-react-frontend-svc'로 지정합니다.
+      - 'traefik.http.routers.droni-react-frontend-http-router.service=droni-react-frontend-svc'
 
       # --- HTTPS 라우터 설정 (예시) ---
-      # Traefik을 통해 HTTPS 및 SSL 인증서 관리를 하려면 아래 주석을 해제하세요.
-      # 라우터가 'frontend-service'를 사용하도록 명시적으로 연결할 수 있습니다.
-      # - 'traefik.http.routers.frontend-https.rule=Host(`your-domain.com`)'
-      # - 'traefik.http.routers.frontend-https.entrypoints=websecure'
-      # - 'traefik.http.routers.frontend-https.tls=true'
-      # - 'traefik.http.routers.frontend-https.tls.certresolver=myresolver'
-      # - 'traefik.http.routers.frontend-https.service=frontend-service' # 서비스 명시적 연결
+      # Traefik을 통해 HTTPS 및 SSL 인증서 관리를 하려면 아래 주석을 해제하고 설정을 완료하세요.
+      # - 'traefik.http.routers.droni-react-frontend-https-router.rule=Host(`your-domain.com`)' # 실제 도메인으로 변경
+      # - 'traefik.http.routers.droni-react-frontend-https-router.entrypoints=websecure'
+      # - 'traefik.http.routers.droni-react-frontend-https-router.tls=true'
+      # - 'traefik.http.routers.droni-react-frontend-https-router.tls.certresolver=myresolver' # Traefik에 설정된 인증서 해석기 이름
+      # - 'traefik.http.routers.droni-react-frontend-https-router.service=droni-react-frontend-svc' # HTTP와 동일한 Traefik 서비스 사용
 
-      # --- 서비스 포트 설정 ---
-      # Traefik이 frontend 서비스(Nginx)의 8080번 포트로 트래픽을 전달하도록 설정
-      - 'traefik.http.services.frontend-service.loadbalancer.server.port=8080'
+      # --- Traefik 서비스 설정 ---
+      # 'droni-react-frontend-svc'라는 이름의 Traefik 서비스를 정의합니다.
+      # 이 서비스는 이 Docker Compose 서비스('frontend') 내부의 Nginx 8080번 포트로 트래픽을 전달합니다.
+      - 'traefik.http.services.droni-react-frontend-svc.loadbalancer.server.port=8080'
 
       # --- 미들웨어 설정 (선택 사항 예시) ---
       # HTTP를 HTTPS로 리디렉션하려면 Traefik에 'redirect-to-https' 미들웨어가 정의되어 있어야 합니다.
-      # - "traefik.http.routers.frontend-http.middlewares=redirect-to-https@docker"
+      # - "traefik.http.routers.droni-react-frontend-http-router.middlewares=redirect-to-https@docker"
       #
       # 사용자 정의 헤더를 추가하려면 Traefik에 해당 미들웨어가 정의되어 있어야 합니다.
-      # - "traefik.http.routers.frontend-https.middlewares=my-default-headers@docker"
+      # - "traefik.http.routers.droni-react-frontend-https-router.middlewares=my-default-headers@docker"
 
 networks:
   traefik_network:
