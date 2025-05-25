@@ -62,6 +62,19 @@ COPY --from=builder /app/dist /usr/share/nginx/html
 # Traefik은 이 포트를 자동으로 감지하거나 docker-compose.yml에서 명시적으로 지정할 수 있습니다.
 EXPOSE 8080
 
+# Nginx 실행에 필요한 디렉토리 생성 및 권한 설정
+# Nginx가 임시 파일 및 PID 파일을 저장할 디렉토리에 대한 쓰기 권한을 nginx 사용자에게 부여합니다.
+RUN mkdir -p /var/cache/nginx/client_temp /var/run/nginx && \
+  chown -R nginx:nginx /var/cache/nginx /var/run/nginx && \
+  chmod -R 700 /var/cache/nginx && \
+  # Nginx PID 파일 경로에 대한 쓰기 권한을 nginx 사용자에게 부여합니다.
+  # 기본 nginx.conf에서 pid /var/run/nginx.pid; 로 설정되어 있을 경우 필요합니다.
+  # Alpine Nginx 이미지의 기본 설정에서는 /run/nginx.pid 를 사용하며, /run 디렉토리는 일반적으로 적절한 권한을 가집니다.
+  # 만약 사용자 정의 nginx.conf에서 다른 pid 경로를 사용한다면 해당 경로에 대한 권한 설정이 필요할 수 있습니다.
+  # 다음 줄은 /var/run/nginx.pid 에 대한 소유권을 명시적으로 설정합니다.
+  touch /var/run/nginx.pid && \
+  chown -R nginx:nginx /var/run/nginx.pid
+
 # Nginx 프로세스를 nginx 사용자로 실행하여 보안을 강화합니다.
 USER nginx
 
