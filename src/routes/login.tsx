@@ -4,6 +4,7 @@ import KakaoIcon from '@/assets/icons/kakao-icon.svg';
 import NaverIcon from '@/assets/icons/naver-icon.svg';
 import DroniLogo from '@/assets/images/droni-logo.svg';
 import { KakaoConsentPopup } from '@/components';
+import { NaverConsentPopup } from '@/components/NaverConsentPopup';
 import { createFileRoute, useNavigate } from '@tanstack/react-router';
 import { type JSX, useState } from 'react';
 
@@ -26,6 +27,7 @@ const KAKAO_CONSENT_ITEMS = [
  */
 function LoginScreen(): JSX.Element {
   const [isKakaoConsentOpen, setIsKakaoConsentOpen] = useState(false);
+  const [isNaverConsentOpen, setIsNaverConsentOpen] = useState(false);
   const navigate = useNavigate();
 
   const handleKakaoLogin = () => {
@@ -35,6 +37,7 @@ function LoginScreen(): JSX.Element {
 
   const handleNaverLogin = () => {
     console.log('네이버 로그인 시도');
+    setIsNaverConsentOpen(true);
   };
 
   const handleKakaoConsentAgree = () => {
@@ -48,6 +51,19 @@ function LoginScreen(): JSX.Element {
   const handleKakaoConsentClose = () => {
     console.log('카카오 로그인 동의 취소 또는 팝업 닫음');
     setIsKakaoConsentOpen(false); // 팝업 닫기
+  };
+
+  const handleNaverConsentAgree = () => {
+    console.log('네이버 로그인 동의함');
+    setIsNaverConsentOpen(false); // 팝업 닫기
+    // TODO: 실제 네이버 로그인 API 호출 및 다음 단계 진행
+    // 예: 네이버 인증 페이지로 리디렉션 또는 백엔드와 통신
+    navigate({ to: '/dashboard/user' });
+  };
+
+  const handleNaverConsentClose = () => {
+    console.log('네이버 로그인 동의 취소 또는 팝업 닫음');
+    setIsNaverConsentOpen(false); // 팝업 닫기
   };
 
   return (
@@ -114,6 +130,12 @@ function LoginScreen(): JSX.Element {
         onClose={handleKakaoConsentClose}
         onAgree={handleKakaoConsentAgree}
         consentItems={KAKAO_CONSENT_ITEMS}
+      />
+      {/* 네이버 동의 팝업 추가 */}
+      <NaverConsentPopup
+        isOpen={isNaverConsentOpen}
+        onClose={handleNaverConsentClose}
+        onAgree={handleNaverConsentAgree}
       />
     </>
   );
