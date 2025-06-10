@@ -1,54 +1,14 @@
+# General
+# ----------------------------------------------------------------------
 # Dependencies
 /node_modules
+
+# Yarn PnP & Berry
+# This configuration is common for committing .yarn/releases, .yarn/plugins, etc.,
+# but not the cache or transient PnP files.
 /.pnp
 .pnp.js
 .pnp.cjs
-
-# Build output
-/dist
-/dist-ssr
-/build
-/.next/
-/out/
-
-# Local Environment Variables and Configuration
-.env
-.env*.local
-*.local
-
-# Log files
-*.log
-npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
-pnpm-debug.log*
-lerna-debug.log*
-
-# Test output
-/coverage
-/.nyc_output
-
-# IDE & Editor specific
-.vscode/*
-!.vscode/settings.json
-!.vscode/tasks.json
-!.vscode/launch.json
-!.vscode/extensions.json
-*.sublime-workspace
-*.sublime-project
-.idea
-.project
-.classpath
-.c9/
-
-# Operating System generated files
-.DS_Store
-._*
-Thumbs.db
-ehthumbs.db
-ehthumbs_vista.db
-
-# Yarn Zero-Installs (Keep if using Yarn Berry with Zero-Installs)
 .yarn/*
 !.yarn/cache
 !.yarn/patches
@@ -57,15 +17,137 @@ ehthumbs_vista.db
 !.yarn/sdks
 !.yarn/versions
 
-# Miscellaneous
-.eslintcache
-.stylelintcache
-.prettiercache
-.cache
-.npm
-.node_repl_history
-*.tgz
-*.zip
+# Build & Output
+/dist
+/build
+/out/
+.vite/
 
-# Vite
-.vite
+# Local Environment Variables & Configuration
+.env
+.env.*.local
+*.local
+local.properties # Android specific, but also general for local properties
+
+# Log Files
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+hs_err_pid* # Java VM crash logs
+
+# Test Output
+/coverage
+/.nyc_output
+
+# Tool Caches & Temporary Files
+.cache # General cache directory
+.npm   # npm cache files
+.node_repl_history
+*.tgz # Packaged archives
+*.zip # Compressed archives
+
+# OS Generated Files
+.DS_Store
+._*
+Thumbs.db
+ehthumbs.db
+ehthumbs_vista.db
+
+# IDE & Editor Specific
+# ----------------------------------------------------------------------
+## VSCode
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+
+## IntelliJ / Android Studio
+.idea/
+*.iml
+*.ipr
+*.iws
+# Specific files sometimes outside .idea or causing issues:
+misc.xml
+deploymentTargetDropDown.xml
+render.experimental.xml
+
+## Sublime Text
+*.sublime-workspace
+*.sublime-project
+
+## Other / Legacy IDEs
+.project
+.classpath
+.c9/
+
+# Mobile Development (Capacitor: Android & iOS/Xcode)
+# ----------------------------------------------------------------------
+
+### Android (Gradle, Android Studio) ###
+# Build artifacts & outputs
+*.apk
+*.aab
+*.ap_
+*.dex # Dalvik executable
+# /build/ and /out/ are globally ignored.
+# For multi-module projects, ensure nested build/out are also covered:
+# */build/
+# */out/
+# */local.properties # For nested module local properties
+
+# Gradle
+.gradle/
+!/gradle/wrapper/gradle-wrapper.jar # IMPORTANT: Keep Gradle wrapper
+
+# Android Studio generated folders
+captures/
+.externalNativeBuild/
+.cxx/
+# .navigation/ # If used by project
+output.json # If it's a generated build metadata file
+
+# Signing & Sensitive Info
+*.jks
+*.keystore
+google-services.json # Should be added by each developer
+
+# Profiling
+*.hprof
+
+# Legacy / Specific (uncomment if needed)
+# gen/
+# bin/
+# gen-external-apklibs
+# proguard/
+
+### Xcode (iOS) ###
+# User settings
+xcuserdata/
+
+# Build artifacts
+# /build/ is globally ignored
+# DerivedData/ # Common Xcode build output, if not covered by global /build
+
+# Project files (allow sharing schemes and core project structure)
+# Keep project.pbxproj and shared data, ignore user-specific parts
+*.xcodeproj/*
+!*.xcodeproj/project.pbxproj
+!*.xcodeproj/xcshareddata/              # Shared schemes, etc.
+!*.xcodeproj/project.xcworkspace/       # The workspace file itself
+!*.xcworkspace/contents.xcworkspacedata # Workspace data
+# !**/xcshareddata/WorkspaceSettings.xcsettings # Usually user-specific, ignore if causing issues
+
+# Other Xcode files
+*.xcscmblueprint # Source control blueprint, can be shared
+*.xccheckout     # Source control checkout data, can be shared
+/*.gcno          # Coverage files, if generated
+
+# Miscellaneous
+# ----------------------------------------------------------------------
+# Editor backup files
+*~
+*.swp
