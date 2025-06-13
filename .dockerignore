@@ -7,8 +7,6 @@ bun.lockb
 
 # Logs
 npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
 pnpm-debug.log*
 lerna-debug.log*
 *.log
@@ -57,16 +55,6 @@ src/**/*.stories.tsx
 src/**/__tests__
 src/**/__mocks__
 # storybook-static # If Storybook static build output is generated locally
-
-# Yarn Berry PnP specific files
-# .yarn/cache is intentionally NOT ignored here if it's committed to Git (via !.yarn/cache in .gitignore)
-# and you want to use the committed cache in your Docker build.
-# If you prefer to always fetch/build cache freshly in Docker, add .yarn/cache here.
-.yarn/unplugged
-.yarn/__virtual__
-.yarn/build-state.yml
-.yarn/install-state.gz
-# .pnp.cjs and .pnp.loader.mjs are typically committed and copied explicitly in Dockerfile, so not listed here.
 
 # Other development files or temporary files
 # Add any other files or directories that are not needed in the production image

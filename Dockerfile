@@ -11,27 +11,14 @@ WORKDIR /app
 # 이는 많은 빌드 도구와 라이브러리가 프로덕션 최적화를 수행하도록 합니다.
 ENV NODE_ENV=production
 
-# Corepack을 활성화하여 package.json에 명시된 Yarn 버전을 사용하도록 합니다.
-# package.json에 "packageManager": "yarn@x.y.z" 필드가 설정되어 있는지 확인하세요.
-RUN corepack enable
-
 # 의존성 관련 파일들을 먼저 복사하여 Docker 레이어 캐싱을 활용합니다.
-# 이 파일들이 변경되지 않으면 'yarn install' 단계를 다시 실행하지 않아 빌드 시간을 단축할 수 있습니다.
-COPY package.json yarn.lock ./
-
-# Yarn Berry (v2+) 및 PnP(Plug'n'Play) 관련 파일들을 복사합니다.
-# .pnp.cjs와 .pnp.loader.mjs는 PnP 모드에 필요합니다.
-# .yarn 디렉토리에는 Yarn 실행 파일(.yarn/releases), 플러그인(.yarn/plugins) 등이 포함됩니다.
-# 이 파일들은 Git 저장소에 커밋되어 있어야 합니다.
-COPY .pnp.cjs ./.pnp.cjs
-COPY .pnp.loader.mjs ./.pnp.loader.mjs
-COPY .yarn ./.yarn
+COPY package.json pnpm-lock.yaml ./
 
 # 의존성을 설치합니다.
-# '--immutable' 플래그는 yarn.lock 파일을 변경하지 않고, lockfile과 실제 의존성 상태가 일치하는지 확인합니다.
-# CI/CD 환경에서 일관되고 재현 가능한 빌드를 보장하는 데 중요합니다.
 # devDependencies를 포함하여 모든 의존성을 설치하기 위해 NODE_ENV를 일시적으로 development로 설정합니다.
-RUN NODE_ENV=development yarn install --immutable
+# 프로덕션 빌드 시 devDependencies가 필요 없다면 이 부분을 조정할 수 있습니다.
+# pnpm은 기본적으로 devDependencies를 설치하지 않으므로, 빌드에 필요하다면 --prod 플래그 없이 실행합니다.
+RUN pnpm install --frozen-lockfile
 
 # 애플리케이션 빌드에 필요한 소스 코드 및 설정 파일만 복사합니다.
 COPY src ./src
@@ -42,8 +29,7 @@ COPY tsconfig.json ./
 # 프로젝트에 필요한 다른 루트 파일이나 디렉토리가 있다면 여기에 추가합니다.
 
 # 애플리케이션 프로덕션 빌드를 실행합니다.
-# package.json 파일 내 "scripts"의 "build" 명령어를 사용합니다 (예: "vite build && tsc").
-RUN yarn build
+RUN pnpm build
 
 # ---- 실행 스테이지 (Runner Stage) ----
 # Nginx 1.28.0-alpine3.21 버전을 실행 환경으로 사용합니다.

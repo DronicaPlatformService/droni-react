@@ -2,16 +2,15 @@
   "$schema": "https://biomejs.dev/schemas/1.9.4/schema.json",
   "files": {
     "ignore": ["build", "dist", "node_modules", "src/routeTree.gen.ts"],
-    "ignoreUnknown": false,
-    "include": [".vscode/*", "index.html", "src/*", "vite.config.js"]
+    "ignoreUnknown": false
   },
   "formatter": {
     "enabled": true,
     "formatWithErrors": false,
     "indentStyle": "space",
     "indentWidth": 2,
-    "lineEnding": "lf",
-    "lineWidth": 100
+    "lineWidth": 100,
+    "lineEnding": "lf"
   },
   "javascript": {
     "formatter": {
@@ -36,8 +35,8 @@
         "noNonNullAssertion": "error"
       },
       "suspicious": {
-        "noConsoleLog": "warn",
-        "noExplicitAny": "warn"
+        "noConsoleLog": "error",
+        "noExplicitAny": "error"
       }
     }
   },
@@ -46,7 +45,7 @@
   },
   "vcs": {
     "clientKind": "git",
-    "enabled": false,
-    "useIgnoreFile": false
+    "enabled": true,
+    "useIgnoreFile": true
   }
 }

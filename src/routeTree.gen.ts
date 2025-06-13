@@ -8,90 +8,44 @@
 // You should NOT make any changes in this file as it will be overwritten.
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
-// Import Routes
+import { Route as rootRouteImport } from './routes/__root'
+import { Route as SettingsRouteImport } from './routes/settings'
+import { Route as MypageRouteImport } from './routes/mypage'
+import { Route as LoginRouteImport } from './routes/login'
+import { Route as IndexRouteImport } from './routes/index'
+import { Route as DashboardUserRouteImport } from './routes/dashboard.user'
+import { Route as AuthNaverCallbackRouteImport } from './routes/auth/naver/callback'
 
-import { Route as rootRoute } from './routes/__root'
-import { Route as SettingsImport } from './routes/settings'
-import { Route as MypageImport } from './routes/mypage'
-import { Route as LoginImport } from './routes/login'
-import { Route as IndexImport } from './routes/index'
-import { Route as DashboardUserImport } from './routes/dashboard.user'
-
-// Create/Update Routes
-
-const SettingsRoute = SettingsImport.update({
+const SettingsRoute = SettingsRouteImport.update({
   id: '/settings',
   path: '/settings',
-  getParentRoute: () => rootRoute,
+  getParentRoute: () => rootRouteImport,
 } as any)
-
-const MypageRoute = MypageImport.update({
+const MypageRoute = MypageRouteImport.update({
   id: '/mypage',
   path: '/mypage',
-  getParentRoute: () => rootRoute,
+  getParentRoute: () => rootRouteImport,
 } as any)
-
-const LoginRoute = LoginImport.update({
+const LoginRoute = LoginRouteImport.update({
   id: '/login',
   path: '/login',
-  getParentRoute: () => rootRoute,
+  getParentRoute: () => rootRouteImport,
 } as any)
-
-const IndexRoute = IndexImport.update({
+const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
-  getParentRoute: () => rootRoute,
+  getParentRoute: () => rootRouteImport,
 } as any)
-
-const DashboardUserRoute = DashboardUserImport.update({
+const DashboardUserRoute = DashboardUserRouteImport.update({
   id: '/dashboard/user',
   path: '/dashboard/user',
-  getParentRoute: () => rootRoute,
+  getParentRoute: () => rootRouteImport,
 } as any)
-
-// Populate the FileRoutesByPath interface
-
-declare module '@tanstack/react-router' {
-  interface FileRoutesByPath {
-    '/': {
-      id: '/'
-      path: '/'
-      fullPath: '/'
-      preLoaderRoute: typeof IndexImport
-      parentRoute: typeof rootRoute
-    }
-    '/login': {
-      id: '/login'
-      path: '/login'
-      fullPath: '/login'
-      preLoaderRoute: typeof LoginImport
-      parentRoute: typeof rootRoute
-    }
-    '/mypage': {
-      id: '/mypage'
-      path: '/mypage'
-      fullPath: '/mypage'
-      preLoaderRoute: typeof MypageImport
-      parentRoute: typeof rootRoute
-    }
-    '/settings': {
-      id: '/settings'
-      path: '/settings'
-      fullPath: '/settings'
-      preLoaderRoute: typeof SettingsImport
-      parentRoute: typeof rootRoute
-    }
-    '/dashboard/user': {
-      id: '/dashboard/user'
-      path: '/dashboard/user'
-      fullPath: '/dashboard/user'
-      preLoaderRoute: typeof DashboardUserImport
-      parentRoute: typeof rootRoute
-    }
-  }
-}
-
-// Create and export the route tree
+const AuthNaverCallbackRoute = AuthNaverCallbackRouteImport.update({
+  id: '/auth/naver/callback',
+  path: '/auth/naver/callback',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -99,40 +53,106 @@ export interface FileRoutesByFullPath {
   '/mypage': typeof MypageRoute
   '/settings': typeof SettingsRoute
   '/dashboard/user': typeof DashboardUserRoute
+  '/auth/naver/callback': typeof AuthNaverCallbackRoute
 }
-
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/login': typeof LoginRoute
   '/mypage': typeof MypageRoute
   '/settings': typeof SettingsRoute
   '/dashboard/user': typeof DashboardUserRoute
+  '/auth/naver/callback': typeof AuthNaverCallbackRoute
 }
-
 export interface FileRoutesById {
-  __root__: typeof rootRoute
+  __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/login': typeof LoginRoute
   '/mypage': typeof MypageRoute
   '/settings': typeof SettingsRoute
   '/dashboard/user': typeof DashboardUserRoute
+  '/auth/naver/callback': typeof AuthNaverCallbackRoute
 }
-
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/login' | '/mypage' | '/settings' | '/dashboard/user'
+  fullPaths:
+    | '/'
+    | '/login'
+    | '/mypage'
+    | '/settings'
+    | '/dashboard/user'
+    | '/auth/naver/callback'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/login' | '/mypage' | '/settings' | '/dashboard/user'
-  id: '__root__' | '/' | '/login' | '/mypage' | '/settings' | '/dashboard/user'
+  to:
+    | '/'
+    | '/login'
+    | '/mypage'
+    | '/settings'
+    | '/dashboard/user'
+    | '/auth/naver/callback'
+  id:
+    | '__root__'
+    | '/'
+    | '/login'
+    | '/mypage'
+    | '/settings'
+    | '/dashboard/user'
+    | '/auth/naver/callback'
   fileRoutesById: FileRoutesById
 }
-
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   LoginRoute: typeof LoginRoute
   MypageRoute: typeof MypageRoute
   SettingsRoute: typeof SettingsRoute
   DashboardUserRoute: typeof DashboardUserRoute
+  AuthNaverCallbackRoute: typeof AuthNaverCallbackRoute
+}
+
+declare module '@tanstack/react-router' {
+  interface FileRoutesByPath {
+    '/settings': {
+      id: '/settings'
+      path: '/settings'
+      fullPath: '/settings'
+      preLoaderRoute: typeof SettingsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/mypage': {
+      id: '/mypage'
+      path: '/mypage'
+      fullPath: '/mypage'
+      preLoaderRoute: typeof MypageRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/login': {
+      id: '/login'
+      path: '/login'
+      fullPath: '/login'
+      preLoaderRoute: typeof LoginRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/': {
+      id: '/'
+      path: '/'
+      fullPath: '/'
+      preLoaderRoute: typeof IndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/dashboard/user': {
+      id: '/dashboard/user'
+      path: '/dashboard/user'
+      fullPath: '/dashboard/user'
+      preLoaderRoute: typeof DashboardUserRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/auth/naver/callback': {
+      id: '/auth/naver/callback'
+      path: '/auth/naver/callback'
+      fullPath: '/auth/naver/callback'
+      preLoaderRoute: typeof AuthNaverCallbackRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+  }
 }
 
 const rootRouteChildren: RootRouteChildren = {
@@ -141,40 +161,8 @@ const rootRouteChildren: RootRouteChildren = {
   MypageRoute: MypageRoute,
   SettingsRoute: SettingsRoute,
   DashboardUserRoute: DashboardUserRoute,
+  AuthNaverCallbackRoute: AuthNaverCallbackRoute,
 }
-
-export const routeTree = rootRoute
+export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
-
-/* ROUTE_MANIFEST_START
-{
-  "routes": {
-    "__root__": {
-      "filePath": "__root.tsx",
-      "children": [
-        "/",
-        "/login",
-        "/mypage",
-        "/settings",
-        "/dashboard/user"
-      ]
-    },
-    "/": {
-      "filePath": "index.tsx"
-    },
-    "/login": {
-      "filePath": "login.tsx"
-    },
-    "/mypage": {
-      "filePath": "mypage.tsx"
-    },
-    "/settings": {
-      "filePath": "settings.tsx"
-    },
-    "/dashboard/user": {
-      "filePath": "dashboard.user.tsx"
-    }
-  }
-}
-ROUTE_MANIFEST_END */

@@ -1,9 +1,9 @@
+import { resolve } from 'node:path';
+
 import tailwindcss from '@tailwindcss/vite';
+import { TanStackRouterVite } from '@tanstack/router-plugin/vite';
 import viteReact from '@vitejs/plugin-react';
 import { defineConfig } from 'vite';
-
-import { TanStackRouterVite } from '@tanstack/router-plugin/vite';
-import { resolve } from 'node:path';
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -17,5 +17,9 @@ export default defineConfig({
       '@': resolve(__dirname, './src'),
     },
   },
-  base: '/droni/',
+  base: './',
+  server: {
+    host: '0.0.0.0',
+    port: 3000,
+  },
 });
