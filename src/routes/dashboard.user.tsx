@@ -51,7 +51,7 @@ function DashboardUserScreen(): JSX.Element {
   };
 
   return (
-    <div className="flex h-screen flex-col bg-gray-100">
+    <div className="flex h-screen flex-col bg-white">
       {/* Header */}
       <DashboardHeader userName={userName} hasUnreadNotification={hasUnreadNotification} />
 

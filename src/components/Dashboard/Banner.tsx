@@ -80,7 +80,7 @@ export function Banner({ className }: BannerProps): JSX.Element {
   return (
     <section
       ref={bannerRef}
-      className={twMerge('relative w-full overflow-hidden bg-gray-200', className)}
+      className={twMerge('relative w-full overflow-hidden bg-white', className)}
       style={{ height: BANNER_HEIGHT }}
       onMouseDown={handleDragStart}
       onMouseMove={handleDragMove}

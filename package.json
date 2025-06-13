@@ -11,7 +11,7 @@
     "format": "biome format",
     "lint": "biome lint",
     "check": "biome check",
-    "cap:sync:dev": "cross-env NODE_ENV=development pnpm cap sync"
+    "cap:sync:dev": "pnpm build && cross-env NODE_ENV=development pnpm cap sync"
   },
   "dependencies": {
     "@capacitor/android": "^7.3.0",
