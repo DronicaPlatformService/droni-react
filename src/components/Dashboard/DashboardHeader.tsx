@@ -19,7 +19,7 @@ export function DashboardHeader({
   hasUnreadNotification = false,
 }: DashboardHeaderProps): JSX.Element {
   return (
-    <header className="flex h-[52px] items-center justify-between px-5 py-3">
+    <header className="mt-[env(safe-area-inset-top)] flex h-[52px] items-center justify-between px-5 py-3">
       <p className="font-spoqa text-system-01 tracking-tight-1pct text-gray-800">
         {userName} 이용자님
       </p>
