@@ -1,6 +1,6 @@
 # Modern React Coding Guidelines (Production Level with TanStack, Tailwind CSS & Biome)
 
-**Current Date for Context:** May 9, 2025
+**Current Date for Context:** June 13, 2025
 
 These guidelines aim to promote code that is readable, maintainable, scalable, performant, and testable. They emphasize modern React features, best practices, the use of the TanStack ecosystem (Query, Router, Table, Form, Store), Tailwind CSS for styling, and Biome for tooling. This includes considerations for evolving patterns like React Server Components.
 
@@ -35,8 +35,11 @@ These guidelines aim to promote code that is readable, maintainable, scalable, p
     - TanStack's headless libraries help by separating concerns. Tailwind CSS allows presentational components to focus solely on their appearance via utility classes.
 
 6.  **TypeScript (Mandatory):**
+
     - **Use TypeScript for all new React code.** The TanStack ecosystem is built with TypeScript first, offering excellent type safety and inference.
     - Define clear types/interfaces for props, state, API responses, form schemas, route params, etc.
+
+7.  **Project Context: React with Capacitor Webview:** This project utilizes React to build a web application that is then wrapped in a webview using Capacitor for deployment as a native mobile application. Code generation should consider this hybrid architecture, ensuring compatibility with web standards while also being mindful of potential native interactions or constraints imposed by the webview environment.
 
 ---
 
@@ -1494,10 +1497,13 @@ React Server Components (RSCs) represent a paradigm shift, allowing components t
 1.  **Understand the Core Distinction:**
 
     - **Server Components (Default in frameworks like Next.js App Router):**
+
       - Run on the server. Cannot use Hooks (`useState`, `useEffect`, etc.) or browser-only APIs (e.g., `window`).
       - Can be `async/await` to directly fetch data or access server-side resources (databases, file system).
       - Their code is **never** shipped to the client, reducing bundle size.
+
       - Ideal for static content, data fetching, and sections not requiring interactivity. Render to a virtual DOM representation that can be streamed to the client.
+
     - **Client Components (Opt-in with `"use client";` directive):**
       - Render initially on the server (SSR/SSG by frameworks) and then "hydrate" and run on the client, enabling interactivity.
       - Can use Hooks (`useState`, `useEffect`), browser APIs, and manage client-side state.

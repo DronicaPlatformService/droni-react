@@ -119,5 +119,5 @@ body {
      필요한 컴포넌트에 개별적으로 적용하는 것이 좋습니다. */
   padding-left: var(--safe-area-inset-left);
   /* 기존 스타일 유지 */
-  @apply bg-gray-100; /* 예시: body 기본 배경색 설정 */
+  @apply bg-white;
 }
