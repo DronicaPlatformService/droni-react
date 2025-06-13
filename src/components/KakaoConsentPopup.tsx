@@ -2,17 +2,18 @@
 
 import type { JSX } from 'react';
 
-interface ConsentItem {
-  id: string;
-  text: string;
-  isOptional?: boolean;
-}
+const KAKAO_CONSENT_ITEMS = [
+  { id: 'profile', text: '프로필 정보 (닉네임, 프로필 사진)', isOptional: false },
+  { id: 'email', text: '카카오계정 (이메일)', isOptional: false },
+  { id: 'gender', text: '성별', isOptional: true },
+  { id: 'age_range', text: '연령대', isOptional: true },
+  { id: 'shipping_address', text: '배송지 정보 (이름, 연락처, 주소)', isOptional: true },
+];
 
 interface KakaoConsentPopupProps {
   isOpen: boolean;
   onClose: () => void;
   onAgree: () => void;
-  consentItems: ConsentItem[];
 }
 
 /**
@@ -26,7 +27,6 @@ export const KakaoConsentPopup = ({
   isOpen,
   onClose,
   onAgree,
-  consentItems,
 }: KakaoConsentPopupProps): JSX.Element | null => {
   if (!isOpen) {
     return null;
@@ -68,7 +68,7 @@ export const KakaoConsentPopup = ({
           항목의 경우)
         </p>
         <ul className="mb-6 space-y-3">
-          {consentItems.map((item) => (
+          {KAKAO_CONSENT_ITEMS.map((item) => (
             <li key={item.id} className="flex items-start text-sm">
               <svg
                 className={`mr-3 mt-0.5 h-4 w-4 flex-shrink-0 ${

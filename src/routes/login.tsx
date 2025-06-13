@@ -11,15 +11,6 @@ export const Route = createFileRoute('/login')({
   component: LoginScreen,
 });
 
-// 동의 항목 예시 (실제 카카오 API에서 요청하는 항목과 다를 수 있습니다)
-const KAKAO_CONSENT_ITEMS = [
-  { id: 'profile', text: '프로필 정보 (닉네임, 프로필 사진)', isOptional: false },
-  { id: 'email', text: '카카오계정 (이메일)', isOptional: false },
-  { id: 'gender', text: '성별', isOptional: true },
-  { id: 'age_range', text: '연령대', isOptional: true },
-  { id: 'shipping_address', text: '배송지 정보 (이름, 연락처, 주소)', isOptional: true },
-];
-
 /**
  * @description 소셜 로그인을 제공하는 로그인 화면 컴포넌트입니다.
  * 사용자는 카카오 또는 네이버를 통해 로그인할 수 있습니다.
@@ -29,16 +20,42 @@ function LoginScreen(): JSX.Element {
   const navigate = useNavigate();
 
   const handleKakaoLogin = () => {
-    console.log('카카오 로그인 시도');
     setIsKakaoConsentOpen(true);
   };
 
   const handleNaverLogin = () => {
-    console.log('네이버 로그인 시도');
+    const NAVER_CLIENT_ID = import.meta.env.VITE_NAVER_CLIENT_ID;
+    const NAVER_REDIRECT_URI = import.meta.env.VITE_NAVER_REDIRECT_URI;
+
+    if (!NAVER_CLIENT_ID || !NAVER_REDIRECT_URI) {
+      console.error('네이버 로그인 환경 변수가 설정되지 않았습니다.');
+      return;
+    }
+
+    // CSRF 토큰 생성
+    let STATE: string;
+    if (typeof crypto !== 'undefined' && crypto.randomUUID) {
+      STATE = crypto.randomUUID();
+    } else {
+      // crypto.randomUUID가 지원되지 않는 환경을 위한 대체 로직
+      console.warn(
+        'crypto.randomUUID is not available. Using fallback for STATE token generation.',
+      );
+      STATE = 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, (c) => {
+        const r = (Math.random() * 16) | 0;
+        // eslint-disable-next-line no-bitwise
+        const v = c === 'x' ? r : (r & 0x3) | 0x8;
+        return v.toString(16);
+      });
+    }
+    sessionStorage.setItem('naver_csrf_token', STATE);
+
+    const NAVER_AUTH_URL = `https://nid.naver.com/oauth2.0/authorize?response_type=code&client_id=${NAVER_CLIENT_ID}&redirect_uri=${NAVER_REDIRECT_URI}&state=${STATE}`;
+
+    window.location.href = NAVER_AUTH_URL;
   };
 
   const handleKakaoConsentAgree = () => {
-    console.log('카카오 로그인 동의함');
     setIsKakaoConsentOpen(false); // 팝업 닫기
     // TODO: 실제 카카오 로그인 API 호출 및 다음 단계 진행
     // 예: window.location.href = '카카오_인증_URL_이동';
@@ -46,7 +63,6 @@ function LoginScreen(): JSX.Element {
   };
 
   const handleKakaoConsentClose = () => {
-    console.log('카카오 로그인 동의 취소 또는 팝업 닫음');
     setIsKakaoConsentOpen(false); // 팝업 닫기
   };
 
@@ -116,7 +132,6 @@ function LoginScreen(): JSX.Element {
         isOpen={isKakaoConsentOpen}
         onClose={handleKakaoConsentClose}
         onAgree={handleKakaoConsentAgree}
-        consentItems={KAKAO_CONSENT_ITEMS}
       />
     </div>
   );
