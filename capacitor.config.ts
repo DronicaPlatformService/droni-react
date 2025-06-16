@@ -16,11 +16,11 @@ const config: CapacitorConfig = {
     },
   }),
   // iOS 개발 시 추가 설정 (필요한 경우)
-  // ...(isDevelopment && {
-  //   ios: {
-  //     contentInset: 'always', // iOS에서 라이브 리로드 시 화면 잘림 방지
-  //   },
-  // }),
+  ...(isDevelopment && {
+    ios: {
+      contentInset: 'always', // iOS에서 라이브 리로드 시 화면 잘림 방지
+    },
+  }),
 };
 
 export default config;

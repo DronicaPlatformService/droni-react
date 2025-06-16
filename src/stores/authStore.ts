@@ -14,6 +14,7 @@ interface AuthActions {
   setUser: (userProfile: null) => void;
   loadInitialState: () => void;
   setLoading: (loading: boolean) => void;
+  reissueToken: (redirectionUrl: string) => Promise<void>;
 }
 
 const getInitialState = (): AuthState => {
@@ -111,30 +112,57 @@ const setLoading = (loading: boolean) => {
 };
 
 const loadInitialState = () => {
-  // This re-applies the initial state logic.
-  // Since the store is already initialized with getInitialState(),
-  // this might be redundant unless specific re-initialization logic is needed.
-  // Or, it can be used to trigger effects like fetching user profiles if tokens exist.
-  const reloadedState = getInitialState();
-  authStore.setState(reloadedState);
-  // Example: if (reloadedState.accessToken) { /* fetch user profile and call setUser */ }
+  authStore.setState(getInitialState());
 };
 
-// Expose actions through the store's state or a separate actions object if preferred.
-// For direct use, ensure they are exported or attached to the store if that pattern is desired.
-// TanStack Store doesn't enforce a specific way to organize actions like Redux toolkits.
-// We can make them available on the store instance for convenience, though this is not standard.
-// A more common pattern is to export actions separately or use them within hooks/components directly.
+const reissueToken = async (redirectionUrl: string) => {
+  setLoading(true);
+  try {
+    // HttpOnly 쿠키에 있는 Refresh Token은 브라우저가 자동으로 전송합니다.
+    // 백엔드 API URL 환경 변수 사용
+    const backendUrl = import.meta.env.VITE_BACKEND_URL || 'http://localhost:8080'; // 기본값 설정
+    const currentAccessToken = authStore.state.accessToken;
 
-// To make actions callable like authStore.login(...), you would typically extend the Store class
-// or manage actions separately. For this iteration, we will export them and they can be imported and used.
+    if (!currentAccessToken) {
+      console.error('No access token available for reissue.');
+      logout();
+      setLoading(false);
+      return;
+    }
 
-export { loadInitialState, login, logout, setLoading, setTokens, setUser };
-export type { AuthActions, AuthState }; // Exporting types for use elsewhere
+    const response = await fetch(`${backendUrl}/reissue?redirectionUrl=${encodeURIComponent(redirectionUrl)}`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        // API 명세에 따라 만료된 AccessToken을 헤더에 포함해야 할 수도 있습니다.
+        // Authorization: `Bearer ${currentAccessToken}`
+      },
+      body: JSON.stringify({ accessToken: currentAccessToken }),
+    });
 
-// App initialization note:
-// The store is initialized with data from localStorage when authStore is created.
-// `loadInitialState()` can be called explicitly if, for example, you need to re-verify tokens
-// or fetch user data after initial load.
-// e.g., in main.tsx: authStore.getState().loadInitialState(); (if actions were part of state)
-// or simply: loadInitialState(); (if actions are separate like here)
+    if (response.ok) {
+      const data = await response.json();
+      if (data.accessToken) {
+        setTokens({ accessToken: data.accessToken });
+      } else {
+        // 응답에 accessToken이 없는 경우, API 명세 확인 필요
+        console.error('Reissue token response does not contain accessToken:', data);
+        logout(); // 또는 다른 에러 처리
+      }
+    } else {
+      // 401 (Unauthorized) 또는 다른 에러 코드 처리
+      // Refresh Token이 만료되었거나 유효하지 않은 경우
+      console.error('Failed to reissue token:', response.status, await response.text());
+      logout();
+    }
+  } catch (error) {
+    console.error('Error during token reissue:', error);
+    logout(); // 네트워크 에러 등 발생 시 로그아웃
+  } finally {
+    setLoading(false);
+  }
+};
+
+export { loadInitialState, login, logout, reissueToken, setLoading, setTokens, setUser };
+export type { AuthActions, AuthState };
+
