@@ -1,137 +1,98 @@
-# General
-# ----------------------------------------------------------------------
 # Dependencies
-/node_modules
+node_modules/
 
 # Build & Output
-/dist
-/build
-/out/
+dist/
+build/
+out/
 .vite/
 
-# Local Environment Variables & Configuration
+# Environment Variables
 .env
+.env.local
 .env.*.local
 *.local
-local.properties # Android specific, but also general for local properties
+local.properties
 
-# Log Files
+# Logs
 *.log
 npm-debug.log*
 pnpm-debug.log*
+yarn-debug.log*
+yarn-error.log*
 lerna-debug.log*
-hs_err_pid* # Java VM crash logs
 
-# Test Output
-/coverage
-/.nyc_output
+# Test Coverage
+coverage/
+.nyc_output/
 
-# Tool Caches & Temporary Files
-.cache # General cache directory
-.npm   # npm cache files
-.node_repl_history
-*.tgz # Packaged archives
-*.zip # Compressed archives
+# Caches
+.cache/
+.npm/
+.eslintcache
+.parcel-cache/
+
+# Runtime data
+pids/
+*.pid
+*.seed
+*.pid.lock
 
 # OS Generated Files
 .DS_Store
+.DS_Store?
 ._*
-Thumbs.db
+.Spotlight-V100
+.Trashes
 ehthumbs.db
-ehthumbs_vista.db
+Thumbs.db
 
-# IDE & Editor Specific
-# ----------------------------------------------------------------------
-## VSCode
-.vscode/*
+# IDEs and Editors
+.vscode/
 !.vscode/settings.json
 !.vscode/tasks.json
 !.vscode/launch.json
 !.vscode/extensions.json
-
-## IntelliJ / Android Studio
 .idea/
-*.iml
-*.ipr
-*.iws
-# Specific files sometimes outside .idea or causing issues:
-misc.xml
-deploymentTargetDropDown.xml
-render.experimental.xml
+*.swp
+*.swo
+*~
 
-## Sublime Text
-*.sublime-workspace
-*.sublime-project
+# Capacitor
+.capacitor/
+android/app/build/
+android/build/
+android/.gradle/
+android/captures/
+android/local.properties
+android/app/release/
+ios/build/
+ios/DerivedData/
 
-## Other / Legacy IDEs
-.project
-.classpath
-.c9/
-
-# Mobile Development (Capacitor: Android & iOS/Xcode)
-# ----------------------------------------------------------------------
-
-### Android (Gradle, Android Studio) ###
-# Build artifacts & outputs
+# Android
 *.apk
 *.aab
 *.ap_
-*.dex # Dalvik executable
-# /build/ and /out/ are globally ignored.
-# For multi-module projects, ensure nested build/out are also covered:
-# */build/
-# */out/
-# */local.properties # For nested module local properties
-
-# Gradle
+*.dex
 .gradle/
-!/gradle/wrapper/gradle-wrapper.jar # IMPORTANT: Keep Gradle wrapper
-
-# Android Studio generated folders
 captures/
 .externalNativeBuild/
 .cxx/
-# .navigation/ # If used by project
-output.json # If it's a generated build metadata file
-
-# Signing & Sensitive Info
 *.jks
 *.keystore
-google-services.json # Should be added by each developer
+google-services.json
 
-# Profiling
-*.hprof
-
-# Legacy / Specific (uncomment if needed)
-# gen/
-# bin/
-# gen-external-apklibs
-# proguard/
-
-### Xcode (iOS) ###
-# User settings
+# iOS
 xcuserdata/
-
-# Build artifacts
-# /build/ is globally ignored
-# DerivedData/ # Common Xcode build output, if not covered by global /build
-
-# Project files (allow sharing schemes and core project structure)
-# Keep project.pbxproj and shared data, ignore user-specific parts
 *.xcodeproj/*
 !*.xcodeproj/project.pbxproj
-!*.xcodeproj/xcshareddata/              # Shared schemes, etc.
-!*.xcodeproj/project.xcworkspace/       # The workspace file itself
-!*.xcworkspace/contents.xcworkspacedata # Workspace data
-# !**/xcshareddata/WorkspaceSettings.xcsettings # Usually user-specific, ignore if causing issues
+!*.xcodeproj/xcshareddata/
+!*.xcodeproj/project.xcworkspace/
+!*.xcworkspace/contents.xcworkspacedata
 
-# Other Xcode files
-*.xcscmblueprint # Source control blueprint, can be shared
-*.xccheckout     # Source control checkout data, can be shared
-/*.gcno          # Coverage files, if generated
+# TanStack Router
+.tanstack/
 
-# Miscellaneous
-# ----------------------------------------------------------------------
-# Editor backup files
-*~
-*.swp
+# Temporary files
+*.tmp
+*.temp
