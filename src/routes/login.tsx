@@ -24,35 +24,10 @@ function LoginScreen(): JSX.Element {
   };
 
   const handleNaverLogin = () => {
-    const NAVER_CLIENT_ID = import.meta.env.VITE_NAVER_CLIENT_ID;
-    const NAVER_REDIRECT_URI = import.meta.env.VITE_NAVER_REDIRECT_URI;
+    const backendNaverLoginUrl = `${import.meta.env.VITE_BACKEND_URL}/oauth2/authorization/naver`;
+    const frontendCallbackUrl = import.meta.env.VITE_NAVER_REDIRECT_URI;
 
-    if (!NAVER_CLIENT_ID || !NAVER_REDIRECT_URI) {
-      console.error('네이버 로그인 환경 변수가 설정되지 않았습니다.');
-      return;
-    }
-
-    // CSRF 토큰 생성
-    let STATE: string;
-    if (typeof crypto !== 'undefined' && crypto.randomUUID) {
-      STATE = crypto.randomUUID();
-    } else {
-      // crypto.randomUUID가 지원되지 않는 환경을 위한 대체 로직
-      console.warn(
-        'crypto.randomUUID is not available. Using fallback for STATE token generation.',
-      );
-      STATE = 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, (c) => {
-        const r = (Math.random() * 16) | 0;
-        // eslint-disable-next-line no-bitwise
-        const v = c === 'x' ? r : (r & 0x3) | 0x8;
-        return v.toString(16);
-      });
-    }
-    sessionStorage.setItem('naver_csrf_token', STATE);
-
-    const NAVER_AUTH_URL = `https://nid.naver.com/oauth2.0/authorize?response_type=code&client_id=${NAVER_CLIENT_ID}&redirect_uri=${NAVER_REDIRECT_URI}&state=${STATE}`;
-
-    window.location.href = NAVER_AUTH_URL;
+    window.location.href = `${backendNaverLoginUrl}?redirect_uri=${encodeURIComponent(frontendCallbackUrl)}`;
   };
 
   const handleKakaoConsentAgree = () => {
@@ -78,16 +53,10 @@ function LoginScreen(): JSX.Element {
       */}
       <div className="flex-1 flex flex-col items-center justify-center p-4 overflow-y-auto">
         <img src={DroniLogo} alt="Droni Logo" className="mb-6 h-[90px] w-[90px]" />
-        <p
-          className="mb-1.5 text-center font-spoqa text-system-01 text-gray-800"
-          style={{ letterSpacing: '-1%' }}
-        >
+        <p className="mb-1.5 text-center font-spoqa text-system-01 tracking-tight-1pct text-gray-800">
           당신 근처의 드로니
         </p>
-        <p
-          className="text-center font-spoqa text-system-08 text-gray-600"
-          style={{ letterSpacing: '-1%' }}
-        >
+        <p className="text-center font-spoqa text-system-08 tracking-tight-1pct text-gray-600">
           드로니는 드론방제 서비스 앱이에요.
           <br />내 동네를 설정하고 시작해보세요!
         </p>

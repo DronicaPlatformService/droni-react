@@ -4,14 +4,10 @@
   "projectName": "droni-react",
   "mode": "file-router",
   "tailwind": true,
-  "packageManager": "yarn",
+  "packageManager": "pnpm",
   "toolchain": "biome",
   "variableValues": {},
   "git": true,
   "version": 1,
-  "existingAddOns": [
-    "tanstack-query",
-    "form",
-    "store"
-  ]
+  "existingAddOns": ["tanstack-query", "form", "store"]
 }
