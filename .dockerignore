@@ -2,7 +2,7 @@
 node_modules
 # Common lockfiles for other package managers (yarn.lock is used and NOT ignored)
 package-lock.json
-pnpm-lock.yaml
+# pnpm-lock.yaml
 bun.lockb
 
 # Logs
@@ -25,7 +25,6 @@ coverage
 # Local Environment variables
 .env
 .env.*
-!.env.example # Optionally include an example env file if it's generic
 
 # Git files
 .git

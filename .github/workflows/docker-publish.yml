@@ -50,3 +50,7 @@ jobs:
           cache-to: type=gha,mode=max,scope=${{ github.workflow }} # GitHub Actions 캐시 사용
           provenance: true # SLSA provenance 증명 생성 (권장)
           sbom: true # SBOM 증명 생성 (권장)
+          build-args: |
+            VITE_BACKEND_URL_ARG=${{ secrets.VITE_BACKEND_URL }}
+            VITE_NAVER_CLIENT_ID_ARG=${{ secrets.VITE_NAVER_CLIENT_ID }}
+            VITE_NAVER_REDIRECT_URI_ARG=${{ secrets.VITE_NAVER_REDIRECT_URI}}
