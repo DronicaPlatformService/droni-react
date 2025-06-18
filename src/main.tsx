@@ -20,6 +20,7 @@ const router = createRouter({
   scrollRestoration: true,
   defaultStructuralSharing: true,
   defaultPreloadStaleTime: 0,
+  basepath: '/droni',
 });
 
 // Register the router instance for type safety
