@@ -22,6 +22,11 @@ readonly BACKUP_DIR="${SCRIPT_DIR}/backups"
 readonly COMPOSE_FILE="${SCRIPT_DIR}/docker-compose.yml"
 readonly LOG_FILE="${LOG_DIR}/deploy-$(date +%Y%m%d-%H%M%S).log"
 
+# Load environment configuration
+if [[ -f "${SCRIPT_DIR}/.env.deploy" ]]; then
+  source "${SCRIPT_DIR}/.env.deploy"
+fi
+
 # Default values
 ENVIRONMENT="${1:-production}"
 IMAGE_TAG="latest"
@@ -374,18 +379,20 @@ wait_for_health_check() {
 
 # 헬스 엔드포인트 테스트 (간단한 버전)
 test_health_endpoint() {
-  docker exec droni-react wget --no-verbose --tries=1 --spider --timeout=5 http://localhost:8080/droni/health >/dev/null 2>&1
+  local health_path="${HEALTH_PATH:-/droni/health}"
+  docker exec droni-react wget --no-verbose --tries=1 --spider --timeout=5 "http://localhost:8080${health_path}" >/dev/null 2>&1
 }
 
 # 헬스 엔드포인트 테스트 (상세 로그 포함)
 test_health_endpoint_verbose() {
+  local health_path="${HEALTH_PATH:-/droni/health}"
   log "INFO" "Testing health endpoint directly..."
 
   # 1. 헬스 엔드포인트 테스트
-  if docker exec droni-react wget --no-verbose --tries=1 --spider --timeout=5 http://localhost:8080/droni/health 2>&1; then
-    log "INFO" "✅ Health endpoint (/droni/health) is accessible"
+  if docker exec droni-react wget --no-verbose --tries=1 --spider --timeout=5 "http://localhost:8080${health_path}" 2>&1; then
+    log "INFO" "✅ Health endpoint (${health_path}) is accessible"
   else
-    log "WARNING" "❌ Health endpoint (/droni/health) failed"
+    log "WARNING" "❌ Health endpoint (${health_path}) failed"
 
     # 2. 메인 애플리케이션 엔드포인트 테스트
     if docker exec droni-react wget --no-verbose --tries=1 --spider --timeout=5 http://localhost:8080/droni/ 2>&1; then
