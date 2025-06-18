@@ -1,6 +1,4 @@
 # ---- 빌드 스테이지 (Builder Stage) ----
-# Alpine 이미지는 경량화되어 있습니다.
-# 'AS builder'는 이 스테이지에 'builder'라는 이름을 부여하여 이후 스테이지에서 참조할 수 있도록 합니다.
 FROM node:24.2.0-alpine3.21 AS builder
 
 # 작업 디렉토리를 '/app'으로 설정합니다.
@@ -15,13 +13,11 @@ ARG VITE_BACKEND_URL_ARG
 ARG VITE_NAVER_CLIENT_ID_ARG
 ARG VITE_NAVER_REDIRECT_URI_ARG
 
-# pnpm을 전역으로 설치합니다.
 RUN npm install -g pnpm
 
 # 의존성 관련 파일들을 먼저 복사하여 Docker 레이어 캐싱을 활용합니다.
 COPY package.json pnpm-lock.yaml ./
 
-# 의존성을 설치합니다.
 RUN env NODE_ENV=development pnpm install --frozen-lockfile
 
 # 애플리케이션 빌드에 필요한 소스 코드 및 설정 파일만 복사합니다.
@@ -39,16 +35,17 @@ RUN if [ -n "$VITE_NAVER_CLIENT_ID_ARG" ]; then printf "VITE_NAVER_CLIENT_ID=%s\
 RUN if [ -n "$VITE_NAVER_REDIRECT_URI_ARG" ]; then printf "VITE_NAVER_REDIRECT_URI=%s\n" "${VITE_NAVER_REDIRECT_URI_ARG}" >> .env.production; fi
 
 
-# 애플리케이션 프로덕션 빌드를 실행합니다.
 RUN pnpm build
 
 # ---- 실행 스테이지 (Runner Stage) ----
-# Alpine 이미지는 경량화되어 최종 이미지 크기를 줄이는 데 도움이 됩니다.
 FROM nginx:1.28.0-alpine3.21
 
 # Nginx가 8080번 포트를 사용하도록 Docker에 알립니다.
 # 실제 포트는 nginx.conf에서 listen 지시어로 설정됩니다.
 EXPOSE 8080
+
+HEALTHCHECK --interval=30s --timeout=10s --start-period=40s --retries=3 \
+  CMD wget --no-verbose --tries=1 --spider http://localhost:8080/droni/health || exit 1
 
 # 사용자 정의 Nginx 설정을 복사합니다.
 COPY nginx.conf /etc/nginx/conf.d/default.conf

@@ -298,7 +298,7 @@ wait_for_health_check() {
 
   while [[ ${attempt} -le ${max_attempts} ]]; do
     # Check if container is running first
-    if ! docker compose ps --format json | jq -e '.[] | select(.State == "running")' &>/dev/null; then
+    if ! docker compose ps --format json | jq -e '.State == "running"' &>/dev/null; then
       log "ERROR" "Container is not running"
       log "INFO" "Container status:"
       docker compose ps
@@ -307,17 +307,21 @@ wait_for_health_check() {
       return 1
     fi
 
-    # Check health status
-    if docker compose ps --format json | jq -e '.[] | select(.Health == "healthy")' &>/dev/null; then
-      log "SUCCESS" "Application is healthy"
+    # Check Docker's built-in health check (standard approach from Dockerfile)
+    local health_status=$(docker compose ps --format json | jq -r '.Health // "no_healthcheck"')
+    if [[ "${health_status}" == "healthy" ]]; then
+      log "SUCCESS" "Application is healthy (Docker HEALTHCHECK from Dockerfile)"
       return 0
     fi
 
-    # Test health endpoint directly on first attempt and every 30 seconds
+    # Show diagnostic info on first attempt and every 30 seconds
     if [[ $((attempt % 6)) -eq 1 ]]; then
-      log "INFO" "Testing health endpoint directly..."
+      log "INFO" "Docker health status: ${health_status}"
+
+      # Test health endpoint directly for debugging (same endpoint as Dockerfile HEALTHCHECK)
+      log "INFO" "Testing health endpoint directly (same as Dockerfile HEALTHCHECK)..."
       if docker exec droni-react wget --no-verbose --tries=1 --spider http://localhost:8080/droni/health 2>&1; then
-        log "INFO" "Health endpoint is accessible"
+        log "INFO" "Health endpoint is accessible (matches Dockerfile HEALTHCHECK)"
       else
         log "WARNING" "Health endpoint test failed"
         # Test main application endpoint
@@ -342,7 +346,7 @@ wait_for_health_check() {
   docker compose ps
   log "INFO" "Container logs:"
   docker compose logs --tail=50 frontend
-  log "INFO" "Testing health endpoint one more time:"
+  log "INFO" "Testing health endpoint one more time (Dockerfile HEALTHCHECK endpoint):"
   docker exec droni-react wget --no-verbose --tries=1 --spider http://localhost:8080/droni/health || true
   return 1
 }
