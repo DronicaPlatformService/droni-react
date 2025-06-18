@@ -44,8 +44,8 @@ FROM nginx:1.28.0-alpine3.21
 # 실제 포트는 nginx.conf에서 listen 지시어로 설정됩니다.
 EXPOSE 8080
 
-HEALTHCHECK --interval=30s --timeout=10s --start-period=40s --retries=3 \
-  CMD wget --no-verbose --tries=1 --spider http://localhost:8080/droni/health || exit 1
+HEALTHCHECK --interval=30s --timeout=10s --start-period=60s --retries=3 \
+  CMD wget --no-verbose --tries=1 --spider --timeout=8 http://localhost:8080/droni/health || exit 1
 
 # 사용자 정의 Nginx 설정을 복사합니다.
 COPY nginx.conf /etc/nginx/conf.d/default.conf
