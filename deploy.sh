@@ -22,6 +22,11 @@ readonly BACKUP_DIR="${SCRIPT_DIR}/backups"
 readonly COMPOSE_FILE="${SCRIPT_DIR}/docker-compose.yml"
 readonly LOG_FILE="${LOG_DIR}/deploy-$(date +%Y%m%d-%H%M%S).log"
 
+# Load environment configuration
+if [[ -f "${SCRIPT_DIR}/.env.deploy" ]]; then
+  source "${SCRIPT_DIR}/.env.deploy"
+fi
+
 # Default values
 ENVIRONMENT="${1:-production}"
 IMAGE_TAG="latest"
@@ -207,13 +212,17 @@ create_backup() {
   local backup_path="${BACKUP_DIR}/${backup_name}"
 
   # Export current container state
-  if docker compose ps --format json | jq -e '.[0]' &>/dev/null; then
-    docker compose ps --format json >"${backup_path}-containers.json"
+  if docker compose ps --services 2>/dev/null | grep -q "frontend"; then
+    docker compose ps >"${backup_path}-containers.txt"
     docker compose config >"${backup_path}-compose.yml"
 
     # Get current image info
-    local current_image=$(docker compose images --format json | jq -r '.[0].Repository + ":" + .[0].Tag' 2>/dev/null || echo "none")
-    echo "${current_image}" >"${backup_path}-image.txt"
+    local current_image=$(docker compose images --quiet 2>/dev/null | head -n1 || echo "none")
+    if [[ "${current_image}" != "none" && -n "${current_image}" ]]; then
+      docker inspect "${current_image}" --format '{{index .RepoTags 0}}' 2>/dev/null || echo "none"
+    else
+      echo "none"
+    fi >"${backup_path}-image.txt"
 
     log "SUCCESS" "Backup created: ${backup_name}"
     echo "${backup_name}" >"${BACKUP_DIR}/latest-backup.txt"
@@ -293,7 +302,6 @@ pre_deployment_validation() {
 wait_for_health_check() {
   log "INFO" "Waiting for application to be healthy..."
 
-  # 더 관대한 타임아웃: Dockerfile의 start-period(60s) + 여유시간을 고려
   local max_attempts=36 # 36 * 5 seconds = 3 minutes
   local attempt=1
   local start_period_seconds=60 # Dockerfile HEALTHCHECK --start-period와 동일
@@ -301,10 +309,9 @@ wait_for_health_check() {
   while [[ ${attempt} -le ${max_attempts} ]]; do
     local elapsed_seconds=$((attempt * 5))
 
-    # 1. 컨테이너 실행 상태 확인
-    local container_state=$(docker compose ps --format json | jq -r '.[0].State // "unknown"' 2>/dev/null)
-    if [[ "${container_state}" != "running" ]]; then
-      log "ERROR" "Container is not running (state: ${container_state})"
+    # 1. 컨테이너 실행 상태 확인 (docker ps 사용)
+    if ! docker ps --filter "name=droni-react" --filter "status=running" --quiet | grep -q .; then
+      log "ERROR" "Container is not running"
       log "INFO" "Container status:"
       docker compose ps
       log "INFO" "Container logs:"
@@ -312,8 +319,8 @@ wait_for_health_check() {
       return 1
     fi
 
-    # 2. Docker HEALTHCHECK 상태 확인 (가장 신뢰할 수 있는 지표)
-    local health_status=$(docker compose ps --format json | jq -r '.[0].Health // "no_healthcheck"' 2>/dev/null)
+    # 2. Docker HEALTHCHECK 상태 확인
+    local health_status=$(docker inspect droni-react --format='{{if .State.Health}}{{.State.Health.Status}}{{else}}no_healthcheck{{end}}' 2>/dev/null || echo "unknown")
 
     # Health status 처리
     case "${health_status}" in
@@ -372,18 +379,20 @@ wait_for_health_check() {
 
 # 헬스 엔드포인트 테스트 (간단한 버전)
 test_health_endpoint() {
-  docker exec droni-react wget --no-verbose --tries=1 --spider --timeout=5 http://localhost:8080/droni/health >/dev/null 2>&1
+  local health_path="${HEALTH_PATH:-/droni/health}"
+  docker exec droni-react wget --no-verbose --tries=1 --spider --timeout=5 "http://localhost:8080${health_path}" >/dev/null 2>&1
 }
 
 # 헬스 엔드포인트 테스트 (상세 로그 포함)
 test_health_endpoint_verbose() {
+  local health_path="${HEALTH_PATH:-/droni/health}"
   log "INFO" "Testing health endpoint directly..."
 
   # 1. 헬스 엔드포인트 테스트
-  if docker exec droni-react wget --no-verbose --tries=1 --spider --timeout=5 http://localhost:8080/droni/health 2>&1; then
-    log "INFO" "✅ Health endpoint (/droni/health) is accessible"
+  if docker exec droni-react wget --no-verbose --tries=1 --spider --timeout=5 "http://localhost:8080${health_path}" 2>&1; then
+    log "INFO" "✅ Health endpoint (${health_path}) is accessible"
   else
-    log "WARNING" "❌ Health endpoint (/droni/health) failed"
+    log "WARNING" "❌ Health endpoint (${health_path}) failed"
 
     # 2. 메인 애플리케이션 엔드포인트 테스트
     if docker exec droni-react wget --no-verbose --tries=1 --spider --timeout=5 http://localhost:8080/droni/ 2>&1; then
@@ -415,7 +424,7 @@ deploy_application() {
 
   # Stop existing containers gracefully
   log "INFO" "Stopping existing containers..."
-  if docker compose ps --format json | jq -e '.[0]' &>/dev/null; then
+  if docker compose ps --services 2>/dev/null | grep -q "frontend"; then
     # 더 긴 타임아웃으로 graceful shutdown 허용
     docker compose down --timeout 60
   else

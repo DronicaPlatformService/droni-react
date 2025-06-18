@@ -22,16 +22,6 @@ services:
       - SETUID
     security_opt:
       - no-new-privileges:true
-    labels:
-      - 'traefik.enable=true'
-      - 'traefik.http.routers.droni-router.rule=PathPrefix(`/droni`)'
-      - 'traefik.http.routers.droni-router.service=droni-service@docker'
-      - 'traefik.http.services.droni-service.loadbalancer.server.port=8080'
-      - 'traefik.http.routers.droni-router.middlewares=strip-droni-prefix@docker'
-      - 'traefik.http.middlewares.strip-droni-prefix.stripprefix.prefixes=/droni'
-      - 'traefik.http.routers.droni-router.entrypoints=web'
-      - 'traefik.http.services.droni-service.loadbalancer.healthcheck.path=/droni/health'
-      - 'traefik.http.services.droni-service.loadbalancer.healthcheck.interval=30s'
 
 networks:
   traefik_network:
