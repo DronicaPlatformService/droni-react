@@ -297,9 +297,36 @@ wait_for_health_check() {
   local attempt=1
 
   while [[ ${attempt} -le ${max_attempts} ]]; do
+    # Check if container is running first
+    if ! docker compose ps --format json | jq -e '.[] | select(.State == "running")' &>/dev/null; then
+      log "ERROR" "Container is not running"
+      log "INFO" "Container status:"
+      docker compose ps
+      log "INFO" "Container logs:"
+      docker compose logs --tail=50 frontend
+      return 1
+    fi
+
+    # Check health status
     if docker compose ps --format json | jq -e '.[] | select(.Health == "healthy")' &>/dev/null; then
       log "SUCCESS" "Application is healthy"
       return 0
+    fi
+
+    # Test health endpoint directly on first attempt and every 30 seconds
+    if [[ $((attempt % 6)) -eq 1 ]]; then
+      log "INFO" "Testing health endpoint directly..."
+      if docker exec droni-react wget --no-verbose --tries=1 --spider http://localhost:8080/droni/health 2>&1; then
+        log "INFO" "Health endpoint is accessible"
+      else
+        log "WARNING" "Health endpoint test failed"
+        # Test main application endpoint
+        if docker exec droni-react wget --no-verbose --tries=1 --spider http://localhost:8080/droni/ 2>&1; then
+          log "INFO" "Main application endpoint is accessible"
+        else
+          log "ERROR" "Main application endpoint is not accessible"
+        fi
+      fi
     fi
 
     if [[ $((attempt % 6)) -eq 0 ]]; then # Every 30 seconds
@@ -311,8 +338,12 @@ wait_for_health_check() {
   done
 
   log "ERROR" "Health check failed after ${max_attempts} attempts"
+  log "INFO" "Final container status:"
+  docker compose ps
   log "INFO" "Container logs:"
   docker compose logs --tail=50 frontend
+  log "INFO" "Testing health endpoint one more time:"
+  docker exec droni-react wget --no-verbose --tries=1 --spider http://localhost:8080/droni/health || true
   return 1
 }
 
