@@ -43,9 +43,7 @@ function NaverCallbackPageComponent(): JSX.Element | null {
       login({ accessToken: access_token });
 
       setLoading(false);
-      setTimeout(() => {
-        navigate({ to: '/dashboard/user', replace: true });
-      }, 2000);
+      navigate({ to: '/dashboard/user', replace: true });
     } else if (!error) {
       console.warn(
         '[NaverCallback] Callback invoked without access_token or error. search:',
