@@ -1606,6 +1606,93 @@ While the above sections cover core guidelines, a few additional areas are worth
       - **Server-side only:** Variables used in Server Components or Server Actions are generally not exposed to the client.
       - **Client-side:** Variables needed by Client Components must be explicitly prefixed (e.g., `NEXT_PUBLIC_` in Next.js) to be bundled. Avoid embedding sensitive information in client-side variables.
 
+    ### **Vite Environment Variables (Project Context)**
+
+    Since this project uses Vite, follow Vite's specific environment variable conventions:
+
+    - **`VITE_` Prefix Required:** Only environment variables prefixed with `VITE_` are exposed to client-side code. This prevents accidental exposure of sensitive server-side variables.
+
+      ```bash
+      # .env
+      VITE_API_URL=https://api.example.com  # ✅ Accessible via import.meta.env.VITE_API_URL
+      DATABASE_URL=postgres://...           # ❌ Not accessible in client code (secure)
+      ```
+
+    - **Accessing Variables in Code:**
+
+      ```typescript
+      // In client-side components
+      const apiUrl = import.meta.env.VITE_API_URL;
+      const isDev = import.meta.env.DEV; // Built-in Vite variable
+      const isProd = import.meta.env.PROD; // Built-in Vite variable
+      const mode = import.meta.env.MODE; // 'development' | 'production' | custom
+      ```
+
+    - **Built-in Vite Variables:**
+
+      - `import.meta.env.MODE`: Current mode (development, production, test, etc.)
+      - `import.meta.env.DEV`: Boolean indicating development mode
+      - `import.meta.env.PROD`: Boolean indicating production mode
+      - `import.meta.env.BASE_URL`: Base URL for the app
+
+    - **Environment Files Priority (Vite):**
+
+      ```
+      .env                # Loaded in all cases
+      .env.local          # Loaded in all cases, ignored by git
+      .env.[mode]         # Only loaded in specified mode (.env.development, .env.production)
+      .env.[mode].local   # Only loaded in specified mode, ignored by git
+      ```
+
+    - **TypeScript Support:**
+
+      ```typescript
+      // vite-env.d.ts or types/env.d.ts
+      /// <reference types="vite/client" />
+
+      interface ImportMetaEnv {
+        readonly VITE_API_URL: string;
+        readonly VITE_NAVER_CLIENT_ID: string;
+        readonly VITE_NAVER_REDIRECT_URI: string;
+        // Add other VITE_ variables here
+      }
+
+      interface ImportMeta {
+        readonly env: ImportMetaEnv;
+      }
+      ```
+
+    - **Docker Build Context:**
+
+      ```dockerfile
+      # In Dockerfile, pass environment variables as build args
+      ARG VITE_API_URL_ARG
+      ARG VITE_NAVER_CLIENT_ID_ARG
+
+      # Write to .env.production file during build
+      RUN printf "VITE_API_URL=%s\n" "${VITE_API_URL_ARG}" >> .env.production
+      ```
+
+    - **Best Practices:**
+
+      - Never put sensitive data in `VITE_` prefixed variables (they're exposed to the client)
+      - Use environment-specific files for different deployment stages
+      - Validate required environment variables at build time
+      - Consider using a validation library like Zod for environment variable schemas:
+
+      ```typescript
+      // lib/env.ts
+      import { z } from 'zod';
+
+      const envSchema = z.object({
+        VITE_API_URL: z.string().url(),
+        VITE_NAVER_CLIENT_ID: z.string().min(1),
+        VITE_NAVER_REDIRECT_URI: z.string().url(),
+      });
+
+      export const env = envSchema.parse(import.meta.env);
+      ```
+
 2.  **Internationalization (i18n):**
 
     - For applications requiring multiple language support, integrate a reputable i18n library (e.g., `next-intl`, `i18next`, `react-i18next`).

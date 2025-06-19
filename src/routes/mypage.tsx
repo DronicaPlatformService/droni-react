@@ -1,4 +1,5 @@
-import { BottomNavigationBar } from '@/components';
+import { createFileRoute } from '@tanstack/react-router';
+import type { JSX } from 'react';
 import { KakaoTalkIcon } from '@/components/Icons';
 import {
   AccountSwitchSection,
@@ -8,8 +9,6 @@ import {
   MyPageInfoSection,
   ReviewSection,
 } from '@/components/MyPage';
-import { createFileRoute } from '@tanstack/react-router';
-import type { JSX } from 'react';
 
 export const Route = createFileRoute('/mypage')({
   component: MyPageScreen,
@@ -26,25 +25,13 @@ function MyPageScreen(): JSX.Element {
   const inquiryCount = 0;
   const latestNotice = '드론 방제 서비스 드로니 앱 신규 출시';
 
-  const handleChatConsultClick = () => {
-    // TODO: 채팅 상담 로직 구현
-    console.log('채팅 상담 클릭');
-  };
+  const handleChatConsultClick = () => {};
 
-  const handleFaqClick = () => {
-    // TODO: FAQ 페이지 라우팅
-    console.log('FAQ 클릭');
-  };
+  const handleFaqClick = () => {};
 
-  const handleInquiryClick = () => {
-    // TODO: 1:1 문의 페이지 라우팅
-    console.log('1:1 문의 클릭');
-  };
+  const handleInquiryClick = () => {};
 
-  const handleNoticeClick = () => {
-    // TODO: 공지사항 상세 페이지 라우팅
-    console.log('공지사항 클릭');
-  };
+  const handleNoticeClick = () => {};
 
   const actionButtonsData: ActionButtonProps[] = [
     {
@@ -81,7 +68,6 @@ function MyPageScreen(): JSX.Element {
       />
       <AddressManagementSection />
       <ReviewSection />
-      <BottomNavigationBar />
       <AccountSwitchSection />
     </div>
   );

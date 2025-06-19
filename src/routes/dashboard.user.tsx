@@ -1,6 +1,7 @@
 'use client';
 
-import { BottomNavigationBar } from '@/components';
+import { createFileRoute } from '@tanstack/react-router';
+import type { JSX } from 'react';
 import {
   Banner,
   DashboardHeader,
@@ -8,8 +9,6 @@ import {
   PopularPilotsSection,
 } from '@/components/Dashboard';
 import { EstimateRequestIcon } from '@/components/Icons';
-import { createFileRoute } from '@tanstack/react-router';
-import type { JSX } from 'react';
 
 export const Route = createFileRoute('/dashboard/user')({
   component: DashboardUserScreen,
@@ -39,16 +38,9 @@ function DashboardUserScreen(): JSX.Element {
   const userName = '이종현'; // 사용자 이름 예시
   const hasUnreadNotification = true; // 읽지 않은 알림 예시
 
-  const handleSeeMorePilots = () => {
-    // TODO: 인기있는 조종사 "더 보기" 페이지로 이동하는 로직 구현
-    console.log('인기있는 조종사 더 보기 클릭');
-  };
+  const handleSeeMorePilots = () => {};
 
-  const handleEstimateRequestClick = () => {
-    // TODO: 견적 요청 페이지로 이동 또는 관련 로직 구현
-    // 예시: navigate({ to: '/estimates/new' });
-    console.log('견적 요청 클릭');
-  };
+  const handleEstimateRequestClick = () => {};
 
   return (
     <div className="flex h-screen flex-col bg-white">
@@ -78,9 +70,6 @@ function DashboardUserScreen(): JSX.Element {
           견적요청
         </span>
       </button>
-
-      {/* Bottom Navigation Bar */}
-      <BottomNavigationBar />
     </div>
   );
 }

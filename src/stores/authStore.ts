@@ -119,8 +119,7 @@ const reissueToken = async (redirectionUrl: string) => {
   setLoading(true);
   try {
     // HttpOnly 쿠키에 있는 Refresh Token은 브라우저가 자동으로 전송합니다.
-    // 백엔드 API URL 환경 변수 사용
-    const backendUrl = import.meta.env.VITE_BACKEND_URL || 'http://localhost:8080'; // 기본값 설정
+    const backendUrl = import.meta.env.VITE_BACKEND_URL || 'http://localhost:8080';
     const currentAccessToken = authStore.state.accessToken;
 
     if (!currentAccessToken) {
@@ -130,15 +129,14 @@ const reissueToken = async (redirectionUrl: string) => {
       return;
     }
 
-    const response = await fetch(`${backendUrl}/reissue?redirectionUrl=${encodeURIComponent(redirectionUrl)}`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        // API 명세에 따라 만료된 AccessToken을 헤더에 포함해야 할 수도 있습니다.
-        // Authorization: `Bearer ${currentAccessToken}`
+    const response = await fetch(
+      `${backendUrl}/reissue?redirectionUrl=${encodeURIComponent(redirectionUrl)}`,
+      {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ accessToken: currentAccessToken }),
       },
-      body: JSON.stringify({ accessToken: currentAccessToken }),
-    });
+    );
 
     if (response.ok) {
       const data = await response.json();
@@ -165,4 +163,3 @@ const reissueToken = async (redirectionUrl: string) => {
 
 export { loadInitialState, login, logout, reissueToken, setLoading, setTokens, setUser };
 export type { AuthActions, AuthState };
-

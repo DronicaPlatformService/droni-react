@@ -5,9 +5,8 @@ FROM node:24.2.0-alpine3.21 AS builder
 # 이후 모든 RUN, CMD, COPY, ADD 명령어는 이 디렉토리를 기준으로 실행됩니다.
 WORKDIR /app
 
-# NODE_ENV 환경 변수를 'production'으로 설정합니다.
-# 이는 많은 빌드 도구와 라이브러리가 프로덕션 최적화를 수행하도록 합니다.
-ENV NODE_ENV=production
+# Vite 빌드 모드를 'production'으로 설정합니다.
+ENV VITE_MODE=production
 
 ARG VITE_BACKEND_URL_ARG
 ARG VITE_NAVER_CLIENT_ID_ARG
@@ -18,7 +17,8 @@ RUN npm install -g pnpm
 # 의존성 관련 파일들을 먼저 복사하여 Docker 레이어 캐싱을 활용합니다.
 COPY package.json pnpm-lock.yaml ./
 
-RUN env NODE_ENV=development pnpm install --frozen-lockfile
+# Vite 빌드에 필요한 모든 의존성 설치 (devDependencies 포함)
+RUN pnpm install --frozen-lockfile
 
 # 애플리케이션 빌드에 필요한 소스 코드 및 설정 파일만 복사합니다.
 COPY src ./src

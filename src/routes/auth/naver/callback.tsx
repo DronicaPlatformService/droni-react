@@ -1,6 +1,7 @@
-import { login, setLoading } from '@/stores/authStore';
 import { createFileRoute, useNavigate } from '@tanstack/react-router';
 import { type JSX, useEffect } from 'react';
+import { logTokenInfo } from '@/lib/jwtUtils';
+import { login, setLoading } from '@/stores/authStore';
 
 export const Route = createFileRoute('/auth/naver/callback')({
   component: NaverCallbackPageComponent,
@@ -26,9 +27,7 @@ function NaverCallbackPageComponent(): JSX.Element | null {
     const { access_token, error } = search;
 
     if (error) {
-      console.error(
-        `[NaverCallback] OAuth Error from search params: ${error}`,
-      );
+      console.error(`[NaverCallback] OAuth Error from search params: ${error}`);
       alert(`네이버 로그인 오류: ${error}`);
       setLoading(false);
       navigate({ to: '/login', search: { error: error }, replace: true });
@@ -36,29 +35,22 @@ function NaverCallbackPageComponent(): JSX.Element | null {
     }
 
     if (access_token) {
-      /* try {
-        const payloadBase64 = access_token.split('.')[1];
-        if (payloadBase64) {
-          // Base64URL 디코딩을 위해 '-'를 '+', '_'를 '/'로 변경
-          const correctedBase64 = payloadBase64.replace(/-/g, '+').replace(/_/g, '/');
-          // 패딩 추가 (Base64 문자열 길이는 4의 배수여야 함)
-          const paddedBase64 = correctedBase64 + '==='.slice((correctedBase64.length + 3) % 4);
-          const decodedPayload = atob(paddedBase64);
-          const payloadObject = JSON.parse(decodedPayload);
-          console.log('[NaverCallback] Decoded Access Token Payload:', payloadObject);
-        } else {
-          console.warn('[NaverCallback] Access token does not contain a payload part.');
-        }
-      } catch (e) {
-        console.error('[NaverCallback] Error decoding access token:', e);
-      } */
+      // 개발 환경에서 토큰 정보 로깅
+      if (import.meta.env.DEV) {
+        logTokenInfo(access_token, 'Naver OAuth Access Token');
+      }
 
       login({ accessToken: access_token });
 
       setLoading(false);
-      navigate({ to: '/dashboard/user', replace: true });
+      setTimeout(() => {
+        navigate({ to: '/dashboard/user', replace: true });
+      }, 2000);
     } else if (!error) {
-      console.warn('[NaverCallback] Callback invoked without access_token or error. search:', search);
+      console.warn(
+        '[NaverCallback] Callback invoked without access_token or error. search:',
+        search,
+      );
       alert('잘못된 접근입니다. 다시 시도해주세요.');
       setLoading(false);
       navigate({ to: '/login', search: { error: 'Invalid callback parameters' }, replace: true });

@@ -1,14 +1,15 @@
 'use client';
 
+import { createFileRoute, useNavigate } from '@tanstack/react-router';
+import { type JSX, useState } from 'react';
 import KakaoIcon from '@/assets/icons/kakao-icon.svg';
 import NaverIcon from '@/assets/icons/naver-icon.svg';
 import DroniLogo from '@/assets/images/droni-logo.svg';
 import { KakaoConsentPopup } from '@/components';
-import { createFileRoute, useNavigate } from '@tanstack/react-router';
-import { type JSX, useState } from 'react';
 
 export const Route = createFileRoute('/login')({
   component: LoginScreen,
+  beforeLoad: () => ({ hideBottomNav: true }),
 });
 
 /**

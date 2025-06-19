@@ -1,8 +1,14 @@
 {
-  "$schema": "https://biomejs.dev/schemas/1.9.4/schema.json",
+  "$schema": "https://biomejs.dev/schemas/2.0.0/schema.json",
   "files": {
-    "ignore": ["build", "dist", "node_modules", "src/routeTree.gen.ts"],
-    "ignoreUnknown": false
+    "experimentalScannerIgnores": [
+      "build",
+      "dist",
+      "node_modules",
+      "coverage",
+      "storybook-static",
+      "src/routeTree.gen.ts"
+    ]
   },
   "formatter": {
     "enabled": true,
@@ -28,20 +34,20 @@
     "enabled": true,
     "rules": {
       "a11y": {
-        "useKeyWithClickEvents": "error"
+        "useKeyWithClickEvents": "error",
+        "noAutofocus": "error",
+        "noRedundantRoles": "warn",
+        "noStaticElementInteractions": "warn"
       },
       "recommended": true,
       "style": {
         "noNonNullAssertion": "error"
       },
       "suspicious": {
-        "noConsoleLog": "error",
-        "noExplicitAny": "error"
+        "noExplicitAny": "error",
+        "noConsole": "off"
       }
     }
-  },
-  "organizeImports": {
-    "enabled": true
   },
   "vcs": {
     "clientKind": "git",
