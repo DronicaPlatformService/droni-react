@@ -1,8 +1,10 @@
-import { NotificationSettingsSection, ServiceInfoSection } from '@/components/Settings';
 import { ChevronLeftIcon } from '@heroicons/react/24/solid';
 import { createFileRoute, useRouter } from '@tanstack/react-router';
+import { NotificationSettingsSection, ServiceInfoSection } from '@/components/Settings';
+import { requireAuth } from '@/lib/authGuard';
 
-export const Route = createFileRoute('/settings')({
+export const Route = createFileRoute('/mypage/settings')({
+  beforeLoad: requireAuth,
   component: SettingsScreen,
 });
 

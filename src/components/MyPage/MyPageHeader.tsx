@@ -10,7 +10,7 @@ export const MyPageHeader = (): JSX.Element => {
   const navigate = useNavigate();
 
   const handleSettingsClick = () => {
-    navigate({ to: '/settings' });
+    navigate({ to: '/mypage/settings' });
   };
 
   return (

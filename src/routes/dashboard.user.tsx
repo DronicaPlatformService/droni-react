@@ -9,8 +9,10 @@ import {
   PopularPilotsSection,
 } from '@/components/Dashboard';
 import { EstimateRequestIcon } from '@/components/Icons';
+import { requireAuth } from '@/lib/authGuard';
 
 export const Route = createFileRoute('/dashboard/user')({
+  beforeLoad: requireAuth,
   component: DashboardUserScreen,
 });
 

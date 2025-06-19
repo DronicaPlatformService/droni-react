@@ -9,8 +9,10 @@ import {
   MyPageInfoSection,
   ReviewSection,
 } from '@/components/MyPage';
+import { requireAuth } from '@/lib/authGuard';
 
-export const Route = createFileRoute('/mypage')({
+export const Route = createFileRoute('/mypage/')({
+  beforeLoad: requireAuth,
   component: MyPageScreen,
 });
 
