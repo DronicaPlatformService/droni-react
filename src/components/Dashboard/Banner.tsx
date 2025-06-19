@@ -1,3 +1,5 @@
+// biome-ignore-all lint/a11y/noStaticElementInteractions: 드래그/스와이프 UX 구현을 위해 클릭 이벤트 허용
+
 'use client';
 
 import type React from 'react';
@@ -69,13 +71,12 @@ export function Banner({ className }: BannerProps): JSX.Element {
   };
 
   // 자동 슬라이드
-  // biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
   useEffect(() => {
     const timer = setTimeout(() => {
       handleNext();
     }, 5000); // 5초마다 다음 이미지로
     return () => clearTimeout(timer);
-  }, [currentIndex, handleNext]);
+  }, [handleNext]);
 
   return (
     <section
