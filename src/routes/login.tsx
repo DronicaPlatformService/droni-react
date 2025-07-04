@@ -52,19 +52,19 @@ function LoginScreen(): JSX.Element {
           또는 calc에서 --safe-area-inset-top 변수를 직접 사용할 수도 있습니다.
           여기서는 단순화를 위해 기존 스타일을 유지하되, body 패딩으로 인해 시각적으로 조정될 수 있음을 인지합니다.
       */}
-      <div className="flex-1 flex flex-col items-center justify-center p-4 overflow-y-auto">
+      <div className="flex flex-1 flex-col items-center justify-center overflow-y-auto p-4">
         <img src={DroniLogo} alt="Droni Logo" className="mb-6 h-[90px] w-[90px]" />
-        <p className="mb-1.5 text-center font-spoqa text-system-01 tracking-tight-1pct text-gray-800">
+        <p className="mb-1.5 text-center font-spoqa text-gray-800 text-system-01 tracking-tight-1pct">
           당신 근처의 드로니
         </p>
-        <p className="text-center font-spoqa text-system-08 tracking-tight-1pct text-gray-600">
+        <p className="text-center font-spoqa text-gray-600 text-system-08 tracking-tight-1pct">
           드로니는 드론방제 서비스 앱이에요.
           <br />내 동네를 설정하고 시작해보세요!
         </p>
       </div>
 
       {/* Social login buttons area */}
-      <div className="flex-shrink-0 w-full bg-white px-3 pt-4 shadow-up pb-[calc(1rem+var(--safe-area-inset-bottom))]">
+      <div className="w-full flex-shrink-0 bg-white px-3 pt-4 pb-[calc(1rem+var(--safe-area-inset-bottom))] shadow-up">
         <div className="mx-auto max-w-md space-y-3">
           <button
             type="button"
@@ -73,10 +73,10 @@ function LoginScreen(): JSX.Element {
           >
             <img
               src={KakaoIcon}
-              className="absolute top-1/2 left-4 h-8 w-8 -translate-y-1/2"
+              className="-translate-y-1/2 absolute top-1/2 left-4 h-8 w-8"
               alt="카카오 로그인 아이콘"
             />
-            <span className="absolute inset-x-0 top-1/2 -translate-y-1/2 text-center font-spoqa text-base leading-none font-bold tracking-normal">
+            <span className="-translate-y-1/2 absolute inset-x-0 top-1/2 text-center font-bold font-spoqa text-base leading-none tracking-normal">
               카카오로 3초만에 시작하기
             </span>
           </button>
@@ -87,10 +87,10 @@ function LoginScreen(): JSX.Element {
           >
             <img
               src={NaverIcon}
-              className="absolute top-1/2 left-[22px] h-5 w-5 -translate-y-1/2"
+              className="-translate-y-1/2 absolute top-1/2 left-[22px] h-5 w-5"
               alt="네이버 로그인 아이콘"
             />
-            <span className="absolute inset-x-0 top-1/2 -translate-y-1/2 text-center font-spoqa text-base leading-none font-bold tracking-normal text-gray-600">
+            <span className="-translate-y-1/2 absolute inset-x-0 top-1/2 text-center font-bold font-spoqa text-base text-gray-600 leading-none tracking-normal">
               네이버로 시작하기
             </span>
           </button>

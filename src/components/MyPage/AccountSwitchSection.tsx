@@ -13,15 +13,15 @@ export const AccountSwitchSection = (): JSX.Element => {
   return (
     <section className="mt-[10px] bg-white p-5 font-spoqa tracking-tight-1pct">
       <div className="mb-4">
-        <h2 className="text-system-05 tracking-tight-1pct text-gray-800">계정 전환</h2>
+        <h2 className="text-gray-800 text-system-05 tracking-tight-1pct">계정 전환</h2>
       </div>
       <div>
         <div className="flex items-center justify-between">
           <div className="flex flex-col items-start">
-            <h3 className="mb-1 text-system-07 tracking-tight-1pct text-gray-800">조종사로 전환</h3>
+            <h3 className="mb-1 text-gray-800 text-system-07 tracking-tight-1pct">조종사로 전환</h3>
             <div className="flex items-center">
               <ExclamationCircleIcon className="mr-1 h-4 w-4 text-[#FF385C]" />
-              <span className="text-system-10 tracking-tight-1pct text-gray-600">
+              <span className="text-gray-600 text-system-10 tracking-tight-1pct">
                 현재 가입하신 조종사 계정이 없어요
               </span>
             </div>
@@ -31,7 +31,7 @@ export const AccountSwitchSection = (): JSX.Element => {
             onClick={handleSignUpClick}
             className="rounded-sm border border-gray-200 px-3 py-1"
           >
-            <span className="text-system-10 tracking-tight-1pct text-gray-900">가입하기</span>
+            <span className="text-gray-900 text-system-10 tracking-tight-1pct">가입하기</span>
           </button>
         </div>
       </div>

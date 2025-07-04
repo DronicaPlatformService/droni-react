@@ -1,14 +1,21 @@
 {
-  "$schema": "https://biomejs.dev/schemas/2.0.0/schema.json",
-  "files": {
-    "experimentalScannerIgnores": [
-      "build",
-      "dist",
-      "node_modules",
-      "coverage",
-      "storybook-static",
-      "src/routeTree.gen.ts"
-    ]
+  "$schema": "https://biomejs.dev/schemas/2.0.6/schema.json",
+  "assist": {
+    "actions": {
+      "recommended": true,
+      "source": {
+        "organizeImports": "on"
+      }
+    }
+  },
+  "linter": {
+    "enabled": true,
+    "rules": {
+      "recommended": true,
+      "nursery": {
+        "useSortedClasses": "error"
+      }
+    }
   },
   "formatter": {
     "enabled": true,
@@ -20,38 +27,37 @@
   },
   "javascript": {
     "formatter": {
-      "arrowParentheses": "always",
-      "bracketSameLine": false,
-      "bracketSpacing": true,
       "jsxQuoteStyle": "double",
       "quoteProperties": "asNeeded",
-      "quoteStyle": "single",
+      "trailingCommas": "all",
       "semicolons": "always",
-      "trailingCommas": "all"
-    }
-  },
-  "linter": {
-    "enabled": true,
-    "rules": {
-      "a11y": {
-        "useKeyWithClickEvents": "error",
-        "noAutofocus": "error",
-        "noRedundantRoles": "warn",
-        "noStaticElementInteractions": "warn"
-      },
-      "recommended": true,
-      "style": {
-        "noNonNullAssertion": "error"
-      },
-      "suspicious": {
-        "noExplicitAny": "error",
-        "noConsole": "off"
-      }
-    }
+      "arrowParentheses": "always",
+      "bracketSpacing": true,
+      "bracketSameLine": false,
+      "quoteStyle": "single",
+      "attributePosition": "auto"
+    },
+    "parser": {
+      "unsafeParameterDecoratorsEnabled": true
+    },
+    "globals": ["React"]
   },
   "vcs": {
-    "clientKind": "git",
     "enabled": true,
+    "clientKind": "git",
     "useIgnoreFile": true
+  },
+  "files": {
+    "includes": [
+      "**",
+      "!**/node_modules",
+      "!**/build",
+      "!**/dist",
+      "!**/*.lock",
+      "!**/package-lock.json",
+      "!**/pnpm-lock.yaml",
+      "!**/yarn.lock",
+      "!src/routeTree.gen.ts"
+    ]
   }
 }

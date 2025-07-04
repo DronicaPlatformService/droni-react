@@ -52,7 +52,7 @@ export function BottomNavigationBar(): JSX.Element {
   }, [matchRoute]);
 
   return (
-    <nav className="pb-safe-bottom fixed inset-x-0 bottom-0 z-50 border-t border-gray-200 bg-white">
+    <nav className="fixed inset-x-0 bottom-0 z-50 border-gray-200 border-t bg-white pb-safe-bottom">
       <div className="mx-auto flex h-[53px] max-w-screen-sm justify-around font-spoqa">
         {navItems.map((item) => {
           const isActive = activeStates[item.id];
@@ -61,7 +61,7 @@ export function BottomNavigationBar(): JSX.Element {
             <Link
               to={item.path}
               key={item.id}
-              className={`flex flex-1 flex-col items-center justify-center space-y-0.5 pt-1.5 pb-1 text-xs font-medium transition-colors hover:text-gray-600 focus:outline-none focus:text-gray-600 ${
+              className={`flex flex-1 flex-col items-center justify-center space-y-0.5 pt-1.5 pb-1 font-medium text-xs transition-colors hover:text-gray-600 focus:text-gray-600 focus:outline-none ${
                 isActive ? 'text-gray-600' : 'text-gray-300'
               }`}
             >

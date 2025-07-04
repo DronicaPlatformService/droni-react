@@ -1,3 +1,5 @@
+'use client';
+
 import { Switch } from '@headlessui/react';
 import { type JSX, useState } from 'react';
 
@@ -41,13 +43,13 @@ export const NotificationSettingsSection = ({
 
   return (
     <section className={`flex flex-col bg-white p-5 font-spoqa tracking-tight-1pct ${className}`}>
-      <h3 className="text-system-05 text-gray-800">알림 설정</h3>
+      <h3 className="text-gray-800 text-system-05">알림 설정</h3>
 
       {notificationItems.map((item) => (
         <div key={item.id} className="mt-4 flex items-center justify-between">
           <label htmlFor={item.id} className="flex-grow cursor-pointer">
-            <div className="text-system-07 text-gray-800">{item.label}</div>
-            <div className="text-system-10 text-gray-600">{item.description}</div>
+            <div className="text-gray-800 text-system-07">{item.label}</div>
+            <div className="text-gray-600 text-system-10">{item.description}</div>
           </label>
           <div>
             <Switch

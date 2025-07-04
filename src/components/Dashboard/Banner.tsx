@@ -111,13 +111,13 @@ export function Banner({ className }: BannerProps): JSX.Element {
 
       {/* 페이지네이션 버튼 */}
       <nav className="absolute right-5 bottom-3 z-10">
-        <div className="flex h-6 w-14 items-center justify-center gap-1 rounded-full bg-black/20 px-2 py-[3px] text-xs text-white">
+        <div className="flex h-6 w-14 items-center justify-center gap-1 rounded-full bg-black/20 px-2 py-[3px] text-white text-xs">
           <div className="flex items-baseline">
             <span className="text-system-09 text-white">
               {(currentIndex + 1).toString().padStart(2, '0')}
             </span>
             <span className="px-1 text-gray-200">|</span>
-            <span className="text-system-10 text-gray-200">
+            <span className="text-gray-200 text-system-10">
               {images.length.toString().padStart(2, '0')}
             </span>
           </div>

@@ -1,3 +1,5 @@
+'use client';
+
 import type { ComponentType, JSX } from 'react';
 
 export interface ActionButtonProps {
@@ -23,6 +25,6 @@ export const ActionButton = ({
     className="flex h-[80px] w-[111px] flex-col items-center justify-center rounded-lg bg-gray-100 p-2 text-center hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-droni-blue-500/50"
   >
     <Icon className="mb-1 h-8 w-8" />
-    <span className="font-spoqa text-system-07 tracking-tight-1pct text-gray-800">{label}</span>
+    <span className="font-spoqa text-gray-800 text-system-07 tracking-tight-1pct">{label}</span>
   </button>
 );

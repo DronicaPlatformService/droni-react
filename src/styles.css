@@ -1,6 +1,6 @@
 @import url(https://spoqa.github.io/spoqa-han-sans/css/SpoqaHanSansNeo.css);
 
-@import 'tailwindcss';
+@import "tailwindcss";
 
 @theme {
   --color-droni-blue-100: #d0dfff;
@@ -26,7 +26,7 @@
   --color-notification-red: #f03154;
 
   /* Font Family */
-  --font-spoqa: 'Spoqa Han Sans Neo', sans-serif;
+  --font-spoqa: "Spoqa Han Sans Neo", sans-serif;
 
   /* Font Sizes & Line Heights */
   /* system 01 (B) - 20px, 28px line-height */

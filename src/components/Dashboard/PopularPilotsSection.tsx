@@ -1,8 +1,8 @@
 'use client';
 
-import { DefaultProfileIcon } from '@/components/Icons';
 import { ChevronRightIcon } from '@heroicons/react/24/solid';
 import type { JSX } from 'react';
+import { DefaultProfileIcon } from '@/components/Icons';
 
 interface PilotProfile {
   id: string;
@@ -25,10 +25,10 @@ export function PopularPilotsSection({
   onSeeMoreClick,
 }: PopularPilotsSectionProps): JSX.Element {
   return (
-    <section className="h-43.5 bg-white py-6 px-5">
+    <section className="h-43.5 bg-white px-5 py-6">
       <div className="flex flex-col gap-3">
         <div className="flex items-center justify-between">
-          <h2 className="font-spoqa text-system-03 tracking-tight-1pct text-gray-800">
+          <h2 className="font-spoqa text-gray-800 text-system-03 tracking-tight-1pct">
             인기있는 조종사들
           </h2>
           <button
@@ -57,7 +57,7 @@ export function PopularPilotsSection({
               ) : (
                 <DefaultProfileIcon className="h-16 w-16" />
               )}
-              <span className="font-spoqa text-system-10 tracking-tight-1pct text-gray-600">
+              <span className="font-spoqa text-gray-600 text-system-10 tracking-tight-1pct">
                 {pilot.nickname}
               </span>
             </div>

@@ -1,3 +1,5 @@
+'use client';
+
 import { ExclamationCircleIcon } from '@heroicons/react/24/outline';
 import { ChevronRightIcon } from '@heroicons/react/24/solid';
 import { Link } from '@tanstack/react-router';
@@ -53,7 +55,7 @@ export const ServiceInfoSection = ({ className }: ServiceInfoSectionProps): JSX.
   return (
     <section className={className}>
       <div className="flex flex-col bg-white p-5 font-spoqa tracking-tight-1pct">
-        <h3 className="text-system-05 text-gray-800">서비스 정보</h3>
+        <h3 className="text-gray-800 text-system-05">서비스 정보</h3>
 
         <ul className="mt-4 flex flex-col">
           {serviceInfoItems.map((item, index) => (
@@ -74,11 +76,11 @@ export const ServiceInfoSection = ({ className }: ServiceInfoSectionProps): JSX.
                   }
                 >
                   <div className="flex flex-col">
-                    <span className="text-system-07 text-gray-800">{item.label}</span>
+                    <span className="text-gray-800 text-system-07">{item.label}</span>
                     {item.showUpdateNeeded && (
                       <div id={`${item.id}-update-desc`} className="mt-1 flex items-center">
                         <ExclamationCircleIcon className="mr-1 h-4 w-4 text-[#FF385C]" />
-                        <span className="text-system-10 text-gray-600">
+                        <span className="text-gray-600 text-system-10">
                           새로운 버전으로 업데이트 해주세요
                         </span>
                       </div>
@@ -86,7 +88,7 @@ export const ServiceInfoSection = ({ className }: ServiceInfoSectionProps): JSX.
                   </div>
                   <div>
                     {item.value && (
-                      <span className="text-system-07 text-gray-800">{item.value}</span>
+                      <span className="text-gray-800 text-system-07">{item.value}</span>
                     )}
                   </div>
                 </button>
@@ -98,7 +100,7 @@ export const ServiceInfoSection = ({ className }: ServiceInfoSectionProps): JSX.
                   rel={item.isExternal ? 'noopener noreferrer' : undefined}
                 >
                   <div>
-                    <span className="text-system-07 text-gray-800">{item.label}</span>
+                    <span className="text-gray-800 text-system-07">{item.label}</span>
                   </div>
                   <div>
                     <ChevronRightIcon className="h-4 w-4 text-gray-400" />

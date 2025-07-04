@@ -14,6 +14,8 @@ import { Route as IndexRouteImport } from './routes/index'
 import { Route as MypageIndexRouteImport } from './routes/mypage/index'
 import { Route as MypageSettingsRouteImport } from './routes/mypage/settings'
 import { Route as DashboardUserRouteImport } from './routes/dashboard.user'
+import { Route as MypageAddressIndexRouteImport } from './routes/mypage/address/index'
+import { Route as MypageAddressAddRouteImport } from './routes/mypage/address/add'
 import { Route as AuthNaverCallbackRouteImport } from './routes/auth/naver/callback'
 
 const LoginRoute = LoginRouteImport.update({
@@ -41,6 +43,16 @@ const DashboardUserRoute = DashboardUserRouteImport.update({
   path: '/dashboard/user',
   getParentRoute: () => rootRouteImport,
 } as any)
+const MypageAddressIndexRoute = MypageAddressIndexRouteImport.update({
+  id: '/mypage/address/',
+  path: '/mypage/address/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const MypageAddressAddRoute = MypageAddressAddRouteImport.update({
+  id: '/mypage/address/add',
+  path: '/mypage/address/add',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const AuthNaverCallbackRoute = AuthNaverCallbackRouteImport.update({
   id: '/auth/naver/callback',
   path: '/auth/naver/callback',
@@ -54,6 +66,8 @@ export interface FileRoutesByFullPath {
   '/mypage/settings': typeof MypageSettingsRoute
   '/mypage': typeof MypageIndexRoute
   '/auth/naver/callback': typeof AuthNaverCallbackRoute
+  '/mypage/address/add': typeof MypageAddressAddRoute
+  '/mypage/address': typeof MypageAddressIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -62,6 +76,8 @@ export interface FileRoutesByTo {
   '/mypage/settings': typeof MypageSettingsRoute
   '/mypage': typeof MypageIndexRoute
   '/auth/naver/callback': typeof AuthNaverCallbackRoute
+  '/mypage/address/add': typeof MypageAddressAddRoute
+  '/mypage/address': typeof MypageAddressIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -71,6 +87,8 @@ export interface FileRoutesById {
   '/mypage/settings': typeof MypageSettingsRoute
   '/mypage/': typeof MypageIndexRoute
   '/auth/naver/callback': typeof AuthNaverCallbackRoute
+  '/mypage/address/add': typeof MypageAddressAddRoute
+  '/mypage/address/': typeof MypageAddressIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -81,6 +99,8 @@ export interface FileRouteTypes {
     | '/mypage/settings'
     | '/mypage'
     | '/auth/naver/callback'
+    | '/mypage/address/add'
+    | '/mypage/address'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -89,6 +109,8 @@ export interface FileRouteTypes {
     | '/mypage/settings'
     | '/mypage'
     | '/auth/naver/callback'
+    | '/mypage/address/add'
+    | '/mypage/address'
   id:
     | '__root__'
     | '/'
@@ -97,6 +119,8 @@ export interface FileRouteTypes {
     | '/mypage/settings'
     | '/mypage/'
     | '/auth/naver/callback'
+    | '/mypage/address/add'
+    | '/mypage/address/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -106,6 +130,8 @@ export interface RootRouteChildren {
   MypageSettingsRoute: typeof MypageSettingsRoute
   MypageIndexRoute: typeof MypageIndexRoute
   AuthNaverCallbackRoute: typeof AuthNaverCallbackRoute
+  MypageAddressAddRoute: typeof MypageAddressAddRoute
+  MypageAddressIndexRoute: typeof MypageAddressIndexRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -145,6 +171,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof DashboardUserRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/mypage/address/': {
+      id: '/mypage/address/'
+      path: '/mypage/address'
+      fullPath: '/mypage/address'
+      preLoaderRoute: typeof MypageAddressIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/mypage/address/add': {
+      id: '/mypage/address/add'
+      path: '/mypage/address/add'
+      fullPath: '/mypage/address/add'
+      preLoaderRoute: typeof MypageAddressAddRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/auth/naver/callback': {
       id: '/auth/naver/callback'
       path: '/auth/naver/callback'
@@ -162,6 +202,8 @@ const rootRouteChildren: RootRouteChildren = {
   MypageSettingsRoute: MypageSettingsRoute,
   MypageIndexRoute: MypageIndexRoute,
   AuthNaverCallbackRoute: AuthNaverCallbackRoute,
+  MypageAddressAddRoute: MypageAddressAddRoute,
+  MypageAddressIndexRoute: MypageAddressIndexRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

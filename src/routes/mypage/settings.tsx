@@ -6,6 +6,7 @@ import { requireAuth } from '@/lib/authGuard';
 export const Route = createFileRoute('/mypage/settings')({
   beforeLoad: requireAuth,
   component: SettingsScreen,
+  context: (ctx) => ({ ...ctx.context, hideBottomNav: true }),
 });
 
 /**
@@ -26,7 +27,7 @@ function SettingsScreen() {
           <button type="button" onClick={handleGoBack} aria-label="뒤로 가기" className="-ml-1 p-1">
             <ChevronLeftIcon className="h-5 w-5 text-gray-800" />
           </button>
-          <span className="ml-1 text-system-03 tracking-tight-1pct text-gray-800">설정</span>
+          <span className="ml-1 text-gray-800 text-system-03 tracking-tight-1pct">설정</span>
         </header>
 
         <NotificationSettingsSection />

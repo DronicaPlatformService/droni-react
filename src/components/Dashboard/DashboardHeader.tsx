@@ -1,7 +1,7 @@
 'use client';
 
-import { NotificationIcon } from '@/components/Icons';
 import type { JSX } from 'react';
+import { NotificationIcon } from '@/components/Icons';
 
 interface DashboardHeaderProps {
   userName: string;
@@ -20,7 +20,7 @@ export function DashboardHeader({
 }: DashboardHeaderProps): JSX.Element {
   return (
     <header className="flex h-[52px] items-center justify-between px-5 py-3">
-      <p className="font-spoqa text-system-01 tracking-tight-1pct text-gray-800">
+      <p className="font-spoqa text-gray-800 text-system-01 tracking-tight-1pct">
         {userName} 이용자님
       </p>
       <button type="button" aria-label="알림" className="rounded p-1">

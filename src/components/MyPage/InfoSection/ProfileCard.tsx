@@ -1,5 +1,7 @@
-import { DefaultProfileIcon, EmailIcon } from '@/components/Icons';
+'use client';
+
 import type { JSX } from 'react';
+import { DefaultProfileIcon, EmailIcon } from '@/components/Icons';
 
 interface ProfileCardProps {
   userName: string;
@@ -21,29 +23,28 @@ export const ProfileCard = ({
     <div className="flex items-center">
       <DefaultProfileIcon className="h-[42px] w-[42px] rounded-full" />
       <div className="ml-[10px]">
-        <h3 className="font-spoqa text-system-07 tracking-tight-1pct text-white">
+        <h3 className="font-spoqa text-system-07 text-white tracking-tight-1pct">
           {userName} 이용자님
         </h3>
         <div className="mt-1 flex items-center">
           <div className="mr-1 flex h-4 w-4 items-center justify-center rounded-full bg-gray-800">
             <EmailIcon className="h-[14px] w-[14px]" />
           </div>
-          <p className="font-spoqa text-system-10 tracking-tight-1pct text-gray-300">{userEmail}</p>
+          <p className="font-spoqa text-gray-300 text-system-10 tracking-tight-1pct">{userEmail}</p>
         </div>
       </div>
     </div>
     <div className="mt-5 flex items-center justify-around">
       <dl className="text-center">
-        <dt className="mb-1 font-spoqa text-system-09 tracking-tight-1pct text-white">방제 이용</dt>
-        <dd className="font-spoqa text-system-07 tracking-tight-1pct text-white">
+        <dt className="mb-1 font-spoqa text-system-09 text-white tracking-tight-1pct">방제 이용</dt>
+        <dd className="font-spoqa text-system-07 text-white tracking-tight-1pct">
           {usageCount} 회
         </dd>
       </dl>
-      {/* biome-ignore lint/a11y/useFocusableInteractive: <explanation> */}
-      <div className="h-7.5 w-px bg-white" role="separator" aria-orientation="vertical" />
+      <div className="h-7.5 w-px bg-white" aria-hidden="true" />
       <dl className="text-center">
-        <dt className="mb-1 font-spoqa text-system-09 tracking-tight-1pct text-white">협의 중</dt>
-        <dd className="font-spoqa text-system-07 tracking-tight-1pct text-white">
+        <dt className="mb-1 font-spoqa text-system-09 text-white tracking-tight-1pct">협의 중</dt>
+        <dd className="font-spoqa text-system-07 text-white tracking-tight-1pct">
           {inquiryCount} 건
         </dd>
       </dl>

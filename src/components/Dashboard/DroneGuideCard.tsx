@@ -29,7 +29,7 @@ export const DroneGuideCard = () => {
   return (
     <section className="px-5 py-6">
       <div className="w-full">
-        <h2 className="text-system-03 tracking-tight-1pct text-gray-800">드로니 활용백서</h2>
+        <h2 className="text-gray-800 text-system-03 tracking-tight-1pct">드로니 활용백서</h2>
         <div className="mt-3 flex w-full items-start gap-3">
           {droneContents.map((content) => (
             <DroneContentItem
@@ -43,7 +43,7 @@ export const DroneGuideCard = () => {
       </div>
       <button
         type="button"
-        className="mt-5 flex w-full items-center justify-center rounded-lg border border-solid border-gray-300 p-3 text-system-07 tracking-tight-1pct"
+        className="mt-5 flex w-full items-center justify-center rounded-lg border border-gray-300 border-solid p-3 text-system-07 tracking-tight-1pct"
       >
         <span className="my-auto self-stretch text-gray-900">더보러 가기</span>
         <ChevronRightIcon className="my-auto ml-1 aspect-square h-4 w-4 shrink-0 self-stretch" />
