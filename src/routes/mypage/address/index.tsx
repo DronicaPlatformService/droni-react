@@ -1,6 +1,6 @@
 import { createFileRoute, useNavigate } from '@tanstack/react-router';
-import { AddressCard } from '@/components/Address/AddressCard';
-import { AddressLayout } from '@/components/Address/AddressLayout';
+import { AddressCard } from '@/components/MyPage/Address/AddressCard';
+import { AddressLayout } from '@/components/MyPage/Address/AddressLayout';
 import { requireAuth } from '@/lib/authGuard';
 
 export interface Address {

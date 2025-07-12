@@ -1,6 +1,7 @@
 'use client';
 
 import { ChevronRightIcon } from '@heroicons/react/24/outline';
+import { useRouter } from '@tanstack/react-router';
 import type { JSX } from 'react';
 
 /**
@@ -8,6 +9,8 @@ import type { JSX } from 'react';
  * 사용자는 이 섹션을 통해 리뷰를 작성하거나 관리할 수 있습니다.
  */
 export const ReviewSection = (): JSX.Element => {
+  const router = useRouter();
+
   return (
     <section className="mt-[10px] bg-white p-5 font-spoqa tracking-tight-1pct">
       <div className="mb-4">
@@ -16,7 +19,7 @@ export const ReviewSection = (): JSX.Element => {
       <div className="flex flex-col gap-5">
         <button
           type="button"
-          // onClick={/* 리뷰 작성 페이지로 이동하는 함수 */}
+          onClick={() => router.navigate({ to: '/mypage/review-write-list' })}
           className="-m-1 flex items-center justify-between rounded p-1 text-left hover:bg-gray-50"
           aria-label="리뷰 작성 페이지로 이동"
         >

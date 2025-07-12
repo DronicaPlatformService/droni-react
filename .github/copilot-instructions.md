@@ -69,3 +69,46 @@
     -   Focus on user-centric testing; avoid implementation details.
     -   Use **Mock Service Worker (MSW)** to mock API requests.
     -   Test custom hooks with `@testing-library/react`'s `renderHook`.
+
+---
+
+# 6. package.json Dependencies (Based on Major Versions)
+
+## dependencies
+- @capacitor/android: ^7
+- @capacitor/core: ^7
+- @capacitor/ios: ^7
+- @headlessui/react: ^2
+- @heroicons/react: ^2
+- @tailwindcss/vite: ^4
+- @tanstack/react-form: ^1
+- @tanstack/react-query: ^5
+- @tanstack/react-query-devtools: ^5
+- @tanstack/react-router: ^1
+- @tanstack/react-router-devtools: ^1
+- @tanstack/react-store: ^0
+- @tanstack/router-core: ^1
+- @tanstack/router-plugin: ^1
+- @tanstack/store: ^0
+- axios: ^1
+- react: ^19
+- react-dom: ^19
+- tailwind-merge: ^3
+- tailwindcss: ^4
+- tiny-invariant: ^1
+- zod: ^3
+
+## devDependencies
+- @capacitor/cli: ^7
+- @testing-library/dom: ^10
+- @testing-library/react: ^16
+- @types/node: ^24
+- @types/react: ^19
+- @types/react-dom: ^19
+- @vitejs/plugin-react: ^4
+- dotenv-cli: ^8
+- jsdom: ^26
+- typescript: ^5
+- vite: ^7
+- vitest: ^3
+- web-vitals: ^5

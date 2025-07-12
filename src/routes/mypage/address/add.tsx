@@ -3,9 +3,9 @@
 import { ChevronRightIcon } from '@heroicons/react/24/solid';
 import { createFileRoute, useNavigate } from '@tanstack/react-router';
 import { useCallback, useState } from 'react';
-import { AddressInput } from '@/components/Address/AddressInput';
-import { AddressLayout } from '@/components/Address/AddressLayout';
-import { AddressSearchPopup } from '@/components/Address/AddressSearchPopup';
+import { AddressInput } from '@/components/MyPage/Address/AddressInput';
+import { AddressLayout } from '@/components/MyPage/Address/AddressLayout';
+import { AddressSearchPopup } from '@/components/MyPage/Address/AddressSearchPopup';
 import { requireAuth } from '@/lib/authGuard';
 
 export const Route = createFileRoute('/mypage/address/add')({

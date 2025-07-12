@@ -1,1 +1,1 @@
-Please generate a conventional commit message in Korean based on the attached `git diff` output.
+Please generate a conventional commit message in Korean based on the attached `git diff` output. The commit message should accurately summarize the context and purpose of the changes shown in the diff.

@@ -1,5 +1,5 @@
 {
-  "$schema": "https://biomejs.dev/schemas/2.0.6/schema.json",
+  "$schema": "https://biomejs.dev/schemas/2.1.1/schema.json",
   "assist": {
     "actions": {
       "recommended": true,
@@ -8,56 +8,39 @@
       }
     }
   },
-  "linter": {
-    "enabled": true,
-    "rules": {
-      "recommended": true,
-      "nursery": {
-        "useSortedClasses": "error"
-      }
-    }
-  },
   "formatter": {
     "enabled": true,
     "formatWithErrors": false,
     "indentStyle": "space",
     "indentWidth": 2,
-    "lineWidth": 100,
-    "lineEnding": "lf"
+    "lineEnding": "lf",
+    "lineWidth": 100
   },
   "javascript": {
     "formatter": {
+      "arrowParentheses": "always",
+      "attributePosition": "auto",
+      "bracketSameLine": false,
+      "bracketSpacing": true,
       "jsxQuoteStyle": "double",
       "quoteProperties": "asNeeded",
-      "trailingCommas": "all",
-      "semicolons": "always",
-      "arrowParentheses": "always",
-      "bracketSpacing": true,
-      "bracketSameLine": false,
       "quoteStyle": "single",
-      "attributePosition": "auto"
+      "semicolons": "always",
+      "trailingCommas": "all"
     },
+    "globals": ["React"],
+    "jsxRuntime": "reactClassic",
     "parser": {
       "unsafeParameterDecoratorsEnabled": true
-    },
-    "globals": ["React"]
+    }
   },
-  "vcs": {
+  "linter": {
     "enabled": true,
-    "clientKind": "git",
-    "useIgnoreFile": true
-  },
-  "files": {
-    "includes": [
-      "**",
-      "!**/node_modules",
-      "!**/build",
-      "!**/dist",
-      "!**/*.lock",
-      "!**/package-lock.json",
-      "!**/pnpm-lock.yaml",
-      "!**/yarn.lock",
-      "!src/routeTree.gen.ts"
-    ]
+    "rules": {
+      "nursery": {
+        "useSortedClasses": "error"
+      },
+      "recommended": true
+    }
   }
 }
