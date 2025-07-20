@@ -1,6 +1,6 @@
-import { ChevronLeftIcon } from '@heroicons/react/24/solid';
 import { createFileRoute, useRouter } from '@tanstack/react-router';
-import { NotificationSettingsSection, ServiceInfoSection } from '@/components/Settings';
+import { CommonHeader } from '@/components/MyPage';
+import { NotificationSettingsSection, ServiceInfoSection } from '@/components/MyPage/Settings';
 import { requireAuth } from '@/lib/authGuard';
 
 export const Route = createFileRoute('/mypage/settings')({
@@ -23,12 +23,7 @@ function SettingsScreen() {
   return (
     <div>
       <main className="min-h-screen flex-1 bg-gray-100">
-        <header className="flex items-center bg-white px-5 py-5">
-          <button type="button" onClick={handleGoBack} aria-label="뒤로 가기" className="-ml-1 p-1">
-            <ChevronLeftIcon className="h-5 w-5 text-gray-800" />
-          </button>
-          <span className="ml-1 text-gray-800 text-system-03 tracking-tight-1pct">설정</span>
-        </header>
+        <CommonHeader pageTitle="설정" onBack={handleGoBack} />
 
         <NotificationSettingsSection />
 
