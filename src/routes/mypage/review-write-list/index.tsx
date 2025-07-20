@@ -1,5 +1,5 @@
 import { ChevronLeftIcon } from '@heroicons/react/24/solid';
-import { createFileRoute } from '@tanstack/react-router';
+import { createFileRoute, useRouter } from '@tanstack/react-router';
 import type { JSX } from 'react';
 import { requireAuth } from '@/lib/authGuard';
 import {
@@ -38,11 +38,19 @@ export const Route = createFileRoute('/mypage/review-write-list/')({
 });
 
 function ReviewWriteListPage(): JSX.Element {
+  const router = useRouter();
+
+  const handleGoBack = () => {
+    router.history.back();
+  };
+
   // TODO: 서버에서 데이터 fetch
   return (
     <section className="flex min-h-screen flex-col bg-gray-100 pb-[calc(53px+env(safe-area-inset-bottom))]">
       <div className="flex h-13 flex-shrink-0 items-center gap-0.5 px-5">
-        <ChevronLeftIcon className="h-6 w-6 flex-shrink-0 text-gray-800" />
+        <button type="button" aria-label="이전 페이지로" onClick={handleGoBack} className="mr-2">
+          <ChevronLeftIcon className="h-6 w-6 flex-shrink-0 text-gray-800" />
+        </button>
       </div>
 
       <div className="flex min-h-0 flex-1 flex-col overflow-y-auto">

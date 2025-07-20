@@ -16,6 +16,7 @@ import { Route as MypageSettingsRouteImport } from './routes/mypage/settings'
 import { Route as DashboardUserRouteImport } from './routes/dashboard.user'
 import { Route as MypageReviewWriteListIndexRouteImport } from './routes/mypage/review-write-list/index'
 import { Route as MypageAddressIndexRouteImport } from './routes/mypage/address/index'
+import { Route as MypageReviewWriteListIdRouteImport } from './routes/mypage/review-write-list/$id'
 import { Route as MypageAddressAddRouteImport } from './routes/mypage/address/add'
 import { Route as AuthNaverCallbackRouteImport } from './routes/auth/naver/callback'
 
@@ -55,6 +56,11 @@ const MypageAddressIndexRoute = MypageAddressIndexRouteImport.update({
   path: '/mypage/address/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const MypageReviewWriteListIdRoute = MypageReviewWriteListIdRouteImport.update({
+  id: '/mypage/review-write-list/$id',
+  path: '/mypage/review-write-list/$id',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const MypageAddressAddRoute = MypageAddressAddRouteImport.update({
   id: '/mypage/address/add',
   path: '/mypage/address/add',
@@ -74,6 +80,7 @@ export interface FileRoutesByFullPath {
   '/mypage': typeof MypageIndexRoute
   '/auth/naver/callback': typeof AuthNaverCallbackRoute
   '/mypage/address/add': typeof MypageAddressAddRoute
+  '/mypage/review-write-list/$id': typeof MypageReviewWriteListIdRoute
   '/mypage/address': typeof MypageAddressIndexRoute
   '/mypage/review-write-list': typeof MypageReviewWriteListIndexRoute
 }
@@ -85,6 +92,7 @@ export interface FileRoutesByTo {
   '/mypage': typeof MypageIndexRoute
   '/auth/naver/callback': typeof AuthNaverCallbackRoute
   '/mypage/address/add': typeof MypageAddressAddRoute
+  '/mypage/review-write-list/$id': typeof MypageReviewWriteListIdRoute
   '/mypage/address': typeof MypageAddressIndexRoute
   '/mypage/review-write-list': typeof MypageReviewWriteListIndexRoute
 }
@@ -97,6 +105,7 @@ export interface FileRoutesById {
   '/mypage/': typeof MypageIndexRoute
   '/auth/naver/callback': typeof AuthNaverCallbackRoute
   '/mypage/address/add': typeof MypageAddressAddRoute
+  '/mypage/review-write-list/$id': typeof MypageReviewWriteListIdRoute
   '/mypage/address/': typeof MypageAddressIndexRoute
   '/mypage/review-write-list/': typeof MypageReviewWriteListIndexRoute
 }
@@ -110,6 +119,7 @@ export interface FileRouteTypes {
     | '/mypage'
     | '/auth/naver/callback'
     | '/mypage/address/add'
+    | '/mypage/review-write-list/$id'
     | '/mypage/address'
     | '/mypage/review-write-list'
   fileRoutesByTo: FileRoutesByTo
@@ -121,6 +131,7 @@ export interface FileRouteTypes {
     | '/mypage'
     | '/auth/naver/callback'
     | '/mypage/address/add'
+    | '/mypage/review-write-list/$id'
     | '/mypage/address'
     | '/mypage/review-write-list'
   id:
@@ -132,6 +143,7 @@ export interface FileRouteTypes {
     | '/mypage/'
     | '/auth/naver/callback'
     | '/mypage/address/add'
+    | '/mypage/review-write-list/$id'
     | '/mypage/address/'
     | '/mypage/review-write-list/'
   fileRoutesById: FileRoutesById
@@ -144,6 +156,7 @@ export interface RootRouteChildren {
   MypageIndexRoute: typeof MypageIndexRoute
   AuthNaverCallbackRoute: typeof AuthNaverCallbackRoute
   MypageAddressAddRoute: typeof MypageAddressAddRoute
+  MypageReviewWriteListIdRoute: typeof MypageReviewWriteListIdRoute
   MypageAddressIndexRoute: typeof MypageAddressIndexRoute
   MypageReviewWriteListIndexRoute: typeof MypageReviewWriteListIndexRoute
 }
@@ -199,6 +212,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof MypageAddressIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/mypage/review-write-list/$id': {
+      id: '/mypage/review-write-list/$id'
+      path: '/mypage/review-write-list/$id'
+      fullPath: '/mypage/review-write-list/$id'
+      preLoaderRoute: typeof MypageReviewWriteListIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/mypage/address/add': {
       id: '/mypage/address/add'
       path: '/mypage/address/add'
@@ -224,6 +244,7 @@ const rootRouteChildren: RootRouteChildren = {
   MypageIndexRoute: MypageIndexRoute,
   AuthNaverCallbackRoute: AuthNaverCallbackRoute,
   MypageAddressAddRoute: MypageAddressAddRoute,
+  MypageReviewWriteListIdRoute: MypageReviewWriteListIdRoute,
   MypageAddressIndexRoute: MypageAddressIndexRoute,
   MypageReviewWriteListIndexRoute: MypageReviewWriteListIndexRoute,
 }
