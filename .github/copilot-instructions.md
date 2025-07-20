@@ -1,114 +1,41 @@
-# GitHub Copilot Instructions for Modern React Development
+# GitHub Copilot Instructions for Droni React
 
-## 1. Core Stack & Principles
+## 1. Architecture & Patterns
+- **Hybrid App**: React (TypeScript), TanStack (Router, Query, Store), Tailwind CSS, Vite, Capacitor for mobile/web.
+- **Routing**: File-based with TanStack Router (`src/routes`). Root layout in `__root.tsx` applies to all routes. Use `<Outlet />` for nested content.
+- **Data Fetching**: Prefer TanStack Query for server state. Use route `loader` for SSR-like data preloading. See `src/integrations/tanstack-query/` for setup and global error handling.
+- **State Management**: TanStack Store for global client state (see `src/stores/`). Local state via `useState`/`useReducer`.
+- **Styling**: Tailwind CSS utility classes in JSX. No custom CSS except for variables in `src/styles.css`. Use `clsx`/`tailwind-merge` for dynamic classes.
+- **Component Structure**: Co-locate feature components, hooks, and tests. Use `index.ts` for barrel exports. Client components must start with `"use client";`.
+- **TypeScript**: All code is strictly typed. Props, state, and API responses must have explicit types.
 
--   **Tech Stack**: React (with Server Components), TypeScript, TanStack (Query, Router, Table, Form, Store), Tailwind CSS, Vite.
--   **Tooling**: Use **Biome** for all formatting and linting.
--   **Commits**: Adhere strictly to **Conventional Commits** (`feat:`, `fix:`, `refactor:`, etc.).
--   **Architecture**: This is a hybrid app using **Capacitor**, so ensure web standards compatibility. The primary framework pattern is **React Server Components (RSCs)**.
--   **Guiding Principles**:
-    -   **Functional Components & Hooks First**: No class components.
-    -   **TypeScript is Mandatory**: Type everything (props, state, API responses).
-    -   **Immutability**: Never mutate state or props directly.
-    -   **Single Responsibility Principle (SRP)**: Components and hooks should do one thing well.
-    -   **DRY**: Abstract repeated logic into custom hooks and common UI into reusable components.
+## 2. Developer Workflow
+- **Install**: `pnpm install`
+- **Dev Server**: `pnpm start` (Vite)
+- **Build**: `pnpm build`
+- **Test**: `pnpm test` (Vitest + React Testing Library)
+- **Lint/Format**: `pnpm lint`, `pnpm format`, `pnpm check` (Biome)
+- **Deploy**: Use `./deploy.sh [production|staging] [options]` (see `DEPLOYMENT.md` for advanced/rollback)
+- **Logs**: `tail -f logs/deploy-*.log` or `docker compose logs -f frontend`
 
----
+## 3. Project Conventions
+- **Absolute Imports**: Use `@/` for `src/` (see `vite.config.js` alias).
+- **Commit Style**: Conventional Commits (`feat:`, `fix:`, etc.).
+- **Immutability**: Never mutate state/props directly.
+- **SRP/DRY**: Extract logic to hooks/components. Example: `useTokenExpirationMonitor` in `src/hooks/`.
+- **Error Handling**: Use TanStack Query's error states and global handlers in `root-provider.tsx`.
+- **Testing**: Focus on user-centric tests. Use MSW for API mocking.
 
-## 2. Component & File Structure
+## 4. Integration & External
+- **API**: Use `src/lib/apiClient.ts` for HTTP. JWT utils in `src/lib/jwtUtils.ts`.
+- **Mobile**: Capacitor config in `capacitor.config.ts` and `android/`.
+- **Env Vars**: Only `VITE_`-prefixed vars are exposed to client. Type in `vite-env.d.ts`.
+- **Proxy**: Dev API proxy set in `vite.config.js`.
 
--   **Component Naming**: `PascalCase` (e.g., `UserProfile.tsx`).
--   **Hook Naming**: `useCamelCase` (e.g., `useUserData.ts`).
--   **Client Components**: Must start with the `"use client";` directive. Keep them as small as possible ("islands of interactivity").
--   **Server Components (RSC)**: The default. Use them for data fetching (`async/await`) and passing data down to client components. They cannot use hooks like `useState`.
--   **File Organization**: Organize by feature/domain. Co-locate related files (component, test, styles) in the same folder. Use `index.ts` barrel files for clean exports.
--   **Path Aliases**: Use `@/*` for absolute imports from the `src/` directory.
-
----
-
-## 3. State & Data Management
-
--   **Server State**: Use **TanStack Query** (`useQuery`, `useSuspenseQuery`, `useMutation`) for all API interactions (fetching, caching, updating). This is the standard for server state.
-    -   Mutations should often call **Server Actions**.
-    -   Leverage `queryKey` for caching and invalidation.
--   **Global Client State**: Use **TanStack Store** (formerly Zustand) for UI state shared across the application (e.g., theme, sidebar open/closed).
--   **Local Component State**: Use `useState` or `useReducer` for state that is local to a single component and doesn't need to be shared.
-
----
-
-## 4. Key Libraries & Usage
-
--   **Styling**: **Tailwind CSS** is the primary method.
-    -   Use utility classes directly in JSX.
-    -   For reusable styles, create a React component (e.g., `<Button>`), not custom CSS classes with `@apply`.
-    -   Use `tailwind-merge` and `clsx` to handle conditional and conflicting classes in components.
--   **Forms**: Use **TanStack Form**.
-    -   It's headless, giving full control over markup and styling with Tailwind.
-    -   Integrate with a schema validator like **Zod** for type-safe validation.
--   **Tables & Data Grids**: Use **TanStack Table**.
-    -   It's headless; you are responsible for all rendering and styling with `<table>`, `<td>`, etc., using Tailwind classes.
-    -   Implement features like sorting, filtering, and pagination using the provided hooks.
--   **Routing**: Use **TanStack Router**.
-    -   It's fully type-safe (paths, params, search).
-    -   Use its file-based routing or code-based configuration.
-    -   Leverage loaders to fetch data before rendering a route.
--   **Environment Variables**:
-    -   Use Vite's convention: only variables prefixed with `VITE_` are exposed to the client.
-    -   Access them via `import.meta.env.VITE_VARIABLE_NAME`.
-    -   Define types for env variables in `vite-env.d.ts`.
+## 5. Examples & References
+- **Feature Example**: See `src/components/Dashboard/` for co-located UI, types, and index barrel.
+- **Global Query Setup**: `src/integrations/tanstack-query/root-provider.tsx`
+- **Deployment**: `DEPLOYMENT.md` and `deploy.sh` for full CI/CD and troubleshooting.
 
 ---
-
-## 5. Coding & API Design
-
--   **Props**: Always destructure props and define their types using a TypeScript `interface` or `type`.
--   **Custom Hooks**: Extract any reusable logic (e.g., `useDebounce`, `useWindowSize`). They must be testable in isolation.
--   **`useEffect`**: Use sparingly. TanStack Query should handle most data-fetching side effects. Reserve `useEffect` for interactions with browser APIs or third-party libraries.
--   **Error Handling**: Use TanStack Query's `error` state, mutation `onError` callbacks, and React **Error Boundaries** to handle errors gracefully.
--   **Testing**: Use **Vitest** and **React Testing Library (RTL)**.
-    -   Focus on user-centric testing; avoid implementation details.
-    -   Use **Mock Service Worker (MSW)** to mock API requests.
-    -   Test custom hooks with `@testing-library/react`'s `renderHook`.
-
----
-
-# 6. package.json Dependencies (Based on Major Versions)
-
-## dependencies
-- @capacitor/android: ^7
-- @capacitor/core: ^7
-- @capacitor/ios: ^7
-- @headlessui/react: ^2
-- @heroicons/react: ^2
-- @tailwindcss/vite: ^4
-- @tanstack/react-form: ^1
-- @tanstack/react-query: ^5
-- @tanstack/react-query-devtools: ^5
-- @tanstack/react-router: ^1
-- @tanstack/react-router-devtools: ^1
-- @tanstack/react-store: ^0
-- @tanstack/router-core: ^1
-- @tanstack/router-plugin: ^1
-- @tanstack/store: ^0
-- axios: ^1
-- react: ^19
-- react-dom: ^19
-- tailwind-merge: ^3
-- tailwindcss: ^4
-- tiny-invariant: ^1
-- zod: ^3
-
-## devDependencies
-- @capacitor/cli: ^7
-- @testing-library/dom: ^10
-- @testing-library/react: ^16
-- @types/node: ^24
-- @types/react: ^19
-- @types/react-dom: ^19
-- @vitejs/plugin-react: ^4
-- dotenv-cli: ^8
-- jsdom: ^26
-- typescript: ^5
-- vite: ^7
-- vitest: ^3
-- web-vitals: ^5
+For more, see `README.md` and `DEPLOYMENT.md`. When in doubt, follow patterns from existing feature folders and scripts.
