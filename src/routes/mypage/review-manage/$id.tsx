@@ -1,39 +1,33 @@
 import { createFileRoute, useRouter } from '@tanstack/react-router';
-import type { JSX } from 'react';
 import { CommonBottomButton, CommonBottomButtonWrapper, CommonHeader } from '@/components/MyPage';
 import { ReviewDetailForm } from '@/components/MyPage/Review/ReviewDetailForm';
 import { requireAuth } from '@/lib/authGuard';
 
-export const Route = createFileRoute('/mypage/review-write-list/$id')({
+export const Route = createFileRoute('/mypage/review-manage/$id')({
   beforeLoad: requireAuth,
-  component: ReviewWritePage,
+  component: RouteComponent,
   context: (ctx) => ({ ...ctx.context, hideBottomNav: true }),
 });
 
-function ReviewWritePage(): JSX.Element {
+function RouteComponent() {
   const router = useRouter();
 
   const handleGoBack = () => {
     router.history.back();
   };
 
-  // TODO: id로 리뷰 대상 데이터 fetch (TanStack Query 사용 권장)
-  // const { data, isLoading, error } = useQuery(...);
-
   return (
     <section className="flex min-h-screen flex-col bg-gray-100 pb-[env(safe-area-inset-bottom)]">
-      {/* header */}
-      <CommonHeader bgColorClassName="bg-gray-100" onBack={handleGoBack} pageTitle="리뷰 작성" />
+      <CommonHeader bgColorClassName="bg-gray-100" onBack={handleGoBack} pageTitle="리뷰 관리" />
 
       <ReviewDetailForm />
 
-      {/* bottom button */}
       <CommonBottomButtonWrapper>
         <CommonBottomButton
           onClick={(): void => {
             throw new Error('Function not implemented.');
           }}
-          text="리뷰 등록"
+          text={'리뷰 등록'}
         />
       </CommonBottomButtonWrapper>
     </section>

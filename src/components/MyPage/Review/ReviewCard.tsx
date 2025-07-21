@@ -81,8 +81,8 @@ export const ReviewCard = ({
             }}
           />
 
-          <div className="ml-2.5 flex w-full flex-1 gap-1">
-            <div className="flex flex-1 flex-col justify-between">
+          <div className="ml-2.5 flex w-full flex-1 items-center gap-1">
+            <div className="flex flex-1 flex-col items-start justify-between">
               {/* name */}
               <div className="text-gray-800">
                 <span className="text-system-07 tracking-[-0.14px]">{name}</span>{' '}

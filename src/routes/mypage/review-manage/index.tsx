@@ -32,7 +32,7 @@ function RouteComponent() {
         <div className="mt-5 flex flex-col gap-7.5">
           <ReviewCard
             completedAt={'2024-04-26'}
-            id={''}
+            id={'1'}
             mode={'manage-list'}
             name={'김철수'}
             rating={5}
@@ -43,7 +43,7 @@ function RouteComponent() {
           />
           <ReviewCard
             completedAt={'2024-04-19'}
-            id={''}
+            id={'2'}
             mode={'manage-list'}
             name={'홍길동'}
             rating={0}
