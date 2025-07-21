@@ -19,13 +19,13 @@ export const AddressCard = memo(function AddressCard({
 }: AddressCardProps) {
   return (
     <section
-      className="flex-shrink-0 rounded-lg border-2 border-droni-blue-300 bg-white p-4"
       aria-label={`${address.farmName} 주소지 카드`}
+      className="flex-shrink-0 rounded-lg border-2 border-droni-blue-300 bg-white p-4"
     >
       <div className="flex items-center justify-between">
         <div className="flex items-center space-x-2">
           <span className="flex h-6 w-6 flex-shrink-0 items-center justify-center rounded-full bg-gray-600 text-white">
-            <MapPinIcon className="h-3.5 w-3.5" aria-hidden />
+            <MapPinIcon aria-hidden className="h-3.5 w-3.5" />
           </span>
           <span className="text-gray-800 text-system-05 tracking-[-0.16px]">
             {address.farmName}
@@ -44,10 +44,10 @@ export const AddressCard = memo(function AddressCard({
           )}
         </div>
         <button
-          type="button"
-          className="inline-flex items-center justify-center gap-2.5 rounded border border-gray-200 px-3 py-1"
           aria-label={`${address.farmName} 주소지 수정`}
+          className="inline-flex items-center justify-center gap-2.5 rounded border border-gray-200 px-3 py-1"
           onClick={onEdit}
+          type="button"
         >
           <span className="text-gray-900 text-system-10 tracking-[-0.12px]">수정</span>
         </button>
@@ -55,7 +55,7 @@ export const AddressCard = memo(function AddressCard({
 
       <div className="mt-4 flex items-center space-x-2">
         <span className="text-gray-800 text-system-07 tracking-[-0.14px]">{address.name}</span>
-        <span className="h-3 w-[1px] bg-[#EBEDF0]" aria-hidden />
+        <span aria-hidden className="h-3 w-[1px] bg-[#EBEDF0]" />
         <span className="text-gray-800 text-system-07 tracking-[-0.14px]">{address.phone}</span>
       </div>
 
@@ -66,9 +66,9 @@ export const AddressCard = memo(function AddressCard({
 
       <div className="mt-1 flex items-center justify-end">
         <button
-          type="button"
-          className="cursor-pointer text-right font-medium text-gray-800 text-xs leading-[18px] tracking-[-0.12px] underline"
           aria-label={`${address.farmName} 주소지 삭제`}
+          className="cursor-pointer text-right font-medium text-gray-800 text-xs leading-[18px] tracking-[-0.12px] underline"
+          onClick={onDelete}
           style={{
             textDecorationStyle: 'solid',
             textDecorationSkipInk: 'none',
@@ -76,7 +76,7 @@ export const AddressCard = memo(function AddressCard({
             textUnderlineOffset: 'auto',
             textUnderlinePosition: 'from-font',
           }}
-          onClick={onDelete}
+          type="button"
         >
           삭제
         </button>

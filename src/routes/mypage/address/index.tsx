@@ -57,12 +57,12 @@ function AddressManagementScreen() {
         {mockAddresses.length > 0 ? (
           mockAddresses.map((addr, idx) => (
             <AddressCard
-              key={addr.id}
               address={addr}
               isDefault={idx === 0}
+              key={addr.id}
               // TODO: 실제 수정/삭제 핸들러 연결
-              onEdit={() => {}}
               onDelete={() => {}}
+              onEdit={() => {}}
             />
           ))
         ) : (

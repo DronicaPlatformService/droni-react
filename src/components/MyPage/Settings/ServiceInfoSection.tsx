@@ -59,26 +59,26 @@ export const ServiceInfoSection = ({ className }: ServiceInfoSectionProps): JSX.
 
         <ul className="mt-4 flex flex-col">
           {serviceInfoItems.map((item, index) => (
-            <li key={item.id} className={index > 0 ? 'mt-5' : ''}>
+            <li className={index > 0 ? 'mt-5' : ''} key={item.id}>
               {item.id === 'version' ? (
                 <button
-                  type="button"
-                  onClick={
-                    item.id === 'version' && item.showUpdateNeeded
-                      ? handleUpdateClick
-                      : item.onClick
-                  }
-                  className="-m-1 flex w-full items-start justify-between p-1 text-left"
                   aria-describedby={
                     item.id === 'version' && item.showUpdateNeeded
                       ? `${item.id}-update-desc`
                       : undefined
                   }
+                  className="-m-1 flex w-full items-start justify-between p-1 text-left"
+                  onClick={
+                    item.id === 'version' && item.showUpdateNeeded
+                      ? handleUpdateClick
+                      : item.onClick
+                  }
+                  type="button"
                 >
                   <div className="flex flex-col">
                     <span className="text-gray-800 text-system-07">{item.label}</span>
                     {item.showUpdateNeeded && (
-                      <div id={`${item.id}-update-desc`} className="mt-1 flex items-center">
+                      <div className="mt-1 flex items-center" id={`${item.id}-update-desc`}>
                         <ExclamationCircleIcon className="mr-1 h-4 w-4 text-[#FF385C]" />
                         <span className="text-gray-600 text-system-10">
                           새로운 버전으로 업데이트 해주세요
@@ -94,10 +94,10 @@ export const ServiceInfoSection = ({ className }: ServiceInfoSectionProps): JSX.
                 </button>
               ) : (
                 <Link
-                  to={item.href}
                   className="-m-1 flex items-center justify-between p-1"
-                  target={item.isExternal ? '_blank' : undefined}
                   rel={item.isExternal ? 'noopener noreferrer' : undefined}
+                  target={item.isExternal ? '_blank' : undefined}
+                  to={item.href}
                 >
                   <div>
                     <span className="text-gray-800 text-system-07">{item.label}</span>

@@ -28,11 +28,11 @@ export const AddressLayout = ({
 
   return (
     <div className="flex h-screen w-full flex-col bg-gray-100 pb-[calc(1rem+var(--safe-area-inset-bottom))]">
-      <CommonHeader pageTitle={pageTitle} onBack={handleGoBack} bgColorClassName="bg-gray-100" />
+      <CommonHeader bgColorClassName="bg-gray-100" onBack={handleGoBack} pageTitle={pageTitle} />
 
       <main className="flex-1 overflow-y-auto">{children}</main>
 
-      <CommonBottomButton text={buttonText} onClick={onButtonClick} disabled={isButtonDisabled} />
+      <CommonBottomButton disabled={isButtonDisabled} onClick={onButtonClick} text={buttonText} />
     </div>
   );
 };

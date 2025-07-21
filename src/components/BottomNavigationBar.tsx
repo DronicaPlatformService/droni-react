@@ -59,13 +59,13 @@ export function BottomNavigationBar(): JSX.Element {
 
           return (
             <Link
-              to={item.path}
-              key={item.id}
               className={`flex flex-1 flex-col items-center justify-center space-y-0.5 pt-1.5 pb-1 font-medium text-xs transition-colors hover:text-gray-600 focus:text-gray-600 focus:outline-none ${
                 isActive ? 'text-gray-600' : 'text-gray-300'
               }`}
+              key={item.id}
+              to={item.path}
             >
-              <item.icon isActive={isActive} className="h-5 w-5" />
+              <item.icon className="h-5 w-5" isActive={isActive} />
               <span>{item.label}</span>
             </Link>
           );

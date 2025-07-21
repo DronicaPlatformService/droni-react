@@ -27,9 +27,9 @@ export const AccountSwitchSection = (): JSX.Element => {
             </div>
           </div>
           <button
-            type="button"
-            onClick={handleSignUpClick}
             className="rounded-sm border border-gray-200 px-3 py-1"
+            onClick={handleSignUpClick}
+            type="button"
           >
             <span className="text-gray-900 text-system-10 tracking-tight-1pct">가입하기</span>
           </button>

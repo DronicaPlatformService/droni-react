@@ -41,7 +41,7 @@ export const ProfileCard = ({
           {usageCount} 회
         </dd>
       </dl>
-      <div className="h-7.5 w-px bg-white" aria-hidden="true" />
+      <div aria-hidden="true" className="h-7.5 w-px bg-white" />
       <dl className="text-center">
         <dt className="mb-1 font-spoqa text-system-09 text-white tracking-tight-1pct">협의 중</dt>
         <dd className="font-spoqa text-system-07 text-white tracking-tight-1pct">

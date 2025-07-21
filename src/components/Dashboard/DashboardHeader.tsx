@@ -23,8 +23,8 @@ export function DashboardHeader({
       <p className="font-spoqa text-gray-800 text-system-01 tracking-tight-1pct">
         {userName} 이용자님
       </p>
-      <button type="button" aria-label="알림" className="rounded p-1">
-        <NotificationIcon hasUnread={hasUnreadNotification} className="h-4.5 w-4.5" />
+      <button aria-label="알림" className="rounded p-1" type="button">
+        <NotificationIcon className="h-4.5 w-4.5" hasUnread={hasUnreadNotification} />
       </button>
     </header>
   );

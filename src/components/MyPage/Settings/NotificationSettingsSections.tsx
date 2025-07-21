@@ -46,17 +46,17 @@ export const NotificationSettingsSection = ({
       <h3 className="text-gray-800 text-system-05">알림 설정</h3>
 
       {notificationItems.map((item) => (
-        <div key={item.id} className="mt-4 flex items-center justify-between">
-          <label htmlFor={item.id} className="flex-grow cursor-pointer">
+        <div className="mt-4 flex items-center justify-between" key={item.id}>
+          <label className="flex-grow cursor-pointer" htmlFor={item.id}>
             <div className="text-gray-800 text-system-07">{item.label}</div>
             <div className="text-gray-600 text-system-10">{item.description}</div>
           </label>
           <div>
             <Switch
-              id={item.id}
               checked={enabledSettings[item.id]}
-              onChange={() => handleToggle(item.id)}
               className="group inline-flex h-5.5 w-9.5 items-center rounded-full bg-gray-200 transition data-checked:bg-droni-blue-500"
+              id={item.id}
+              onChange={() => handleToggle(item.id)}
             >
               <span className="size-4 translate-x-1 rounded-full bg-white transition group-data-checked:translate-x-4.5" />
             </Switch>

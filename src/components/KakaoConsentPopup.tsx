@@ -34,8 +34,8 @@ export const KakaoConsentPopup = ({
 
   return (
     <dialog
-      className="fixed inset-0 z-50 flex h-screen items-center justify-center bg-black/50 p-4"
       aria-labelledby="kakao-consent-title"
+      className="fixed inset-0 z-50 flex h-screen items-center justify-center bg-black/50 p-4"
       onClick={(e) => {
         if (e.target === e.currentTarget) {
           onClose();
@@ -49,7 +49,7 @@ export const KakaoConsentPopup = ({
       tabIndex={-1}
     >
       <div className="w-full max-w-md rounded-lg bg-white p-6 shadow-xl">
-        <h2 id="kakao-consent-title" className="mb-4 font-bold text-gray-800 text-xl">
+        <h2 className="mb-4 font-bold text-gray-800 text-xl" id="kakao-consent-title">
           카카오 로그인 동의
         </h2>
         <p className="mb-1 text-gray-700 text-sm">
@@ -61,19 +61,19 @@ export const KakaoConsentPopup = ({
         </p>
         <ul className="mb-6 space-y-3">
           {KAKAO_CONSENT_ITEMS.map((item) => (
-            <li key={item.id} className="flex items-start text-sm">
+            <li className="flex items-start text-sm" key={item.id}>
               <svg
+                aria-hidden="true"
                 className={`mt-0.5 mr-3 h-4 w-4 flex-shrink-0 ${
                   item.isOptional ? 'text-gray-400' : 'text-yellow-500'
                 }`}
                 fill="currentColor"
                 viewBox="0 0 20 20"
-                aria-hidden="true"
               >
                 <path
-                  fillRule="evenodd"
-                  d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
                   clipRule="evenodd"
+                  d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                  fillRule="evenodd"
                 />
               </svg>
               <div>
@@ -89,16 +89,16 @@ export const KakaoConsentPopup = ({
         </ul>
         <div className="flex flex-col space-y-3 sm:flex-row sm:justify-end sm:space-x-3 sm:space-y-0">
           <button
-            type="button"
-            onClick={onClose}
             className="w-full rounded-md border border-gray-300 bg-white px-4 py-2.5 font-medium text-gray-700 text-sm shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-gray-400 focus:ring-offset-2 sm:w-auto"
+            onClick={onClose}
+            type="button"
           >
             취소
           </button>
           <button
-            type="button"
-            onClick={onAgree}
             className="w-full rounded-md border border-transparent bg-yellow-400 px-4 py-2.5 font-medium text-black text-sm shadow-sm hover:bg-yellow-500 focus:outline-none focus:ring-2 focus:ring-yellow-500 focus:ring-offset-2 sm:w-auto"
+            onClick={onAgree}
+            type="button"
           >
             동의하고 계속하기
           </button>

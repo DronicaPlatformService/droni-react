@@ -11,9 +11,9 @@ export const DroneContentItem = ({ imageUrl, category, title }: DroneContentItem
     <article className="flex-1 shrink basis-0">
       <div className="w-full">
         <img
-          src={imageUrl}
           alt={title}
           className="aspect-[1.35] w-[162px] rounded-lg object-contain"
+          src={imageUrl}
         />
         <div className="mt-2.5 w-full">
           <p className="text-gray-500 text-system-10 tracking-tight-1pct">{category}</p>

@@ -23,7 +23,7 @@ function SettingsScreen() {
   return (
     <div>
       <main className="min-h-screen flex-1 bg-gray-100">
-        <CommonHeader pageTitle="설정" onBack={handleGoBack} />
+        <CommonHeader onBack={handleGoBack} pageTitle="설정" />
 
         <NotificationSettingsSection />
 

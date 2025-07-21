@@ -32,10 +32,10 @@ export function PopularPilotsSection({
             인기있는 조종사들
           </h2>
           <button
-            type="button"
-            onClick={onSeeMoreClick}
-            className="flex items-center justify-center"
             aria-label="인기있는 조종사 더 보기"
+            className="flex items-center justify-center"
+            onClick={onSeeMoreClick}
+            type="button"
           >
             <ChevronRightIcon className="h-5 w-5" />
           </button>
@@ -43,16 +43,16 @@ export function PopularPilotsSection({
         <div className="no-scrollbar flex gap-4 overflow-x-auto">
           {pilots.map((pilot) => (
             <div
-              key={pilot.id}
               className="flex flex-shrink-0 cursor-pointer flex-col items-center gap-1.5"
+              key={pilot.id}
               // TODO: 각 조종사 클릭 시 프로필 페이지로 이동하는 로직 추가
               // onClick={() => navigateToPilotProfile(pilot.id)}
             >
               {pilot.imageUrl ? (
                 <img
-                  src={pilot.imageUrl}
                   alt={`${pilot.nickname} 프로필 이미지`}
                   className="h-16 w-16 rounded-full border border-gray-200 object-cover"
+                  src={pilot.imageUrl}
                 />
               ) : (
                 <DefaultProfileIcon className="h-16 w-16" />

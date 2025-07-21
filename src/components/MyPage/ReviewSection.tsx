@@ -18,10 +18,10 @@ export const ReviewSection = (): JSX.Element => {
       </div>
       <div className="flex flex-col gap-5">
         <button
-          type="button"
-          onClick={() => router.navigate({ to: '/mypage/review-write-list' })}
-          className="-m-1 flex items-center justify-between rounded p-1 text-left hover:bg-gray-50"
           aria-label="리뷰 작성 페이지로 이동"
+          className="-m-1 flex items-center justify-between rounded p-1 text-left hover:bg-gray-50"
+          onClick={() => router.navigate({ to: '/mypage/review-write-list' })}
+          type="button"
         >
           <div className="flex flex-col gap-0.5">
             <div className="text-gray-800 text-system-07">리뷰 작성</div>
@@ -35,10 +35,10 @@ export const ReviewSection = (): JSX.Element => {
         </button>
 
         <button
-          type="button"
+          aria-label="리뷰 관리 페이지로 이동"
           // onClick={/* 리뷰 관리 페이지로 이동하는 함수 */}
           className="-m-1 flex items-center justify-between rounded p-1 text-left hover:bg-gray-50"
-          aria-label="리뷰 관리 페이지로 이동"
+          type="button"
         >
           <div className="flex flex-col gap-0.5">
             <div className="text-gray-800 text-system-07">리뷰 관리</div>

@@ -9,9 +9,9 @@ export const AddressManagementSection = (): JSX.Element => {
         <span className="text-gray-800 text-system-05">주소지</span>
       </div>
       <Link
-        to="/mypage/address"
-        className="flex cursor-pointer items-center justify-between"
         aria-label="주소지 관리 페이지로 이동"
+        className="flex cursor-pointer items-center justify-between"
+        to="/mypage/address"
       >
         <div className="flex flex-col gap-0.5">
           <div className="text-gray-800 text-system-07">주소지 관리</div>

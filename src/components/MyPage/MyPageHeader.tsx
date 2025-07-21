@@ -19,10 +19,10 @@ export const MyPageHeader = (): JSX.Element => {
     <header className="item-center flex h-[52px] w-full flex-shrink-0 justify-between bg-white px-5 py-[13px]">
       <h1 className="font-spoqa text-gray-800 text-system-03 tracking-tight-1pct">마이페이지</h1>
       <button
-        type="button"
         aria-label="설정"
-        onClick={handleSettingsClick}
         className="rounded p-1 text-black hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-droni-blue-500/50"
+        onClick={handleSettingsClick}
+        type="button"
       >
         <Cog8ToothIcon className="h-7 w-7 text-black" />
       </button>

@@ -60,13 +60,13 @@ function MyPageScreen(): JSX.Element {
     <div className="flex-1 overflow-y-auto pb-[calc(53px+env(safe-area-inset-bottom))]">
       <MyPageHeader />
       <MyPageInfoSection
-        userName={userName}
-        userEmail={userEmail}
-        usageCount={usageCount}
-        inquiryCount={inquiryCount}
         actionButtonsData={actionButtonsData}
+        inquiryCount={inquiryCount}
         latestNotice={latestNotice}
         onNoticeClick={handleNoticeClick}
+        usageCount={usageCount}
+        userEmail={userEmail}
+        userName={userName}
       />
       <AddressManagementSection />
       <ReviewSection />

@@ -31,20 +31,20 @@ export const MyPageInfoSection = ({
   return (
     <section className="flex flex-col bg-white px-3 pt-3 pb-[17px]">
       <ProfileCard
-        userName={userName}
-        userEmail={userEmail}
-        usageCount={usageCount}
         inquiryCount={inquiryCount}
+        usageCount={usageCount}
+        userEmail={userEmail}
+        userName={userName}
       />
 
       <div className="mb-[10px] flex w-full justify-between space-x-[9px]">
         {actionButtonsData.map((buttonInfo) => (
           <ActionButton
-            key={buttonInfo.label}
+            ariaLabel={buttonInfo.ariaLabel}
             icon={buttonInfo.icon}
+            key={buttonInfo.label}
             label={buttonInfo.label}
             onClick={buttonInfo.onClick}
-            ariaLabel={buttonInfo.ariaLabel}
           />
         ))}
       </div>

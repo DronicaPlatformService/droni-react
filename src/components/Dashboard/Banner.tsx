@@ -80,16 +80,16 @@ export function Banner({ className }: BannerProps): JSX.Element {
 
   return (
     <section
-      ref={bannerRef}
       className={twMerge('relative w-full overflow-hidden bg-white', className)}
-      style={{ height: BANNER_HEIGHT }}
       onMouseDown={handleDragStart}
+      onMouseLeave={handleDragEnd}
       onMouseMove={handleDragMove}
       onMouseUp={handleDragEnd}
-      onMouseLeave={handleDragEnd} // 컨테이너 밖으로 마우스가 나가도 드래그 종료
-      onTouchStart={handleDragStart}
-      onTouchMove={handleDragMove}
       onTouchEnd={handleDragEnd}
+      onTouchMove={handleDragMove} // 컨테이너 밖으로 마우스가 나가도 드래그 종료
+      onTouchStart={handleDragStart}
+      ref={bannerRef}
+      style={{ height: BANNER_HEIGHT }}
     >
       <div
         className="flex h-full transition-transform duration-500 ease-in-out"
@@ -100,11 +100,11 @@ export function Banner({ className }: BannerProps): JSX.Element {
       >
         {images.map((image) => (
           <img
-            key={image.id}
-            src={image.src}
             alt={image.alt}
             className="h-full w-full flex-shrink-0 object-cover"
-            draggable="false" // 브라우저 기본 이미지 드래그 방지
+            draggable="false"
+            key={image.id}
+            src={image.src} // 브라우저 기본 이미지 드래그 방지
           />
         ))}
       </div>

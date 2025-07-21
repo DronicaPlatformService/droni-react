@@ -4,9 +4,39 @@
     "actions": {
       "recommended": true,
       "source": {
-        "organizeImports": "on"
+        "organizeImports": "on",
+        "useSortedAttributes": "on",
+        "useSortedProperties": "on"
       }
     }
+  },
+  "files": {
+    "ignoreUnknown": true,
+    "includes": [
+      "**",
+      "!**/*.gen.ts",
+      "!**/*.generated.js",
+      "!**/*.lock",
+      "!**/*.log",
+      "!**/*.min.js",
+      "!**/.cache/**",
+      "!**/.git/**",
+      "!**/.github/**",
+      "!**/.next/**",
+      "!**/.tanstack/**",
+      "!**/.turbo/**",
+      "!**/.vscode/**",
+      "!**/.yarn/**",
+      "!**/android/**",
+      "!**/build/**",
+      "!**/coverage/**",
+      "!**/dist/**",
+      "!**/logs/**",
+      "!**/node_modules/**",
+      "!**/out/**",
+      "!**/public/**",
+      "!**/storybook-static/**"
+    ]
   },
   "formatter": {
     "enabled": true,
@@ -33,7 +63,15 @@
       "unsafeParameterDecoratorsEnabled": true
     }
   },
+  "json": {
+    "formatter": {
+      "enabled": true
+    }
+  },
   "linter": {
+    "domains": {
+      "react": "recommended"
+    },
     "enabled": true,
     "rules": {
       "nursery": {

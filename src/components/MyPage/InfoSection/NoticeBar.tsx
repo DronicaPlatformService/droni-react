@@ -13,10 +13,10 @@ interface NoticeBarProps {
  */
 export const NoticeBar = ({ noticeText, onClick }: NoticeBarProps): JSX.Element => (
   <button
-    type="button"
-    onClick={onClick}
     aria-label={`공지사항: ${noticeText}, 자세히 보기`}
     className="flex h-9 w-full items-center justify-between rounded-lg bg-gray-100 px-3 hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-droni-blue-500/50"
+    onClick={onClick}
+    type="button"
   >
     <div className="flex items-center">
       <span className="font-spoqa text-gray-800 text-system-09 tracking-tight-1pct">공지</span>

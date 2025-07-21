@@ -6,12 +6,12 @@ import type { JSX, SVGProps } from 'react';
 export function EstimateRequestIcon(props: SVGProps<SVGSVGElement>): JSX.Element {
   return (
     <svg
-      width="25"
+      aria-hidden="true"
+      fill="none"
       height="24"
       viewBox="0 0 25 24"
-      fill="none"
-      xmlns="http://www.w3.org/2000/svg"
-      aria-hidden="true" // 장식용 아이콘이므로 aria-hidden 추가
+      width="25"
+      xmlns="http://www.w3.org/2000/svg" // 장식용 아이콘이므로 aria-hidden 추가
       {...props}
     >
       <path

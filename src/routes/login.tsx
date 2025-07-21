@@ -53,7 +53,7 @@ function LoginScreen(): JSX.Element {
           여기서는 단순화를 위해 기존 스타일을 유지하되, body 패딩으로 인해 시각적으로 조정될 수 있음을 인지합니다.
       */}
       <div className="flex flex-1 flex-col items-center justify-center overflow-y-auto p-4">
-        <img src={DroniLogo} alt="Droni Logo" className="mb-6 h-[90px] w-[90px]" />
+        <img alt="Droni Logo" className="mb-6 h-[90px] w-[90px]" src={DroniLogo} />
         <p className="mb-1.5 text-center font-spoqa text-gray-800 text-system-01 tracking-tight-1pct">
           당신 근처의 드로니
         </p>
@@ -67,28 +67,28 @@ function LoginScreen(): JSX.Element {
       <div className="w-full flex-shrink-0 bg-white px-3 pt-4 pb-[calc(1rem+var(--safe-area-inset-bottom))] shadow-up">
         <div className="mx-auto max-w-md space-y-3">
           <button
-            type="button"
-            onClick={handleKakaoLogin}
             className="relative mx-auto flex h-[54px] w-full items-center justify-center rounded-md bg-[#F9E007] py-3 pr-3 pl-4 text-gray-600"
+            onClick={handleKakaoLogin}
+            type="button"
           >
             <img
-              src={KakaoIcon}
-              className="-translate-y-1/2 absolute top-1/2 left-4 h-8 w-8"
               alt="카카오 로그인 아이콘"
+              className="-translate-y-1/2 absolute top-1/2 left-4 h-8 w-8"
+              src={KakaoIcon}
             />
             <span className="-translate-y-1/2 absolute inset-x-0 top-1/2 text-center font-bold font-spoqa text-base leading-none tracking-normal">
               카카오로 3초만에 시작하기
             </span>
           </button>
           <button
-            type="button"
-            onClick={handleNaverLogin}
             className="relative mx-auto flex h-[54px] w-full items-center justify-center rounded-md border border-gray-300 bg-white py-3 pr-3 pl-4"
+            onClick={handleNaverLogin}
+            type="button"
           >
             <img
-              src={NaverIcon}
-              className="-translate-y-1/2 absolute top-1/2 left-[22px] h-5 w-5"
               alt="네이버 로그인 아이콘"
+              className="-translate-y-1/2 absolute top-1/2 left-[22px] h-5 w-5"
+              src={NaverIcon}
             />
             <span className="-translate-y-1/2 absolute inset-x-0 top-1/2 text-center font-bold font-spoqa text-base text-gray-600 leading-none tracking-normal">
               네이버로 시작하기
@@ -100,8 +100,8 @@ function LoginScreen(): JSX.Element {
       {/* 카카오 동의 팝업 */}
       <KakaoConsentPopup
         isOpen={isKakaoConsentOpen}
-        onClose={handleKakaoConsentClose}
         onAgree={handleKakaoConsentAgree}
+        onClose={handleKakaoConsentClose}
       />
     </div>
   );

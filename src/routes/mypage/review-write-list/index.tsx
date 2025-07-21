@@ -48,7 +48,7 @@ function ReviewWriteListPage(): JSX.Element {
   return (
     <section className="flex min-h-screen flex-col bg-gray-100 pb-[calc(53px+env(safe-area-inset-bottom))]">
       <div className="flex h-13 flex-shrink-0 items-center gap-0.5 px-5">
-        <button type="button" aria-label="이전 페이지로" onClick={handleGoBack} className="mr-2">
+        <button aria-label="이전 페이지로" className="mr-2" onClick={handleGoBack} type="button">
           <ChevronLeftIcon className="h-6 w-6 flex-shrink-0 text-gray-800" />
         </button>
       </div>

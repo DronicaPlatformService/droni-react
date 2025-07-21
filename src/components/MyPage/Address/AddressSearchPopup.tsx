@@ -106,21 +106,19 @@ export const AddressSearchPopup = ({
 
   return (
     <div
-      className="fixed inset-0 z-50 flex items-end"
-      style={{ background: 'rgba(0, 0, 0, 0.50)' }}
-      role="dialog"
-      aria-modal="true"
       aria-labelledby="address-search-title"
-      tabIndex={-1}
+      aria-modal="true"
+      className="fixed inset-0 z-50 flex items-end"
       onClick={onClose}
       onKeyDown={handleKeyDown}
+      role="dialog"
+      style={{ background: 'rgba(0, 0, 0, 0.50)' }}
+      tabIndex={-1}
     >
       <div
-        className="flex w-full animate-slide-up flex-col rounded-t-lg bg-white px-5 pt-2.5"
-        role="dialog"
-        tabIndex={-1}
-        aria-modal="true"
         aria-labelledby="address-search-title"
+        aria-modal="true"
+        className="flex w-full animate-slide-up flex-col rounded-t-lg bg-white px-5 pt-2.5"
         onClick={(e) => e.stopPropagation()}
         onKeyDown={(e) => {
           // 내부에서 Enter/Space는 전파 방지
@@ -128,21 +126,23 @@ export const AddressSearchPopup = ({
             e.stopPropagation();
           }
         }}
+        role="dialog"
+        tabIndex={-1}
       >
         <div className="mb-5 flex w-full items-center justify-center">
           <div className="h-1 w-17.5 rounded-[5px] bg-gray-300" />
         </div>
         <div className="mb-4 flex">
-          <h2 id="address-search-title" className="text-system-03 tracking-[-0.18px]">
+          <h2 className="text-system-03 tracking-[-0.18px]" id="address-search-title">
             주소지 찾기
           </h2>
         </div>
         {/* Daum 우편번호 서비스가 마운트될 컨테이너 */}
         <div
+          className="overflow-y-auto"
           id="postcode-container"
           ref={containerRef}
           style={{ height: '83vh' }}
-          className="overflow-y-auto"
         />
       </div>
     </div>
