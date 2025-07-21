@@ -15,6 +15,7 @@ import { Route as MypageIndexRouteImport } from './routes/mypage/index'
 import { Route as MypageSettingsRouteImport } from './routes/mypage/settings'
 import { Route as DashboardUserRouteImport } from './routes/dashboard.user'
 import { Route as MypageReviewWriteListIndexRouteImport } from './routes/mypage/review-write-list/index'
+import { Route as MypageReviewManageIndexRouteImport } from './routes/mypage/review-manage/index'
 import { Route as MypageAddressIndexRouteImport } from './routes/mypage/address/index'
 import { Route as MypageReviewWriteListIdRouteImport } from './routes/mypage/review-write-list/$id'
 import { Route as MypageAddressAddRouteImport } from './routes/mypage/address/add'
@@ -51,6 +52,11 @@ const MypageReviewWriteListIndexRoute =
     path: '/mypage/review-write-list/',
     getParentRoute: () => rootRouteImport,
   } as any)
+const MypageReviewManageIndexRoute = MypageReviewManageIndexRouteImport.update({
+  id: '/mypage/review-manage/',
+  path: '/mypage/review-manage/',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const MypageAddressIndexRoute = MypageAddressIndexRouteImport.update({
   id: '/mypage/address/',
   path: '/mypage/address/',
@@ -82,6 +88,7 @@ export interface FileRoutesByFullPath {
   '/mypage/address/add': typeof MypageAddressAddRoute
   '/mypage/review-write-list/$id': typeof MypageReviewWriteListIdRoute
   '/mypage/address': typeof MypageAddressIndexRoute
+  '/mypage/review-manage': typeof MypageReviewManageIndexRoute
   '/mypage/review-write-list': typeof MypageReviewWriteListIndexRoute
 }
 export interface FileRoutesByTo {
@@ -94,6 +101,7 @@ export interface FileRoutesByTo {
   '/mypage/address/add': typeof MypageAddressAddRoute
   '/mypage/review-write-list/$id': typeof MypageReviewWriteListIdRoute
   '/mypage/address': typeof MypageAddressIndexRoute
+  '/mypage/review-manage': typeof MypageReviewManageIndexRoute
   '/mypage/review-write-list': typeof MypageReviewWriteListIndexRoute
 }
 export interface FileRoutesById {
@@ -107,6 +115,7 @@ export interface FileRoutesById {
   '/mypage/address/add': typeof MypageAddressAddRoute
   '/mypage/review-write-list/$id': typeof MypageReviewWriteListIdRoute
   '/mypage/address/': typeof MypageAddressIndexRoute
+  '/mypage/review-manage/': typeof MypageReviewManageIndexRoute
   '/mypage/review-write-list/': typeof MypageReviewWriteListIndexRoute
 }
 export interface FileRouteTypes {
@@ -121,6 +130,7 @@ export interface FileRouteTypes {
     | '/mypage/address/add'
     | '/mypage/review-write-list/$id'
     | '/mypage/address'
+    | '/mypage/review-manage'
     | '/mypage/review-write-list'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -133,6 +143,7 @@ export interface FileRouteTypes {
     | '/mypage/address/add'
     | '/mypage/review-write-list/$id'
     | '/mypage/address'
+    | '/mypage/review-manage'
     | '/mypage/review-write-list'
   id:
     | '__root__'
@@ -145,6 +156,7 @@ export interface FileRouteTypes {
     | '/mypage/address/add'
     | '/mypage/review-write-list/$id'
     | '/mypage/address/'
+    | '/mypage/review-manage/'
     | '/mypage/review-write-list/'
   fileRoutesById: FileRoutesById
 }
@@ -158,6 +170,7 @@ export interface RootRouteChildren {
   MypageAddressAddRoute: typeof MypageAddressAddRoute
   MypageReviewWriteListIdRoute: typeof MypageReviewWriteListIdRoute
   MypageAddressIndexRoute: typeof MypageAddressIndexRoute
+  MypageReviewManageIndexRoute: typeof MypageReviewManageIndexRoute
   MypageReviewWriteListIndexRoute: typeof MypageReviewWriteListIndexRoute
 }
 
@@ -205,6 +218,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof MypageReviewWriteListIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/mypage/review-manage/': {
+      id: '/mypage/review-manage/'
+      path: '/mypage/review-manage'
+      fullPath: '/mypage/review-manage'
+      preLoaderRoute: typeof MypageReviewManageIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/mypage/address/': {
       id: '/mypage/address/'
       path: '/mypage/address'
@@ -246,6 +266,7 @@ const rootRouteChildren: RootRouteChildren = {
   MypageAddressAddRoute: MypageAddressAddRoute,
   MypageReviewWriteListIdRoute: MypageReviewWriteListIdRoute,
   MypageAddressIndexRoute: MypageAddressIndexRoute,
+  MypageReviewManageIndexRoute: MypageReviewManageIndexRoute,
   MypageReviewWriteListIndexRoute: MypageReviewWriteListIndexRoute,
 }
 export const routeTree = rootRouteImport

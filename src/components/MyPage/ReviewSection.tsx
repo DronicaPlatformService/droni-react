@@ -36,8 +36,8 @@ export const ReviewSection = (): JSX.Element => {
 
         <button
           aria-label="리뷰 관리 페이지로 이동"
-          // onClick={/* 리뷰 관리 페이지로 이동하는 함수 */}
           className="-m-1 flex items-center justify-between rounded p-1 text-left hover:bg-gray-50"
+          onClick={() => router.navigate({ to: '/mypage/review-manage' })}
           type="button"
         >
           <div className="flex flex-col gap-0.5">

@@ -2,7 +2,7 @@ import { ChevronRightIcon } from '@heroicons/react/24/solid';
 import { createFileRoute, useRouter } from '@tanstack/react-router';
 import { type JSX, useState } from 'react';
 import { CommonBottomButton, CommonBottomButtonWrapper, CommonHeader } from '@/components/MyPage';
-import { ReviewWriteCard } from '@/components/MyPage/Review/ReviewWriteCard';
+import { ReviewCard } from '@/components/MyPage/Review/ReviewCard';
 import { requireAuth } from '@/lib/authGuard';
 
 export const Route = createFileRoute('/mypage/review-write-list/$id')({
@@ -31,13 +31,13 @@ function ReviewWritePage(): JSX.Element {
 
       {/* contents */}
       <div className="flex min-h-0 flex-1 flex-col overflow-y-auto p-3">
-        <ReviewWriteCard
+        <ReviewCard
           id={''}
+          mode={'edit'}
           name={'김철수'}
           rating={5}
           region={'충남 서산면'}
           reviewCount={2}
-          showWriteAction={false}
           type={'인기 조종사'}
         />
 

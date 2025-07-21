@@ -1,18 +1,20 @@
 import { ChevronRightIcon, StarIcon } from '@heroicons/react/24/solid';
 import { useRouter } from '@tanstack/react-router';
 
+export type ReviewCardMode = 'write-list' | 'manage-list' | 'edit';
+
 export interface ReviewWriteCardProps {
   id: string;
   name: string;
   region: string;
   rating: number;
-  type: string;
+  type?: string;
   reviewCount: number;
   reviewPeriod?: number;
+  reviewContent?: string;
   completedAt?: string; // ISO 8601 형식(예: "2025-07-04T12:34:56Z")
   imageUrl?: string;
-  /** 리뷰 작성 버튼/기간 영역 노출 여부 (기본값: true) */
-  showWriteAction?: boolean;
+  mode: ReviewCardMode;
 }
 
 interface RatingStarProps {
@@ -20,7 +22,7 @@ interface RatingStarProps {
   max?: number;
 }
 
-function RatingStar({ rating, max = 5 }: RatingStarProps) {
+const RatingStar = ({ rating, max = 5 }: RatingStarProps) => {
   const percent = Math.max(0, Math.min(rating / max, 1)) * 100;
   return (
     <span className="relative inline-block h-4 w-4 align-middle">
@@ -35,9 +37,9 @@ function RatingStar({ rating, max = 5 }: RatingStarProps) {
       />
     </span>
   );
-}
+};
 
-export function ReviewWriteCard({
+export const ReviewCard = ({
   id,
   name,
   region,
@@ -45,10 +47,11 @@ export function ReviewWriteCard({
   type,
   reviewCount,
   reviewPeriod,
+  reviewContent,
   completedAt,
   imageUrl,
-  showWriteAction = true,
-}: ReviewWriteCardProps) {
+  mode,
+}: ReviewWriteCardProps) => {
   const router = useRouter();
 
   return (
@@ -112,25 +115,86 @@ export function ReviewWriteCard({
         </div>
 
         {/* divider 및 리뷰 작성 영역 조건부 렌더링 */}
-        {showWriteAction && (
+        {mode !== 'edit' && (
           <>
             {/* divider */}
             <div className="h-px w-full bg-gray-200" />
 
-            {/* review period */}
-            <div className="text-gray-800 text-system-10 tracking-[-0.12px]">
-              리뷰 작성 기간이 <span className="text-system-09">{reviewPeriod}</span>일 남았어요
-            </div>
+            {/* review period or review content */}
+            {mode === 'write-list' ? (
+              <div className="text-gray-800 text-system-10 tracking-[-0.12px]">
+                리뷰 작성 기간이 <span className="text-system-09">{reviewPeriod}</span>일 남았어요
+              </div>
+            ) : mode === 'manage-list' ? (
+              <div>
+                <div className="flex items-center">
+                  <div className="flex items-center gap-1">
+                    {Array.from({ length: 5 }).map((_, i) => {
+                      // 각 별에 대해 채워질 퍼센트 계산 (0~1)
+                      const fill = Math.max(0, Math.min(1, rating - i));
+                      // id, rating, i를 조합해 고유 key 생성
+                      const starKey = `review-star-${id}-${(i + 1) * 1000 + Math.round(rating * 10)}`;
+                      return (
+                        <span
+                          className="relative inline-block h-4.5 w-4.5 align-middle"
+                          key={starKey}
+                        >
+                          {/* 회색 별 */}
+                          <StarIcon className="absolute top-0 left-0 h-4.5 w-4.5 text-gray-300" />
+                          {/* 노란 별 (채워지는 부분만 보이게) */}
+                          <StarIcon
+                            className="absolute top-0 left-0 h-4.5 w-4.5 text-[#FFCE51]"
+                            style={{
+                              clipPath: `inset(0 ${100 - fill * 100}% 0 0)`,
+                            }}
+                          />
+                        </span>
+                      );
+                    })}
+                  </div>
+                  <span className="ml-1 text-gray-600 text-system-07 tracking-[-0.14px]">
+                    {rating.toFixed(1)}
+                  </span>
+                </div>
+                <div className="mt-1.5 text-gray-800 text-system-09 tracking-[-0.12px]">
+                  {reviewContent}
+                </div>
+              </div>
+            ) : null}
+
+            {/* 리뷰 사진 */}
+            {mode === 'manage-list' && (
+              <div className="mt-3 flex gap-2">
+                {[1, 2, 3].map((idx) => (
+                  <div
+                    className="h-[100px] w-[100px] flex-shrink-0 overflow-hidden rounded-lg border border-gray-200 bg-gray-200"
+                    key={idx}
+                  >
+                    <img
+                      alt={`리뷰 사진 ${idx}`}
+                      className="h-full w-full object-cover"
+                      src={`https://placehold.co/60x60?text=${idx}`}
+                    />
+                  </div>
+                ))}
+              </div>
+            )}
 
             {/* button */}
             <button
-              aria-label={`${name} 리뷰 작성 페이지로 이동`}
+              aria-label={`${name} ${mode === 'write-list' ? '리뷰 작성' : '리뷰 관리'} 페이지로 이동`}
               className="flex h-8.5 w-full flex-shrink-0 items-center justify-center rounded-lg border border-gray-300 p-3"
-              onClick={() => router.navigate({ to: `/mypage/review-write-list/${id}` })}
+              onClick={() => {
+                if (mode === 'write-list') {
+                  router.navigate({ to: `/mypage/review-write-list/${id}` });
+                } else if (mode === 'manage-list') {
+                  router.navigate({ to: `/mypage/review-manage/${id}` });
+                }
+              }}
               type="button"
             >
               <span className="mr-1 text-gray-900 text-system-09 tracking-[-0.12px]">
-                리뷰 작성
+                {mode === 'write-list' ? '리뷰 작성' : '리뷰 관리'}
               </span>
               <ChevronRightIcon className="h-3 w-3" />
             </button>
@@ -139,4 +203,4 @@ export function ReviewWriteCard({
       </div>
     </div>
   );
-}
+};
