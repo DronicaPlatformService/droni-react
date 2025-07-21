@@ -1,7 +1,7 @@
 'use client';
 
 import { useCallback, useEffect, useRef } from 'react';
-import { calculateTokenCheckInterval, logTokenInfo, shouldRefreshToken } from '@/lib/jwtUtils';
+import { calculateTokenCheckInterval, shouldRefreshToken } from '@/lib/jwtUtils';
 import { authStore, reissueToken } from '@/stores/authStore';
 
 /**
@@ -19,9 +19,9 @@ export function useTokenExpirationMonitor() {
     }
     isMonitoringRef.current = false;
 
-    if (import.meta.env.DEV) {
-      console.log('[TokenMonitor] Monitoring stopped');
-    }
+    // if (import.meta.env.DEV) {
+    //   console.log('[TokenMonitor] Monitoring stopped');
+    // }
   }, []);
 
   const startMonitoring = useCallback(() => {
@@ -38,21 +38,21 @@ export function useTokenExpirationMonitor() {
       }
 
       // 개발 환경에서 토큰 정보 로깅
-      if (import.meta.env.DEV) {
-        logTokenInfo(accessToken, 'Token Monitor Check');
-      }
+      // if (import.meta.env.DEV) {
+      //   logTokenInfo(accessToken, 'Token Monitor Check');
+      // }
 
       // 토큰이 곧 만료될 예정인지 확인 (기본: 10분 전)
       if (shouldRefreshToken(accessToken, 10)) {
         try {
-          if (import.meta.env.DEV) {
-            console.log('[TokenMonitor] Token will expire soon, attempting refresh...');
-          }
+          // if (import.meta.env.DEV) {
+          //   console.log('[TokenMonitor] Token will expire soon, attempting refresh...');
+          // }
           const currentPath = window.location.pathname + window.location.search;
           await reissueToken(currentPath);
-          if (import.meta.env.DEV) {
-            console.log('[TokenMonitor] Token refreshed successfully');
-          }
+          // if (import.meta.env.DEV) {
+          //   console.log('[TokenMonitor] Token refreshed successfully');
+          // }
         } catch (error) {
           console.error('[TokenMonitor] Failed to refresh token:', error);
           // 토큰 갱신 실패 시 모니터링 중지 (authStore에서 로그아웃 처리됨)
@@ -69,10 +69,10 @@ export function useTokenExpirationMonitor() {
         if (nextCheckInterval) {
           intervalRef.current = setTimeout(checkToken, nextCheckInterval);
 
-          if (import.meta.env.DEV) {
-            const nextCheckMinutes = Math.round(nextCheckInterval / (1000 * 60));
-            console.log(`[TokenMonitor] Next check scheduled in ${nextCheckMinutes} minutes`);
-          }
+          // if (import.meta.env.DEV) {
+          //   const nextCheckMinutes = Math.round(nextCheckInterval / (1000 * 60));
+          //   console.log(`[TokenMonitor] Next check scheduled in ${nextCheckMinutes} minutes`);
+          // }
         } else {
           console.warn('[TokenMonitor] Cannot calculate next check interval, stopping monitoring');
           stopMonitoring();
@@ -92,14 +92,14 @@ export function useTokenExpirationMonitor() {
       const { isAuthenticated, accessToken } = authStore.state;
 
       if (isAuthenticated && accessToken) {
-        if (import.meta.env.DEV) {
-          console.log('[TokenMonitor] User authenticated, starting token monitoring');
-        }
+        // if (import.meta.env.DEV) {
+        //   console.log('[TokenMonitor] User authenticated, starting token monitoring');
+        // }
         startMonitoring();
       } else {
-        if (import.meta.env.DEV) {
-          console.log('[TokenMonitor] User not authenticated, stopping token monitoring');
-        }
+        // if (import.meta.env.DEV) {
+        //   console.log('[TokenMonitor] User not authenticated, stopping token monitoring');
+        // }
         stopMonitoring();
       }
     });
@@ -127,9 +127,9 @@ export function useTokenExpirationMonitor() {
           // 페이지가 다시 활성화되면 즉시 토큰 상태 확인
           if (shouldRefreshToken(accessToken, 1)) {
             // 1분 버퍼로 더 민감하게 체크
-            if (import.meta.env.DEV) {
-              console.log('[TokenMonitor] Page became visible, checking token immediately');
-            }
+            // if (import.meta.env.DEV) {
+            //   console.log('[TokenMonitor] Page became visible, checking token immediately');
+            // }
 
             const currentPath = window.location.pathname + window.location.search;
             reissueToken(currentPath).catch((error) => {
