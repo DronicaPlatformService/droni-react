@@ -1,6 +1,7 @@
 export * from './AccountSwitchSection';
 export * from './AddressManagementSection';
 export * from './CommonBottomButton';
+export * from './CommonButtomButtonWrapper';
 export * from './CommonHeader';
 export * from './InfoSection/ActionButton';
 export * from './InfoSection/MyPageInfoSection';

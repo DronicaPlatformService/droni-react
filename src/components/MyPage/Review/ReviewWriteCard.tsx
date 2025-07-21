@@ -8,9 +8,11 @@ export interface ReviewWriteCardProps {
   rating: number;
   type: string;
   reviewCount: number;
-  reviewPeriod: number;
-  completedAt: string; // ISO 8601 형식(예: "2025-07-04T12:34:56Z")
+  reviewPeriod?: number;
+  completedAt?: string; // ISO 8601 형식(예: "2025-07-04T12:34:56Z")
   imageUrl?: string;
+  /** 리뷰 작성 버튼/기간 영역 노출 여부 (기본값: true) */
+  showWriteAction?: boolean;
 }
 
 interface RatingStarProps {
@@ -45,22 +47,25 @@ export function ReviewWriteCard({
   reviewPeriod,
   completedAt,
   imageUrl,
+  showWriteAction = true,
 }: ReviewWriteCardProps) {
   const router = useRouter();
 
   return (
     <div className="flex flex-col">
-      <div className="mb-2 ml-2 text-gray-800 text-system-07 tracking-[-0.14px]">
-        {new Date(completedAt)
-          .toLocaleDateString('ko-KR', {
-            year: 'numeric',
-            month: '2-digit',
-            day: '2-digit',
-          })
-          .replace(/\.\s/g, '.')
-          .replace(/\.$/, '')}{' '}
-        방제 완료
-      </div>
+      {completedAt && (
+        <div className="mb-2 ml-2 text-gray-800 text-system-07 tracking-[-0.14px]">
+          {new Date(completedAt)
+            .toLocaleDateString('ko-KR', {
+              year: 'numeric',
+              month: '2-digit',
+              day: '2-digit',
+            })
+            .replace(/\.\s/g, '.')
+            .replace(/\.$/, '')}{' '}
+          방제 완료
+        </div>
+      )}
 
       {/* card */}
       <div className="flex flex-shrink-0 flex-col gap-3 rounded-lg border-gray-200 bg-white p-4">
@@ -106,24 +111,31 @@ export function ReviewWriteCard({
           </div>
         </div>
 
-        {/* divider */}
-        <div className="h-px w-full bg-gray-200" />
+        {/* divider 및 리뷰 작성 영역 조건부 렌더링 */}
+        {showWriteAction && (
+          <>
+            {/* divider */}
+            <div className="h-px w-full bg-gray-200" />
 
-        {/* review period */}
-        <div className="text-gray-800 text-system-10 tracking-[-0.12px]">
-          리뷰 작성 기간이 <span className="text-system-09">{reviewPeriod}</span>일 남았어요
-        </div>
+            {/* review period */}
+            <div className="text-gray-800 text-system-10 tracking-[-0.12px]">
+              리뷰 작성 기간이 <span className="text-system-09">{reviewPeriod}</span>일 남았어요
+            </div>
 
-        {/* button */}
-        <button
-          type="button"
-          className="flex h-8.5 w-full flex-shrink-0 items-center justify-center rounded-lg border border-gray-300 p-3"
-          onClick={() => router.navigate({ to: `/mypage/review-write-list/${id}` })}
-          aria-label={`${name} 리뷰 작성 페이지로 이동`}
-        >
-          <span className="mr-1 text-gray-900 text-system-09 tracking-[-0.12px]">리뷰 작성</span>
-          <ChevronRightIcon className="h-3 w-3" />
-        </button>
+            {/* button */}
+            <button
+              aria-label={`${name} 리뷰 작성 페이지로 이동`}
+              className="flex h-8.5 w-full flex-shrink-0 items-center justify-center rounded-lg border border-gray-300 p-3"
+              onClick={() => router.navigate({ to: `/mypage/review-write-list/${id}` })}
+              type="button"
+            >
+              <span className="mr-1 text-gray-900 text-system-09 tracking-[-0.12px]">
+                리뷰 작성
+              </span>
+              <ChevronRightIcon className="h-3 w-3" />
+            </button>
+          </>
+        )}
       </div>
     </div>
   );

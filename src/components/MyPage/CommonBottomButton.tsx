@@ -9,11 +9,11 @@ interface CommonBottomButtonProps {
 export const CommonBottomButton = ({ text, onClick, disabled }: CommonBottomButtonProps) => {
   return (
     <button
-      type="button"
-      onClick={onClick}
-      disabled={disabled}
       aria-disabled={disabled}
-      className="mx-3 flex h-13 items-center justify-center rounded-lg bg-droni-blue-500 disabled:bg-gray-300"
+      className="flex h-13 w-full items-center justify-center rounded-lg bg-droni-blue-500 disabled:bg-gray-300"
+      disabled={disabled}
+      onClick={onClick}
+      type="button"
     >
       <span className="text-center font-bold font-spoqa text-base text-white leading-normal">
         {text}
