@@ -10,3 +10,4 @@ export * from './MyPageIcon';
 export * from './NotificationIcon';
 export * from './RatingStar';
 export * from './SearchExpertIcon';
+export * from './VectorDroni';

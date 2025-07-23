@@ -19,10 +19,10 @@ export function DashboardHeader({
   hasUnreadNotification = false,
 }: DashboardHeaderProps): JSX.Element {
   return (
-    <header className="flex h-[52px] items-center justify-between px-5 py-3">
-      <p className="font-spoqa text-gray-800 text-system-01 tracking-tight-1pct">
-        {userName} 이용자님
-      </p>
+    <header className="sticky top-0 z-30 flex h-[52px] items-center justify-between bg-white px-5 py-3">
+      <div>
+        <p className="text-gray-800 text-system-01 tracking-[-0.2px]">{userName} 이용자님</p>
+      </div>
       <button aria-label="알림" className="rounded p-1" type="button">
         <NotificationIcon className="h-4.5 w-4.5" hasUnread={hasUnreadNotification} />
       </button>

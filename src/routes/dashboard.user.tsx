@@ -51,24 +51,26 @@ function DashboardUserScreen(): JSX.Element {
   const handleSeeMorePilots = () => {};
 
   return (
-    <main className="mb-[calc(52px+env(safe-area-inset-bottom))] flex-1 overflow-y-auto">
+    <>
       {/* Header */}
       <DashboardHeader hasUnreadNotification={hasUnreadNotification} userName={userName} />
 
-      {/* Banner */}
-      <Banner className="shrink-0" />
+      <main className="mb-[calc(52px+env(safe-area-inset-bottom))] flex-1 overflow-y-auto">
+        {/* Banner */}
+        <Banner className="shrink-0" />
 
-      {/* 인기있는 조종사들 섹션 */}
-      <PopularPilotsSection onSeeMoreClick={handleSeeMorePilots} pilots={samplePilots} />
+        {/* 인기있는 조종사들 섹션 */}
+        <PopularPilotsSection onSeeMoreClick={handleSeeMorePilots} pilots={samplePilots} />
 
-      {/* 드로니 활용백서 섹션 */}
-      <DroneGuideCard />
+        {/* 드로니 활용백서 섹션 */}
+        <DroneGuideCard />
 
-      {/* 드론관련 콘텐츠 섹션 */}
-      <DroneContentsSection />
+        {/* 드론관련 콘텐츠 섹션 */}
+        <DroneContentsSection />
 
-      {/* 견적 요청 버튼 */}
-      <EstimateRequestButton />
-    </main>
+        {/* 견적 요청 버튼 */}
+        <EstimateRequestButton />
+      </main>
+    </>
   );
 }
