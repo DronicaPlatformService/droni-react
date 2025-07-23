@@ -6,7 +6,7 @@
 - **Data Fetching**: Prefer TanStack Query for server state. Use route `loader` for SSR-like data preloading. See `src/integrations/tanstack-query/` for setup and global error handling.
 - **State Management**: TanStack Store for global client state (see `src/stores/`). Local state via `useState`/`useReducer`.
 - **Styling**: Tailwind CSS utility classes in JSX. No custom CSS except for variables in `src/styles.css`. Use `clsx`/`tailwind-merge` for dynamic classes.
-- **Component Structure**: Co-locate feature components, hooks, and tests. Use `index.ts` for barrel exports. Client components must start with `"use client";`.
+- **Component Structure**: Co-locate feature components, hooks, and tests. Use `index.ts` for barrel exports.
 - **TypeScript**: All code is strictly typed. Props, state, and API responses must have explicit types.
 
 ## 2. Developer Workflow
