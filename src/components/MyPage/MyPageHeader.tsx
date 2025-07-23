@@ -1,5 +1,3 @@
-'use client';
-
 import { Cog8ToothIcon } from '@heroicons/react/24/solid';
 import { useNavigate } from '@tanstack/react-router';
 import type { JSX } from 'react';

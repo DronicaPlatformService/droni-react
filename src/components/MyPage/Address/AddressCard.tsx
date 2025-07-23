@@ -1,5 +1,3 @@
-'use client';
-
 import { MapPinIcon } from '@heroicons/react/24/outline';
 import { memo } from 'react';
 import type { Address } from '@/routes/mypage/address';

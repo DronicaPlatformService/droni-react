@@ -1,5 +1,3 @@
-'use client';
-
 import { createFileRoute, useNavigate } from '@tanstack/react-router';
 import { type JSX, useState } from 'react';
 import KakaoIcon from '@/assets/icons/kakao-icon.svg';

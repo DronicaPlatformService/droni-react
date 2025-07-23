@@ -1,5 +1,3 @@
-'use client';
-
 import { Switch } from '@headlessui/react';
 import { type JSX, useState } from 'react';
 

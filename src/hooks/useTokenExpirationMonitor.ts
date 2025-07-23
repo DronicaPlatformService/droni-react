@@ -1,5 +1,3 @@
-'use client';
-
 import { useCallback, useEffect, useRef } from 'react';
 import { calculateTokenCheckInterval, shouldRefreshToken } from '@/lib/jwtUtils';
 import { authStore, reissueToken } from '@/stores/authStore';

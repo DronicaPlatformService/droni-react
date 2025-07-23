@@ -1,5 +1,3 @@
-'use client';
-
 interface DroneContentItemProps {
   imageUrl: string;
   category: string;

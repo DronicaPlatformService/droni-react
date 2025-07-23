@@ -1,5 +1,3 @@
-'use client';
-
 import { ChevronRightIcon } from '@heroicons/react/24/solid';
 import type { JSX } from 'react';
 import { DefaultProfileIcon } from '@/components/Icons';

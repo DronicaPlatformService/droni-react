@@ -1,5 +1,3 @@
-'use client';
-
 import type { JSX } from 'react';
 import { ActionButton, type ActionButtonProps } from './ActionButton';
 import { NoticeBar } from './NoticeBar';

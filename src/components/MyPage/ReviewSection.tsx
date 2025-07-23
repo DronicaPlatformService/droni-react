@@ -1,5 +1,3 @@
-'use client';
-
 import { ChevronRightIcon } from '@heroicons/react/24/outline';
 import { useRouter } from '@tanstack/react-router';
 import type { JSX } from 'react';

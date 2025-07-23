@@ -1,5 +1,3 @@
-'use client';
-
 interface AddressInputProps {
   id: string;
   label: string;

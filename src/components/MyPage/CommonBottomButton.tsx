@@ -1,5 +1,3 @@
-'use client';
-
 interface CommonBottomButtonProps {
   text: string;
   onClick: () => void;

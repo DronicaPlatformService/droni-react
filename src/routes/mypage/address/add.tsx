@@ -1,5 +1,3 @@
-'use client';
-
 import { ChevronRightIcon } from '@heroicons/react/24/solid';
 import { createFileRoute, useNavigate } from '@tanstack/react-router';
 import { useCallback, useState } from 'react';

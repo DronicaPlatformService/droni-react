@@ -1,5 +1,3 @@
-'use client';
-
 import { ChevronRightIcon } from '../Icons';
 import { DroneContentItem } from './DroneContentItem';
 

@@ -1,5 +1,3 @@
-'use client';
-
 import { EstimateRequestIcon } from '../Icons';
 
 export const EstimateRequestButton = () => {

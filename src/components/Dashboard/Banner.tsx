@@ -1,7 +1,5 @@
 // biome-ignore-all lint/a11y/noStaticElementInteractions: 드래그/스와이프 UX 구현을 위해 클릭 이벤트 허용
 
-'use client';
-
 import type React from 'react';
 import { type JSX, useCallback, useEffect, useRef, useState } from 'react';
 import { twMerge } from 'tailwind-merge';

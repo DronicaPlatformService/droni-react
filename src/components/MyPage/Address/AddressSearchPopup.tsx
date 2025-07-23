@@ -1,5 +1,3 @@
-'use client';
-
 import { type JSX, useCallback, useEffect, useRef } from 'react';
 
 // Daum 우편번호 타입 선언

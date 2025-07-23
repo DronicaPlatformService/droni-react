@@ -1,5 +1,3 @@
-'use client';
-
 import { ReviewCard } from './ReviewCard';
 
 export interface ReviewWriteListItem {

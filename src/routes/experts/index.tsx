@@ -1,5 +1,3 @@
-'use client';
-
 import { ChevronDownIcon, MagnifyingGlassIcon, StarIcon } from '@heroicons/react/24/solid';
 import { createFileRoute } from '@tanstack/react-router';
 import { NotificationIcon, RatingStar } from '@/components/Icons';

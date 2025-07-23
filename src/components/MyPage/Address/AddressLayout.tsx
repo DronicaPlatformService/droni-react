@@ -1,5 +1,3 @@
-'use client';
-
 import { useRouter } from '@tanstack/react-router';
 import type { JSX, ReactNode } from 'react';
 import { CommonBottomButton } from '../CommonBottomButton';

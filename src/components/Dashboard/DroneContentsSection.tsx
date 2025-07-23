@@ -1,5 +1,3 @@
-'use client';
-
 import { ChevronRightIcon } from '../Icons';
 
 const contents = [

@@ -1,5 +1,3 @@
-'use client';
-
 import { Link, useMatchRoute } from '@tanstack/react-router';
 import { type JSX, useMemo } from 'react';
 import { ChatIcon, EstimateIcon, HomeIcon, MyPageIcon, SearchExpertIcon } from '@/components/Icons';
