@@ -1,3 +1,5 @@
+'use client';
+
 import { ChevronDownIcon, MagnifyingGlassIcon, StarIcon } from '@heroicons/react/24/solid';
 import { createFileRoute } from '@tanstack/react-router';
 import { NotificationIcon, RatingStar } from '@/components/Icons';
@@ -5,13 +7,13 @@ import { requireAuth } from '@/lib/authGuard';
 
 export const Route = createFileRoute('/experts/')({
   beforeLoad: requireAuth,
-  component: RouteComponent,
+  component: ExpertsScreen,
   context: (ctx) => ({ ...ctx.context, hideBottomNav: false }),
 });
 
-function RouteComponent() {
+function ExpertsScreen() {
   return (
-    <div className="flex min-h-screen flex-col bg-white pb-[env(safe-area-inset-bottom)]">
+    <div className="mb-[calc(52px+env(safe-area-inset-bottom))] flex min-h-screen flex-col bg-white">
       <header className="flex h-13 items-center justify-between bg-white px-5">
         <h1 className="text-gray-900 text-system-03 tracking-[-0.18px]">조종사 찾기</h1>
         <NotificationIcon hasUnread={true} />

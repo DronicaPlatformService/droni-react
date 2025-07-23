@@ -1,4 +1,5 @@
 export * from './ChatIcon';
+export * from './ChevronRightIcon';
 export * from './DefaultProfileIcon';
 export * from './EmailIcon';
 export * from './EstimateIcon';

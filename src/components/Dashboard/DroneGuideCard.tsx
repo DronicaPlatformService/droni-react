@@ -1,6 +1,6 @@
 'use client';
 
-import { ChevronRightIcon } from '@heroicons/react/24/solid';
+import { ChevronRightIcon } from '../Icons';
 import { DroneContentItem } from './DroneContentItem';
 
 interface DroneContent {
@@ -41,12 +41,13 @@ export const DroneGuideCard = () => {
           ))}
         </div>
       </div>
+
       <button
-        className="mt-5 flex w-full items-center justify-center rounded-lg border border-gray-300 border-solid p-3 text-system-07 tracking-tight-1pct"
+        className="mt-5 flex w-full items-center justify-center rounded-lg border border-gray-300 border-solid p-3 opacity-44"
         type="button"
       >
-        <span className="my-auto self-stretch text-gray-900">더보러 가기</span>
-        <ChevronRightIcon className="my-auto ml-1 aspect-square h-4 w-4 shrink-0 self-stretch" />
+        <span className="text-gray-900 text-system-07 tracking-[-0.14px]">더보러 가기</span>
+        <ChevronRightIcon color="#02040A" size={20} />
       </button>
     </section>
   );

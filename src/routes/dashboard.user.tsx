@@ -5,15 +5,17 @@ import type { JSX } from 'react';
 import {
   Banner,
   DashboardHeader,
+  DroneContentsSection,
   DroneGuideCard,
+  EstimateRequestButton,
   PopularPilotsSection,
 } from '@/components/Dashboard';
-import { EstimateRequestIcon } from '@/components/Icons';
 import { requireAuth } from '@/lib/authGuard';
 
 export const Route = createFileRoute('/dashboard/user')({
   beforeLoad: requireAuth,
   component: DashboardUserScreen,
+  context: (ctx) => ({ ...ctx.context, hideBottomNav: false }),
 });
 
 // 샘플 조종사 데이터
@@ -48,10 +50,8 @@ function DashboardUserScreen(): JSX.Element {
 
   const handleSeeMorePilots = () => {};
 
-  const handleEstimateRequestClick = () => {};
-
   return (
-    <main className="flex h-screen flex-col overflow-y-auto bg-white">
+    <main className="mb-[calc(52px+env(safe-area-inset-bottom))] flex-1 overflow-y-auto">
       {/* Header */}
       <DashboardHeader hasUnreadNotification={hasUnreadNotification} userName={userName} />
 
@@ -64,18 +64,11 @@ function DashboardUserScreen(): JSX.Element {
       {/* 드로니 활용백서 섹션 */}
       <DroneGuideCard />
 
+      {/* 드론관련 콘텐츠 섹션 */}
+      <DroneContentsSection />
+
       {/* 견적 요청 버튼 */}
-      <button
-        aria-label="견적 요청하기"
-        className="fixed right-5 bottom-[75px] z-40 flex h-[44px] w-[115px] items-center justify-center gap-1 rounded-full bg-droni-blue-500 px-[14px] py-[10px] shadow-[0px_0px_4px_rgba(0,0,0,0.1),_0px_0px_12px_rgba(0,0,0,0.2)] hover:bg-droni-blue-600 focus:outline-none focus:ring-2 focus:ring-droni-blue-500/75"
-        onClick={handleEstimateRequestClick}
-        type="button"
-      >
-        <EstimateRequestIcon className="h-6 w-6" />
-        <span className="font-bold font-spoqa text-base text-white leading-6 tracking-tight-1pct">
-          견적요청
-        </span>
-      </button>
+      <EstimateRequestButton />
     </main>
   );
 }

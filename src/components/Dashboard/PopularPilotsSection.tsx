@@ -38,6 +38,7 @@ export function PopularPilotsSection({
             <ChevronRightIcon className="h-5 w-5" />
           </button>
         </div>
+
         <div className="no-scrollbar -mx-5 flex gap-4 overflow-x-auto px-5">
           {pilots.map((pilot) => (
             <div

@@ -26,11 +26,11 @@ function RootComponent() {
   useTokenExpirationMonitor();
 
   return (
-    <>
+    <div className="flex min-h-screen flex-col bg-white" lang="ko">
       <Outlet />
       {!hideBottomNav && <BottomNavigationBar />}
       <TanStackRouterDevtools />
       <TanstackQueryLayout />
-    </>
+    </div>
   );
 }

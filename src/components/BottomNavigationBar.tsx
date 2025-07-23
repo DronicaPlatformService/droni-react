@@ -52,8 +52,8 @@ export function BottomNavigationBar(): JSX.Element {
   }, [matchRoute]);
 
   return (
-    <nav className="fixed inset-x-0 bottom-0 z-50 border-gray-200 border-t bg-white pb-safe-bottom">
-      <div className="mx-auto flex h-[53px] max-w-screen-sm justify-around font-spoqa">
+    <nav className="fixed inset-x-0 bottom-0 z-50 h-[53px] border-gray-200 border-t bg-white pb-safe-bottom">
+      <div className="mx-auto flex justify-around">
         {navItems.map((item) => {
           const isActive = activeStates[item.id];
 

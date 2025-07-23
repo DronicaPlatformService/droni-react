@@ -1,3 +1,5 @@
+'use client';
+
 import { createFileRoute } from '@tanstack/react-router';
 import type { JSX } from 'react';
 import { KakaoTalkIcon } from '@/components/Icons';
@@ -57,7 +59,7 @@ function MyPageScreen(): JSX.Element {
   ];
 
   return (
-    <div className="flex-1 overflow-y-auto pb-[calc(53px+env(safe-area-inset-bottom))]">
+    <div className="mb-[calc(52px+env(safe-area-inset-bottom))] flex-1 overflow-y-auto">
       <MyPageHeader />
       <MyPageInfoSection
         actionButtonsData={actionButtonsData}
