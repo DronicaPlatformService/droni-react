@@ -12,6 +12,7 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as LoginRouteImport } from './routes/login'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as MypageIndexRouteImport } from './routes/mypage/index'
+import { Route as ExpertsIndexRouteImport } from './routes/experts/index'
 import { Route as MypageSettingsRouteImport } from './routes/mypage/settings'
 import { Route as DashboardUserRouteImport } from './routes/dashboard.user'
 import { Route as MypageReviewWriteListIndexRouteImport } from './routes/mypage/review-write-list/index'
@@ -35,6 +36,11 @@ const IndexRoute = IndexRouteImport.update({
 const MypageIndexRoute = MypageIndexRouteImport.update({
   id: '/mypage/',
   path: '/mypage/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ExpertsIndexRoute = ExpertsIndexRouteImport.update({
+  id: '/experts/',
+  path: '/experts/',
   getParentRoute: () => rootRouteImport,
 } as any)
 const MypageSettingsRoute = MypageSettingsRouteImport.update({
@@ -89,6 +95,7 @@ export interface FileRoutesByFullPath {
   '/login': typeof LoginRoute
   '/dashboard/user': typeof DashboardUserRoute
   '/mypage/settings': typeof MypageSettingsRoute
+  '/experts': typeof ExpertsIndexRoute
   '/mypage': typeof MypageIndexRoute
   '/auth/naver/callback': typeof AuthNaverCallbackRoute
   '/mypage/address/add': typeof MypageAddressAddRoute
@@ -103,6 +110,7 @@ export interface FileRoutesByTo {
   '/login': typeof LoginRoute
   '/dashboard/user': typeof DashboardUserRoute
   '/mypage/settings': typeof MypageSettingsRoute
+  '/experts': typeof ExpertsIndexRoute
   '/mypage': typeof MypageIndexRoute
   '/auth/naver/callback': typeof AuthNaverCallbackRoute
   '/mypage/address/add': typeof MypageAddressAddRoute
@@ -118,6 +126,7 @@ export interface FileRoutesById {
   '/login': typeof LoginRoute
   '/dashboard/user': typeof DashboardUserRoute
   '/mypage/settings': typeof MypageSettingsRoute
+  '/experts/': typeof ExpertsIndexRoute
   '/mypage/': typeof MypageIndexRoute
   '/auth/naver/callback': typeof AuthNaverCallbackRoute
   '/mypage/address/add': typeof MypageAddressAddRoute
@@ -134,6 +143,7 @@ export interface FileRouteTypes {
     | '/login'
     | '/dashboard/user'
     | '/mypage/settings'
+    | '/experts'
     | '/mypage'
     | '/auth/naver/callback'
     | '/mypage/address/add'
@@ -148,6 +158,7 @@ export interface FileRouteTypes {
     | '/login'
     | '/dashboard/user'
     | '/mypage/settings'
+    | '/experts'
     | '/mypage'
     | '/auth/naver/callback'
     | '/mypage/address/add'
@@ -162,6 +173,7 @@ export interface FileRouteTypes {
     | '/login'
     | '/dashboard/user'
     | '/mypage/settings'
+    | '/experts/'
     | '/mypage/'
     | '/auth/naver/callback'
     | '/mypage/address/add'
@@ -177,6 +189,7 @@ export interface RootRouteChildren {
   LoginRoute: typeof LoginRoute
   DashboardUserRoute: typeof DashboardUserRoute
   MypageSettingsRoute: typeof MypageSettingsRoute
+  ExpertsIndexRoute: typeof ExpertsIndexRoute
   MypageIndexRoute: typeof MypageIndexRoute
   AuthNaverCallbackRoute: typeof AuthNaverCallbackRoute
   MypageAddressAddRoute: typeof MypageAddressAddRoute
@@ -208,6 +221,13 @@ declare module '@tanstack/react-router' {
       path: '/mypage'
       fullPath: '/mypage'
       preLoaderRoute: typeof MypageIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/experts/': {
+      id: '/experts/'
+      path: '/experts'
+      fullPath: '/experts'
+      preLoaderRoute: typeof ExpertsIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/mypage/settings': {
@@ -281,6 +301,7 @@ const rootRouteChildren: RootRouteChildren = {
   LoginRoute: LoginRoute,
   DashboardUserRoute: DashboardUserRoute,
   MypageSettingsRoute: MypageSettingsRoute,
+  ExpertsIndexRoute: ExpertsIndexRoute,
   MypageIndexRoute: MypageIndexRoute,
   AuthNaverCallbackRoute: AuthNaverCallbackRoute,
   MypageAddressAddRoute: MypageAddressAddRoute,

@@ -7,4 +7,5 @@ export * from './HomeIcon';
 export * from './KakaoTalkIcon';
 export * from './MyPageIcon';
 export * from './NotificationIcon';
+export * from './RatingStar';
 export * from './SearchExpertIcon';
