@@ -30,6 +30,12 @@ const samplePilots: PilotProfile[] = [
   { id: '4', nickname: '정밀농업용사', imageUrl: '' },
   { id: '5', nickname: 'FPV여행가', imageUrl: '' },
   { id: '6', nickname: '교육의신', imageUrl: '' },
+  { id: '7', nickname: '야경촬영왕', imageUrl: '' },
+  { id: '8', nickname: '산림감시자', imageUrl: '' },
+  { id: '9', nickname: '드론정비사', imageUrl: '' },
+  { id: '10', nickname: '농촌지킴이', imageUrl: '' },
+  { id: '11', nickname: '해양탐험가', imageUrl: '' },
+  { id: '12', nickname: '도심촬영전문', imageUrl: '' },
 ];
 
 /**
@@ -45,7 +51,7 @@ function DashboardUserScreen(): JSX.Element {
   const handleEstimateRequestClick = () => {};
 
   return (
-    <div className="flex h-screen flex-col bg-white">
+    <main className="flex h-screen flex-col overflow-y-auto bg-white">
       {/* Header */}
       <DashboardHeader hasUnreadNotification={hasUnreadNotification} userName={userName} />
 
@@ -56,9 +62,7 @@ function DashboardUserScreen(): JSX.Element {
       <PopularPilotsSection onSeeMoreClick={handleSeeMorePilots} pilots={samplePilots} />
 
       {/* 드로니 활용백서 섹션 */}
-      <div className="flex-1 overflow-y-auto pb-[calc(53px+env(safe-area-inset-bottom))]">
-        <DroneGuideCard />
-      </div>
+      <DroneGuideCard />
 
       {/* 견적 요청 버튼 */}
       <button
@@ -72,6 +76,6 @@ function DashboardUserScreen(): JSX.Element {
           견적요청
         </span>
       </button>
-    </div>
+    </main>
   );
 }

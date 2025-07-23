@@ -25,12 +25,10 @@ export function PopularPilotsSection({
   onSeeMoreClick,
 }: PopularPilotsSectionProps): JSX.Element {
   return (
-    <section className="h-43.5 bg-white px-5 py-6">
+    <section className="bg-white px-5 py-6">
       <div className="flex flex-col gap-3">
         <div className="flex items-center justify-between">
-          <h2 className="font-spoqa text-gray-800 text-system-03 tracking-tight-1pct">
-            인기있는 조종사들
-          </h2>
+          <h2 className="text-gray-800 text-system-03 tracking-[-0.18px]">인기있는 조종사들</h2>
           <button
             aria-label="인기있는 조종사 더 보기"
             className="flex items-center justify-center"
@@ -40,7 +38,7 @@ export function PopularPilotsSection({
             <ChevronRightIcon className="h-5 w-5" />
           </button>
         </div>
-        <div className="no-scrollbar flex gap-4 overflow-x-auto">
+        <div className="no-scrollbar -mx-5 flex gap-4 overflow-x-auto px-5">
           {pilots.map((pilot) => (
             <div
               className="flex flex-shrink-0 cursor-pointer flex-col items-center gap-1.5"
