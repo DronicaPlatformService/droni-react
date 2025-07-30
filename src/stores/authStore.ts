@@ -17,6 +17,16 @@ interface AuthActions {
   reissueToken: (redirectionUrl: string) => Promise<void>;
 }
 
+/**
+ * @description
+ * 클라이언트의 인증 상태 초기값을 반환합니다.
+ *
+ * - 브라우저 환경에서 localStorage에 저장된 accessToken이 있으면 인증된 상태로 초기화합니다.
+ * - accessToken이 없거나 localStorage 접근에 실패하면 인증되지 않은 상태로 초기화합니다.
+ * - SSR 환경 등 window가 없는 경우에도 안전하게 동작합니다.
+ *
+ * @returns {AuthState} 인증 관련 초기 상태 객체
+ */
 const getInitialState = (): AuthState => {
   if (typeof window !== 'undefined') {
     try {
@@ -53,6 +63,18 @@ export const authStore = new Store<AuthState>(initialState);
 // Actions - defined outside and call authStore.setState
 // This approach is more aligned with how TanStack Store is typically used when actions are simple state updates.
 
+/**
+ * @description
+ * 사용자가 로그인할 때 호출되는 액션입니다.
+ *
+ * - accessToken을 localStorage에 저장하고, 인증 상태를 true로 변경합니다.
+ * - 사용자 정보(user)는 null로 초기화됩니다(추후 프로필 fetch 필요).
+ * - isLoading은 false로 설정됩니다.
+ *
+ * @param tokens - 로그인 성공 시 받은 accessToken 객체
+ * @example
+ * login({ accessToken: 'eyJhbGciOiJIUzI1NiIsInR5cCI6...' });
+ */
 const login = (tokens: { accessToken: string }) => {
   try {
     localStorage.setItem('accessToken', tokens.accessToken);
@@ -115,6 +137,19 @@ const loadInitialState = () => {
   authStore.setState(getInitialState());
 };
 
+/**
+ * @description
+ * Refresh Token(서버 HttpOnly 쿠키)에 기반하여 새로운 Access Token을 발급받고 상태를 갱신합니다.
+ *
+ * - 현재 accessToken이 없으면 즉시 로그아웃 처리 후 종료합니다.
+ * - 서버에 POST 요청을 보내 accessToken 재발급을 시도합니다.
+ * - 성공 시 새 accessToken을 저장하고 인증 상태를 갱신합니다.
+ * - 실패(401 등) 또는 네트워크 에러 발생 시 로그아웃 처리합니다.
+ * - 항상 isLoading 상태를 적절히 관리합니다.
+ *
+ * @param redirectionUrl 재발급 후 리다이렉션에 사용할 현재 경로(쿼리 포함)
+ * @returns Promise<void>
+ */
 const reissueToken = async (redirectionUrl: string) => {
   setLoading(true);
   try {
