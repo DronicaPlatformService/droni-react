@@ -5,23 +5,85 @@ import axios, {
 } from 'axios';
 import { authStore, logout, reissueToken } from '../stores/authStore';
 
-// 기존 ApiErrorResponse 및 ApiError 클래스 정의는 그대로 유지합니다.
+/**
+ * API 에러 응답 객체의 표준 타입입니다.
+ * 백엔드에서 발생한 에러 정보를 클라이언트에 전달할 때 사용합니다.
+ *
+ * - `message`: 에러 메시지 (필수)
+ * - `status`: HTTP 상태 코드 (필수)
+ * - `code`: 비즈니스 에러 코드 (예: 'USER_NOT_FOUND')
+ * - `details`: 추가 설명 또는 상세 원인
+ * - `errors`: 필드별 에러 정보 (예: { email: "Invalid email" })
+ * - `type`: RFC 7807 표준 type URI
+ * - `instance`: RFC 7807 표준 instance URI
+ * - 기타 백엔드에서 제공하는 추가 에러 정보를 확장하여 포함할 수 있습니다.
+ */
 interface ApiErrorResponse {
   message: string;
   status: number;
-  // 백엔드에서 추가적으로 제공하는 에러 정보가 있다면 여기에 추가
+  code?: string;
+  details?: string;
+  errors?: Record<string, string>;
+  type?: string;
+  instance?: string;
 }
 
+/**
+ * API 요청 중 발생한 에러를 표준화하여 처리하는 커스텀 에러 클래스입니다.
+ *
+ * - 백엔드에서 반환한 에러 응답(`ApiErrorResponse`)을 포함합니다.
+ * - HTTP 상태 코드, 비즈니스 에러 코드, 상세 설명, 필드별 에러 등 다양한 정보를 제공합니다.
+ * - TanStack Query, 글로벌 에러 핸들러 등에서 일관된 에러 처리에 사용합니다.
+ *
+ * @example
+ * try {
+ *   await apiClient('/user/profile');
+ * } catch (error) {
+ *   if (error instanceof ApiError) {
+ *     // error.status, error.code, error.details, error.fieldErrors 등 활용 가능
+ *   }
+ * }
+ *
+ * @property {ApiErrorResponse} errorResponse - 백엔드에서 반환한 에러 응답 객체
+ * @property {number} status - HTTP 상태 코드 (기본값: 500)
+ * @property {string | undefined} code - 비즈니스 에러 코드
+ * @property {string | undefined} details - 상세 설명
+ * @property {Record<string, string> | undefined} fieldErrors - 필드별 에러 정보
+ * @method toJSON - 에러 객체를 직렬화하여 반환
+ */
 export class ApiError extends Error {
-  status: number;
   errorResponse?: ApiErrorResponse;
 
   constructor(message: string, status: number, errorResponse?: ApiErrorResponse) {
     super(message);
     this.name = 'ApiError';
-    this.status = status;
-    this.errorResponse = errorResponse;
+    this.errorResponse = errorResponse ?? { message, status };
     Object.setPrototypeOf(this, ApiError.prototype);
+  }
+
+  get status(): number {
+    return this.errorResponse?.status ?? 500;
+  }
+
+  get code(): string | undefined {
+    return this.errorResponse?.code;
+  }
+
+  get details(): string | undefined {
+    return this.errorResponse?.details;
+  }
+
+  get fieldErrors(): Record<string, string> | undefined {
+    return this.errorResponse?.errors;
+  }
+
+  toJSON() {
+    return {
+      name: this.name,
+      message: this.message,
+      status: this.status,
+      ...this.errorResponse,
+    };
   }
 }
 
@@ -59,6 +121,16 @@ let failedQueue: Array<{
   reject: (reason?: unknown) => void;
 }> = []; // 토큰 재발급 중 실패한 요청들을 저장하는 큐
 
+/**
+ * 토큰 재발급 중 대기 중인 요청 큐를 처리합니다.
+ *
+ * - 토큰 재발급이 성공하면 큐에 쌓인 모든 요청의 `resolve`를 호출하여 새 토큰을 전달합니다.
+ * - 재발급이 실패하거나 에러가 발생하면 모든 요청의 `reject`를 호출하여 에러를 전달합니다.
+ * - 처리 후 큐를 초기화합니다.
+ *
+ * @param error 토큰 재발급 실패 시 전달할 에러 객체 (성공 시 null)
+ * @param token 새로 발급된 액세스 토큰 (실패 시 null)
+ */
 const processQueue = (error: Error | null, token: string | null = null) => {
   for (const prom of failedQueue) {
     if (error) {
@@ -170,6 +242,36 @@ axiosInstance.interceptors.response.use(
   },
 );
 
+/**
+ * 표준화된 API 요청 함수입니다.
+ *
+ * - 백엔드 엔드포인트에 HTTP 요청을 보내고, 응답 데이터를 반환합니다.
+ * - 인증이 필요한 요청은 자동으로 액세스 토큰을 헤더에 포함합니다.
+ * - 401(Unauthorized) 발생 시 자동으로 토큰 재발급 및 재시도를 처리합니다.
+ * - 모든 에러는 {@link ApiError}로 래핑되어 throw됩니다.
+ * - TanStack Query, SSR/CSR, 일반 fetch 등 다양한 상황에서 사용할 수 있습니다.
+ *
+ * @template T 응답 데이터의 타입
+ * @param endpoint 요청할 API 경로 (예: '/user/profile')
+ * @param options 요청 옵션 객체
+ * @param options.method HTTP 메서드 (GET, POST 등, 기본값: data가 있으면 POST, 없으면 GET)
+ * @param options.data 요청 본문 데이터 (POST, PUT, PATCH 등에서 사용)
+ * @param options.isPublic 인증이 필요 없는 공개 API 여부 (기본값: false)
+ * @param options.headers 추가 요청 헤더
+ * @param options.params 쿼리 파라미터 등 기타 axios 옵션
+ * @returns 응답 데이터 (T)
+ * @throws {ApiError} 요청 실패 시 표준화된 에러 객체
+ *
+ * @example
+ * // GET 요청
+ * const user = await apiClient<UserProfile>('/user/profile');
+ *
+ * // POST 요청
+ * await apiClient('/address', { method: 'POST', data: { ... } });
+ *
+ * // 인증이 필요 없는 공개 API
+ * await apiClient('/public/info', { isPublic: true });
+ */
 const apiClient = async <T>(endpoint: string, options: CustomApiClientOptions = {}): Promise<T> => {
   const { isPublic = false, data, method: optionMethod, ...axiosSpecificOptions } = options;
 
